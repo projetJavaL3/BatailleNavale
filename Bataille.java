@@ -1,4 +1,4 @@
-public class Bataille
+public class Bataille extends B
 {
-
+    
 }
