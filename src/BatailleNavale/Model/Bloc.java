@@ -25,10 +25,9 @@ public class Bloc
 	 */
 	Bloc (Bateau bateau, Position position)
 	{
-		this.bateau = new Bateau(" " , 0);
+		this.bateau = bateau;
 		this.position = new Position(position);
-		//this.position = new Position(0,0) ? 
-		etat.PAS_TOUCHE;
+		this.etat = Etat_bloc.PAS_TOUCHE;
 	}
 	
 	/**
@@ -40,14 +39,13 @@ public class Bloc
 	}
 	
 	/**
-	 * Modifie l'état du Bloc
-	 * @param new_etat , nouvelle état du Bloc
+	 * Retourne le bateau du Bloc
 	 */
-	public void setEtatBloc(Etat_bloc new_etat)
+	public Bateau getBateau()
 	{
-		this.etat = new_etat;
+		return this.bateau;
 	}
-	
+
 	/*
 	 * Retroune la position du Bloc
 	 */
@@ -55,14 +53,31 @@ public class Bloc
 	{
 		return this.position;
 	}
+
+	/**
+	 * Modifie l'état du Bloc
+	 * @param new_etat la nouvelle état du Bloc
+	 */
+	public void setEtatBloc(Etat_bloc new_etat)
+	{
+		this.etat = new_etat;
+	}
 	
 	/**
+	 * Modifie le bateau du Bloc
+	 * @param bateau le nouveau bateau du Bloc
+	 */
+	public void setBateau(Bateau bateau) 
+	{
+		this.bateau = bateau;
+	}
+
+	/**
 	 * Modifie la Position du Bloc
-	 * @param pos , nouvelle Position du Bloc
+	 * @param pos la nouvelle Position du Bloc
 	 */
 	public void setPosition(Position pos)
 	{
 		this.position = pos;
 	}
-		
 }
