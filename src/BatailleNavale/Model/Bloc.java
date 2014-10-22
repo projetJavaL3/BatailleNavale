@@ -56,7 +56,7 @@ public class Bloc
 
 	/**
 	 * Modifie l'état du Bloc
-	 * @param new_etat la nouvelle état du Bloc
+	 * @param new_etat le nouvel état du Bloc
 	 */
 	public void setEtatBloc(Etat_bloc new_etat)
 	{
