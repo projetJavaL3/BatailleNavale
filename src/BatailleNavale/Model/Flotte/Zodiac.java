@@ -10,7 +10,7 @@ public class Zodiac extends Bateau
 	/**
 	 * Constructeur d'Instance d'un Zodiac
 	 */
-	Zodiac()
+	public Zodiac()
 	{
 		super("Zodiac", 2);
 	}

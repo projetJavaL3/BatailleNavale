@@ -10,7 +10,7 @@ public class SousMarin extends Bateau
 	/**
 	 * Constructeur d'Instance d'un Sous-Marin
 	 */
-	SousMarin()
+	public SousMarin()
 	{
 		super("Sous-Marin", 4);
 	}

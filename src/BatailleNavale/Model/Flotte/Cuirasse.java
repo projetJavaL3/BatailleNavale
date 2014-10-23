@@ -10,7 +10,7 @@ public class Cuirasse extends Bateau
 	/**
 	 * Constructeur d'Instance d'un Cuirasse	
 	 */
-	Cuirasse()
+	public Cuirasse()
 	{
 		super("Cuirasse", 3);
 	}

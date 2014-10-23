@@ -10,7 +10,7 @@ public class PorteAvion extends Bateau
 	/**
 	 * Constructeur d'Instance d'un Porte Avion
 	 */
-	PorteAvion()
+	public PorteAvion()
 	{
 		super("Porte Avion", 5);
 	}
