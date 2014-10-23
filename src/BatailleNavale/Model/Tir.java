@@ -27,9 +27,9 @@ public class Tir
 		this.joueur = j;
 	}
 
-	/** Construit un tir à partir d'un autre.
+	/** 
+	 * Construit un tir à partir d'un autre.
 	 * @param t
-	 * @throws NullPointerException
 	 */
 	public Tir (Tir t) 
 	{
