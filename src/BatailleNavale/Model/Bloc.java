@@ -23,7 +23,7 @@ public class Bloc
 	/**
 	 * Constructeur d'une Instance de Bloc (avec exactement un Bateau) 
 	 */
-	Bloc (Bateau bateau, Position position)
+	public Bloc (Bateau bateau, Position position)
 	{
 		this.bateau = bateau;
 		this.position = new Position(position);
