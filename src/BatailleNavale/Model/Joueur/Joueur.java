@@ -3,9 +3,8 @@ package BatailleNavale.Model.Joueur;
 
 import java.util.ArrayList;
 
-import BatailleNavale.Model.Flotte.Bateau;
-import BatailleNavale.Model.Flotte.Etat_bateau;
-import BatailleNavale.Model.Tir;
+import BatailleNavale.Model.*;
+import BatailleNavale.Model.Flotte.*;
 
 /**
  * Classe décrivant le joueur de bataille navale.
@@ -35,7 +34,6 @@ public abstract class Joueur {
 	}
 	
 	
-	
 	public boolean positionneBateau (Bateau bateau, Placement placement){
 		if(!champ_de_bataille.placementAutorise()){
 			//ExceptionPlacementBateau()
@@ -43,14 +41,24 @@ public abstract class Joueur {
 		}
 		if(!champ_de_bataille.existePosition (placement.getPosition() )){
 			//La position n'appartient pas au champ de bataille
-			//Exception
+			//Exception 
 			return false;
 		}
 		
-		champ_de_bataille.
-		for(int i=0; i<bateau.getTaille(); i++){
-			if(placement.getDirection()){
-				//Direction horizontale
+		if(placement.getDirection()){
+			//Direction Horizontale
+			for(int i=0; i<bateau.getTaille(); i++){
+				Position p = new Position(placement.getPosition().getCoord_X()+i, placement.getPosition().getCoord_Y());
+				Bloc bloc = new Bloc(bateau, p);
+				champ_de_bataille.addBloc(bloc);
+			}
+		}
+		else{
+			//Direction verticale
+			for(int i=0; i<bateau.getTaille(); i++){
+				Position p = new Position(placement.getPosition().getCoord_X(), placement.getPosition().getCoord_Y()+i);
+				Bloc bloc = new Bloc(bateau, p);
+				champ_de_bataille.addBloc(bloc);
 			}
 		}
 	}
