@@ -41,15 +41,12 @@ public class ChampDeBataille
 	 */
 	public boolean placementAutorise (Placement p , Bateau b)
 	{
-		if(p.getPosition().getCoord_X() > 0 && p.getPosition().getCoord_Y() > 0)
+		if(positionValide(p))
 		{
-			if(p.getPosition().getCoord_X() <= longueur && p.getPosition().getCoord_Y() <= hauteur)
-			{
-				if(p.getDirection())
-					return (p.getPosition().getCoord_X() + b.getTaille() -1 <= longueur);
-				else
-					return (p.getPosition().getCoord_Y() + b.getTaille() - 1 <= hauteur);
-			}
+			if(p.getDirection())
+				return (p.getPosition().getCoord_X() + b.getTaille() -1 <= longueur);
+			else
+				return (p.getPosition().getCoord_Y() + b.getTaille() - 1 <= hauteur);
 		}
 		return false;
 	}
@@ -92,7 +89,7 @@ public class ChampDeBataille
  	 * Renvoie si la position est bien dans le champs de bataille
  	 * @param p position a tester
 	 */
-	public boolean positionDansCB(Position p)
+	public boolean positionValide(Position p)
 	{
 		return (p.getCoord_X() > 0 && p.getCoord_X() <= longueur && p.getCoord_Y() > 0  && p.getCoord_Y() <= hauteur);
 	}

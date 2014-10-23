@@ -35,16 +35,11 @@ public abstract class Joueur {
 	
 	
 	public boolean positionneBateau (Bateau bateau, Placement placement){
-		if(!champ_de_bataille.placementAutorise()){
-			//ExceptionPlacementBateau()
+		// On verifiera dans placementAutorise si le bateau est placable entierement sur le champs de bataille 
+		if(!champ_de_bataille.placementAutorise(placement, bateau)){
 			return false;
 		}
-		if(!champ_de_bataille.existePosition (placement.getPosition() )){
-			//La position n'appartient pas au champ de bataille
-			//Exception 
-			return false;
-		}
-		
+
 		if(placement.getDirection()){
 			//Direction Horizontale
 			for(int i=0; i<bateau.getTaille(); i++){
@@ -61,6 +56,8 @@ public abstract class Joueur {
 				champ_de_bataille.addBloc(bloc);
 			}
 		}
+
+		return true;
 	}
 	
 	public void enleveBateau(Bateau bateau){
@@ -94,10 +91,9 @@ public abstract class Joueur {
 	 */
 	public boolean aPerdu(){
 		for(int i=0; i<flotte.size();i++){
-			if(flotte.get(i).getEtatBateau() == Etat_bateau.INTACT || flotte.get(i).getEtatBateau() == Etat_bateau.TOUCHE ){
+			if(!(flotte.get(i).getEtatBateau() == Etat_bateau.COULE))
 				return false;
-			}
-		}
+
 		return true;
 	}
 	
