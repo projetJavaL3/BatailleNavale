@@ -87,6 +87,15 @@ public class ChampDeBataille
 		
 		return null;
 	}
+
+	/**
+ 	 * Renvoie si la position est bien dans le champs de bataille
+ 	 * @param p position a tester
+	 */
+	public boolean positionDansCB(Position p)
+	{
+		return (p.getCoord_X() > 0 && p.getCoord_X() <= longueur && p.getCoord_Y() > 0  && p.getCoord_Y() <= hauteur);
+	}
 	
 	/**
  	 * Renvoie la Longueur du Bateau

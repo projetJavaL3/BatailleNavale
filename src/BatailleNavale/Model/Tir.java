@@ -73,6 +73,11 @@ public class Tir
 		this.joueur = j;
 	}
 
+	public boolean toucheBateau()
+	{
+		
+	}
+
 	public String toString()
 	{
 		return "Tir sur " + joueur.toString() + " à la position " + position.toString();
