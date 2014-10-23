@@ -31,10 +31,8 @@ public class Tir
 	 * @param t
 	 * @throws NullPointerException
 	 */
-	public Tir (Tir t) throws NullPointerException {
-		if( t == null )
-			throw new NullPointerException();
-		
+	public Tir (Tir t) 
+	{
 		this.position = new Position(t.position);
 		this.joueur = t.joueur;
 	}

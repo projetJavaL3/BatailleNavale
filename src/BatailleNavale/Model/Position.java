@@ -20,12 +20,9 @@ public class Position
 	 * Construit une <code>Position</code> à partir de deux entiers x,y.
 	 * @param x
 	 * @param y
-	 * @throws IllegalArgumentException
 	 */
-	public Position (int x, int y) throws IllegalArgumentException {
-		if(x<0 || y<0){
-			throw new IllegalArgumentException();
-		}
+	public Position (int x, int y) 
+	{
 		coord_X = x;
 		coord_Y = y;
 	}
@@ -33,12 +30,9 @@ public class Position
 	/**
 	 * Construit une <code>Position</code> à partir d'une autre.
 	 * @param p
-	 * @throws NullPointerException
 	 */
-	public Position (Position p) throws NullPointerException {
-		if( p == null ){
-			throw new NullPointerException();
-		}
+	public Position (Position p) 
+	{
 		coord_X = p.coord_X;
 		coord_Y = p.coord_Y;
 	}
@@ -89,14 +83,10 @@ public class Position
 	 * Calcule la distance approchee entre deux <code>Position</code>.
 	 * @param p
 	 * @return
-	 * @throws NullPointerException
 	 */
-	public int distance (Position p) throws NullPointerException{
-		if(p==null){
-			throw new NullPointerException();
-		}
-		//Conversion un peu degueulasse
-		return (int)Math.sqrt( (p.coord_X - coord_X)*(p.coord_X - coord_X) + (p.coord_Y - coord_Y)*(p.coord_Y - coord_Y));
+	public int distance (Position p) 
+	{
+		return (int) Math.sqrt( (p.coord_X - coord_X)*(p.coord_X - coord_X) + (p.coord_Y - coord_Y)*(p.coord_Y - coord_Y));
 	}
 	
 	
