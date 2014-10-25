@@ -27,7 +27,7 @@ public class ChampDeBataille
 	 * @param longueur la longueur du Champ de Bataille
 	 * @param hauteur la hauteur du Champ de Bataille
 	 */
-	public ChampDeBataille (int longueur, int largeur)
+	public ChampDeBataille (int longueur, int hauteur)
 	{
 		this.longueur = longueur;
 		this.hauteur = hauteur;
