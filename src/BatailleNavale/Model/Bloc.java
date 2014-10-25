@@ -75,10 +75,10 @@ public class Bloc
 
 	/**
 	 * Modifie la Position du Bloc
-	 * @param pos la nouvelle Position du Bloc
+	 * @param p la nouvelle Position du Bloc
 	 */
-	public void setPosition(Position pos)
+	public void setPosition(Position p)
 	{
-		this.position = pos;
+		this.position = new Position(p);
 	}
 }

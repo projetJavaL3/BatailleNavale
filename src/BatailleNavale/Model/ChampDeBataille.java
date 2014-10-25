@@ -22,18 +22,18 @@ public class ChampDeBataille
 	/**
 	 * Liste d'emplacement de nos Bateau
 	 */
-	private ArrayList<Bloc> emplacement_bateau;
+	private ArrayList<Bloc> emplacements_bateau;
 
 	/** 
 	 * Constructeur d'une Instance de Champ de Bataille
 	 * @param longueur la longueur du Champ de Bataille
 	 * @param hauteur la hauteur du Champ de Bataille
 	 */
-	public ChampDeBataille (int longueur, int hauteur)
+	public ChampDeBataille(int longueur, int hauteur)
 	{
 		this.longueur = longueur;
 		this.hauteur = hauteur;
-		this.emplacement_bateau = new ArrayList<Bloc>();
+		this.emplacements_bateau = new ArrayList<Bloc>();
 	}
 
 	/**
@@ -41,16 +41,20 @@ public class ChampDeBataille
 	 * @param p placement
 	 * @param b bateau
 	 */
-	public boolean placementAutorise (Placement p , Bateau b)
+	public boolean placementAutorise(Placement p , Bateau b)
 	{
-		if(positionValide(p))
+		int orientation = p.getDirection()?1:-1;
+
+		boolean valide = true;
+
+		for(int i=0; i<b.getTaille(); i++)
 		{
-			if(p.getDirection())
-				return (p.getPosition().getCoord_X() + b.getTaille() -1 <= longueur);
-			else
-				return (p.getPosition().getCoord_Y() + b.getTaille() - 1 <= hauteur);
+			Position posBloc = new Position(p.getPosition().getCoord_X() + orientation * i, p.getPosition().getCoord_Y() + (1-orientation) * i);
+			if(!positionValide(posBloc) || existeBloc(posBloc))
+				valide = false;
 		}
-		return false;
+
+		return valide;
 	}
 
 	/**
@@ -59,7 +63,7 @@ public class ChampDeBataille
 	 */
 	public boolean existeBloc(Position p)
 	{
-		Iterator iterateur = emplacement_bateau.iterator();
+		Iterator iterateur = emplacements_bateau.iterator();
 		while (iterateur.hasNext())
 		{
 			Bloc b = (bloc) iterateur.next();
@@ -76,7 +80,7 @@ public class ChampDeBataille
 	 */
 	public Bloc getBloc (Position p)
 	{
-		Iterator iterateur = emplacement_bateau.iterator();
+		Iterator iterateur = emplacements_bateau.iterator();
 		while (iterateur.hasNext())
 		{
 			Bloc b = (bloc) iterateur.next();
@@ -115,27 +119,27 @@ public class ChampDeBataille
 	/**
 	 * Renvoie un tableau des Blocs
 	 */
-	public Bloc[] getEmplacement()
+	public Bloc[] getEmplacements()
 	{
-		return this.emplacement_bateau.toArray(new Bloc[emplacement_bateau.size()]);
+		return this.emplacements_bateau.toArray(new Bloc[emplacement_bateau.size()]);
 	}
 
 	/**
 	 * Ajoute un Bloc
 	 * @param bloc bloc à ajouter
 	 */
-	public boolean addBloc (Bloc bloc)
+	public boolean addBloc(Bloc bloc)
 	{
-		return this.emplacement_bateau.add(bloc);
+		return this.emplacements_bateau.add(bloc);
 	}
 	
 	/**
 	 * Supprime un Bloc
 	 * @param bloc bloc à ajouter
 	 */
-	public boolean removeBlocBateau(Bloc bloc)
+	public boolean removeBloc(Bloc bloc)
 	{
-		return this.emplacement_bateau.remove(bloc);
+		return this.emplacements_bateau.remove(bloc);
 	}
 	
 }

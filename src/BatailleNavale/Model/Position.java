@@ -40,7 +40,8 @@ public class Position
 	 * Accesseur de <code>coord_X</code>.
 	 * @return coord_X
 	 */
-	public int getCoord_X() {
+	public int getCoord_X()
+	{
 		return coord_X;
 	}
 
@@ -48,7 +49,8 @@ public class Position
 	 * Modifieur de <code>coord_X</code>.
 	 * @param coord_X
 	 */
-	public void setCoord_X(int coord_X) {
+	public void setCoord_X(int coord_X)
+	{
 		this.coord_X = coord_X;
 	}
 
@@ -56,7 +58,8 @@ public class Position
 	 * Accesseur de <code>coord_Y</code>.
 	 * @return coord_Y
 	 */
-	public int getCoord_Y() {
+	public int getCoord_Y() 
+	{
 		return coord_Y;
 	}
 
@@ -64,7 +67,8 @@ public class Position
 	 * Modifieur de <code>coord_Y</code>.
 	 * @param coord_Y
 	 */
-	public void setCoord_Y(int coord_Y) {
+	public void setCoord_Y(int coord_Y)
+	{
 		this.coord_Y = coord_Y;
 	}
 	
@@ -73,7 +77,8 @@ public class Position
 	 * @param coord_X
 	 * @param coord_Y
 	 */
-	public void setCoord_XY (int coord_X, int coord_Y){
+	public void setCoord_XY (int coord_X, int coord_Y)
+	{
 		setCoord_X(coord_X);
 		setCoord_Y(coord_Y);
 	}
@@ -88,25 +93,13 @@ public class Position
 		return (int) Math.sqrt( (p.coord_X - coord_X)*(p.coord_X - coord_X) + (p.coord_Y - coord_Y)*(p.coord_Y - coord_Y));
 	}
 	
-	
-	/*
-	 * Calcul la distance exacte 
-	 * 
-	 * 
-	public double distance2 (Position p) throws NullPointerException{
-		if(p==null){
-			throw new NullPointerException();
-		}
-		//Conversion un peu degueulasse
-		return Math.sqrt( (p.coord_X - coord_X)*(p.coord_X - coord_X) + (p.coord_Y - coord_Y)*(p.coord_Y - coord_Y));
-	}
-	*/
-	
-	public String toString(){
+	public String toString()
+	{
 		return "("+coord_X+","+coord_Y+")";
 	}
 	
-	public boolean equals(Object o){
+	public boolean equals(Object o)
+	{
 		if(o == null || !(o instanceof Position)){
 			return false;
 		}

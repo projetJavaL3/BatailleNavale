@@ -43,7 +43,6 @@ public abstract class Bateau
 		return this.etat;
 	}
 
-
 	/**
 	 * Renvoie le nombre de points de vie
 	 */
@@ -66,7 +65,7 @@ public abstract class Bateau
 	{
 		return this.nom;
 	}
-	
+
 	/**
 	 * Modifie l'état du Bateau
 	 * @param new_etat nouvel état du Bateau

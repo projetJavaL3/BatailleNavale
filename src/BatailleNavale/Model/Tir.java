@@ -2,6 +2,8 @@ package BatailleNavale.Model;
 
 import BatailleNavale.Model.Joueur.*;
 
+import java.util.Iterator;
+
 /** 
  * Classe <code> Tir </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
@@ -74,9 +76,18 @@ public class Tir
 		this.joueur = j;
 	}
 
+	/**
+	 * @return true si le tir touche un bateau 
+	 */
 	public boolean toucheBateau()
 	{
-		
+		Bloc[] emplacements = this.joueur.getChampDeBataille().getEmplacements();
+		for(int i=0; i<emplacements.length; i++)
+			if(emplacements[i].getPosition().equals(this.position))
+				if(emplacements[i] == Etat_bloc.PAS_TOUCHE)
+					return true;
+
+		return false;
 	}
 
 	public String toString()
