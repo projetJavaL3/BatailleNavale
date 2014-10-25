@@ -18,7 +18,7 @@ public class Partie
 	/**
 	 * Type de la Partie
 	 */
-	private Type_partie type;
+	private final Type_partie type;
 	
 	/**
 	 * Constructeur d'une Instance de Partie
@@ -30,9 +30,17 @@ public class Partie
 	}	
 	
 	/**
-	 * Retourne true si une partie est termine
+	 * @return le type de la Partie
 	 */
-	private boolean estTermine()
+	public Type_partie getTypePartie()
+	{
+		return this.type;
+	}
+
+	/**
+	 * @return true si une partie est termine
+	 */
+	public boolean estTermine()
 	{	
 		int nombreDePerdants = 0;
 		
@@ -44,19 +52,36 @@ public class Partie
 	}
 	
 	/**
-	 * Renvoie le type de la Partie
+	 * @return le nombre de joueurs 
 	 */
-	public Type_partie getTypePartie()
+	public int getNbJoueurs()
 	{
-		return this.type;
+		return this.joueurs.size();
+	}
+
+	/**
+	 * Ajoute un joueur a la liste
+	 * @param j nouveau joueur
+	 */
+	public boolean ajouterJoueur(Joueur j)
+	{
+		return this.joueurs.add(j);
 	}
 	
 	/**
-	 * Modifie le type de la Partie
-	 * @param new_type nouveau type de la partie
+	 * Retire un joueur a la liste
+	 * @param j le joueur a retirer
 	 */
-	public void setTypePartie(Type_partie new_type)
+	public boolean retirerJoueur(Joueur j)
 	{
-		this.type = new_type;
+		return this.joueurs.remove(j);
+	}
+
+	/**
+	 * @return la liste des joueurs 
+	 */
+	public Joueur[] getJoueurs()
+	{
+		return this.joueurs.toArray(new Joueur[this.joueurs.size()]);
 	}
 }
