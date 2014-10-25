@@ -33,6 +33,7 @@ public abstract class Bateau
 		this.nom = nom;
 		this.taille = taille;
 		this.point_de_vie = taille;
+		this.etat = Etat_bateau.INTACT;
 	}
 
 	/**
@@ -58,6 +59,7 @@ public abstract class Bateau
 	{
 		return this.taille;
 	}
+	
 	/**
 	 * Renvoie le nom du Bateau
 	 */
@@ -67,10 +69,29 @@ public abstract class Bateau
 	}
 
 	/**
+	 * Retire un point de vie au bateau
+	 * @return true si on le bateau n'est pas deja touche
+	 */
+	public boolean retirerPointDeVie()
+	{
+		if(point_de_vie > 0)
+		{
+			point_de_vie--;
+			this.etat = Etat_bateau.TOUCHE;
+			if(point_de_vie == 0)
+				this.etat = Etat_bateau.COULE;
+
+			return true;			
+		}
+
+		return false;
+	}
+
+	/**
 	 * Modifie l'état du Bateau
 	 * @param new_etat nouvel état du Bateau
 	 */
-	public void setEtatBateau(Etat_bateau new_etat)
+	protected void setEtatBateau(Etat_bateau new_etat)
 	{
 		this.etat = new_etat;
 	}
