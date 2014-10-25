@@ -43,7 +43,7 @@ public class ChampDeBataille
 	 */
 	public boolean placementAutorise(Placement p , Bateau b)
 	{
-		int orientation = p.getDirection()?1:-1;
+		int orientation = p.getDirection()?1:0;
 
 		boolean valide = true;
 
@@ -66,7 +66,7 @@ public class ChampDeBataille
 		Iterator iterateur = emplacements_bateau.iterator();
 		while (iterateur.hasNext())
 		{
-			Bloc b = (bloc) iterateur.next();
+			Bloc b = (Bloc) iterateur.next();
 			if(b.getPosition().equals(p))
 				return true;
 		}
@@ -83,7 +83,7 @@ public class ChampDeBataille
 		Iterator iterateur = emplacements_bateau.iterator();
 		while (iterateur.hasNext())
 		{
-			Bloc b = (bloc) iterateur.next();
+			Bloc b = (Bloc) iterateur.next();
 			if(b.getPosition().equals(p))
 				return b;
 		}
@@ -121,7 +121,7 @@ public class ChampDeBataille
 	 */
 	public Bloc[] getEmplacements()
 	{
-		return this.emplacements_bateau.toArray(new Bloc[emplacement_bateau.size()]);
+		return this.emplacements_bateau.toArray(new Bloc[emplacements_bateau.size()]);
 	}
 
 	/**
@@ -142,6 +142,26 @@ public class ChampDeBataille
 		return this.emplacements_bateau.remove(bloc);
 	}
 	
+
+	public String toString()
+	{
+		String s = "";
+		for(int i=1; i<=hauteur; i++)
+		{
+			for(int j=1; j<=longueur; j++)
+			{
+				if(existeBloc(new Position(j,i)))
+					if(getBloc(new Position(j,i)).getEtatBloc() == Etat_bloc.TOUCHE)
+						s += "O|";
+					else 
+						s += "X|";
+				else 
+					s += " |";
+			}
+			s += "\n";
+		}
+		return s;
+	}
 }
 
 

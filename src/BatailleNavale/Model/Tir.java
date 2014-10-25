@@ -84,7 +84,7 @@ public class Tir
 		Bloc[] emplacements = this.joueur.getChampDeBataille().getEmplacements();
 		for(int i=0; i<emplacements.length; i++)
 			if(emplacements[i].getPosition().equals(this.position))
-				if(emplacements[i] == Etat_bloc.PAS_TOUCHE)
+				if(emplacements[i].getEtatBloc() == Etat_bloc.PAS_TOUCHE)
 					return true;
 
 		return false;

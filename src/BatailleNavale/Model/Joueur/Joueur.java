@@ -1,10 +1,9 @@
 package BatailleNavale.Model.Joueur;
 
-
-import java.util.ArrayList;
-
 import BatailleNavale.Model.*;
 import BatailleNavale.Model.Flotte.*;
+
+import java.util.ArrayList;
 
 /** 
  * Classe <code> Joueur </code> 
@@ -15,41 +14,47 @@ public abstract class Joueur
 	/**
 	 * Champ de bataille du joueur.
 	 */
-	private ChampDeBataille champ_de_bataille;
+	protected ChampDeBataille champ_de_bataille;
 	
 	/**
 	 * Ensemble des tirs joues par le joueur.
 	 */
-	private ArrayList<Tir> tirs_joues;
+	protected ArrayList<Tir> tirs_joues;
 	
 	/**
 	 * Liste des bateaux du joueur
 	 */
-	private ArrayList<Bateau> flotte;
+	protected ArrayList<Bateau> flotte;
+
+	/**
+	 * Liste des joueurs adversaires
+	 */
+	protected ArrayList<Joueur> adversaires;
 
 	
-	public Joueur(ChampDeBataille c)
+	public Joueur(Options options)
 	{
-		this.champ_de_bataille = new ChampDeBataille(c.getLongueur(), c.getHauteur());
+		this.champ_de_bataille = new ChampDeBataille(options.getLongueur(), options.getHauteur());
 		this.tirs_joues = new ArrayList<Tir>();
 		this.flotte = new ArrayList<Bateau>();
+		this.adversaires = new ArrayList<Joueur>();
 	}
 	
 	/**
-	 * Positionne un bateau sur le champ de bataille.
+	 * Place un bateau sur le champ de bataille.
 	 * @param bateau
 	 * @param p
 	 */
-	public boolean positionneBateau (Bateau bateau, Placement p)
+	public boolean placerBateau(Bateau bateau, Placement placement)
 	{
-		int orientation = p.getDirection()?1:-1;
+		int orientation = placement.getDirection()?1:0;
 
-		if(!champ_de_bataille.placementAutorise(p, bateau))
+		if(!champ_de_bataille.placementAutorise(placement, bateau))
 			return false;
 
 		for(int i=0; i<bateau.getTaille(); i++)
 		{
-			Position pos = new Position(p.getPosition().getCoord_X() + orientation * i, p.getPosition().getCoord_Y() + (1-orientation) * i);
+			Position pos = new Position(placement.getPosition().getCoord_X() + orientation * i, placement.getPosition().getCoord_Y() + (1-orientation) * i);
 			champ_de_bataille.addBloc(new Bloc(bateau, pos));
 		}
 
@@ -82,6 +87,17 @@ public abstract class Joueur
 		return retirer;
 	}
 	
+
+	public boolean ajouterBateau(Bateau b)
+	{
+		return flotte.add(b);
+	}
+
+	public boolean supprimerBateau(Bateau b)
+	{
+		return flotte.remove(b);
+	}
+
 	/**
 	 * Fonction de Tir du joueur
 	 */
@@ -123,7 +139,7 @@ public abstract class Joueur
 	/**
 	 * @return la liste des bateaux du joueurs
 	 */
-	public Bateau getBateaux()
+	public Bateau[] getBateaux()
 	{
 		return flotte.toArray(new Bateau[flotte.size()]);
 	}
@@ -151,5 +167,29 @@ public abstract class Joueur
 	{
 		return (getBateauxNonCoules().length == 0);
 	}
+
+	public int getNbAdversaires()
+	{
+		return this.adversaires.size();
+	}
+
+	public boolean ajouterAdversaire(Joueur j)
+	{
+		return this.adversaires.add(j);
+	}
 	
+	public boolean retirerAdversaire(Joueur j)
+	{
+		return this.adversaires.remove(j);
+	}
+
+	public void reinitialiserListeAdversaires()
+	{
+		this.adversaires = new ArrayList<Joueur>();
+	}
+
+	public Joueur[] getAdversaires()
+	{
+		return this.adversaires.toArray(new Joueur[adversaires.size()]);
+	}
 }

@@ -3,6 +3,7 @@ package BatailleNavale.Model;
 import BatailleNavale.Model.Joueur.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /** 
  * Classe <code> Partie </code> 
@@ -26,6 +27,7 @@ public class Partie
 	 */
 	public Partie(Type_partie type)
 	{
+		this.joueurs = new ArrayList<Joueur>();
 		this.type = type;
 	}	
 	
@@ -61,20 +63,37 @@ public class Partie
 
 	/**
 	 * Ajoute un joueur a la liste
-	 * @param j nouveau joueur
+	 * @param joueur nouveau joueur
 	 */
-	public boolean ajouterJoueur(Joueur j)
+	public boolean ajouterJoueur(Joueur joueur)
 	{
-		return this.joueurs.add(j);
+		Iterator iterateur = joueurs.iterator();
+		while (iterateur.hasNext())
+		{
+			Joueur adversaire = (Joueur) iterateur.next();
+
+			joueur.ajouterAdversaire(adversaire);
+			adversaire.ajouterAdversaire(joueur);
+		}
+		return this.joueurs.add(joueur);
 	}
 	
 	/**
 	 * Retire un joueur a la liste
-	 * @param j le joueur a retirer
+	 * @param joueur le joueur a retirer
 	 */
-	public boolean retirerJoueur(Joueur j)
+	public boolean retirerJoueur(Joueur joueur)
 	{
-		return this.joueurs.remove(j);
+		Iterator iterateur = joueurs.iterator();
+		while (iterateur.hasNext())
+		{
+			Joueur j = (Joueur) iterateur.next();
+			j.retirerAdversaire(joueur);
+		}
+
+		joueur.reinitialiserListeAdversaires();
+
+		return this.joueurs.remove(joueur);
 	}
 
 	/**
