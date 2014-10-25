@@ -1,45 +1,50 @@
 package BatailleNavale.Model;
 import java.util.ArrayList;
 
+/**
+ * Class Partie
+ * @date 25/10/14
+ * @author Boukari Yanis - Abderemane Brady - Chelim Théo
+ */
 public class Partie {
 
 	/**
 	 * Liste de Joueur.
 	 */
-	private ArrayList<Joueur> joueur;
+	private ArrayList<Joueur> joueurs;
 	/**
-	 * Type dans lequel le partie se trouve
+	 * Type de la Partie
 	 */
-	protected Type_partie partie;
+	private Type_partie type;
 	
 	/**
-	 * Constructeur de la Partie 
+	 * Constructeur d'une Instance de Partie
+	 * @param type le Type de Partie choisis par l'utilisateur
 	 */
-	public Partie(){
+	public Partie(Type_partie type)
+	{
+		this.type = type;
+	}	
+	
+	/**
+	 * Retourne true si une partie est termine
+	 */
+	private boolean estTermine()
+	{	
+		int nombreDeJoueurs = joueurs.size();
+		int nombreDePerdants = 0;
+		for(int i=0; i<nombreDeJoueurs;i++)
+		{
+			if(joueurs.get(i).aPerdu())
+			{
+				nombreDePerdants ++;
+			}
+		}
 		
-		this.partie = Partie.ARCADE;
-	    this.joueur = new ArrayList<Joueur>;
-	}
-	
-	/**
-	 * Retroune le type de partie
-	 */
-	public Type_Partie getTypePartie()
-	{
-		return this.partie;
-	}
-	/**
-	 * Modifie le type de Partie
-	 */
-	public void setTypePartie(Type_partie new_partie)
-	{
-		this.partie = new_partie;
-	}
-	/**
-	 * Pour savoir si la Partie est terminé.
-	 * @return true
-	 */
-	private boolean estTermine(){
-		return true;
+		if(nombreDePerdants == nombreDeJoueurs-1;)
+			return true;
+
+		else
+			return false;
 	}
 }
