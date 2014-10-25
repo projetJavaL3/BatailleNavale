@@ -1,0 +1,20 @@
+Liste des choses à faire: 
+[libre à vous de continuer cette liste]
+
+Pour le Modele 
+- Faire la fonction de tir dans joueur celle-ci n'est pas abstract finalement car le fonctionnement du tir est le meme pour un humain ou un ordi
+- Faire la classe ordinateur ainsi que ces methodes de tir_aleatoire et placement_aleatoire 
+- Vérifier toutes les classes ainsi que leur javadoc 
+- Continuer de tester les méthodes du modeles dans le main de BatailleNavale
+- ...
+
+Pour les vues:
+- Réflechir a quoi ressemblera l'interface graphique
+- ...
+
+Pour les controleurs 
+- ...
+
+Questions :
+
+(Par Théo) * Pourquoi ne pas déplacer l'attribut nom de Humain dans joueur et construit le noms des ordi avec une variable static ? 
