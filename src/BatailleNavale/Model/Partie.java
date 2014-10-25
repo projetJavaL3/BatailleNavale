@@ -4,8 +4,7 @@ import java.util.ArrayList;
 /**
  * Class Partie
  * @date 25/10/14
- * @author Boukari Yanis - Abderemane Brady - Chelim Théo
- */
+ * @author Boukari Yanis - Abderemane Brady - Chelim Theo
 public class Partie {
 
 	/**
@@ -46,5 +45,22 @@ public class Partie {
 
 		else
 			return false;
+	}
+	
+	/**
+	 * Renvoie le type de la Partie
+	 */
+	public Type_Partie getTypePartie()
+	{
+		return this.type;
+	}
+	
+	/**
+	 * Modifie le type de la Partie
+	 * @param new_type nouveau type de la partie
+	 */
+	public void setTypePartie(Type_partie new_type)
+	{
+		this.type = new_type;
 	}
 }
