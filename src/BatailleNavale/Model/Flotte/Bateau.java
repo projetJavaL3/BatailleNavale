@@ -86,13 +86,4 @@ public abstract class Bateau
 
 		return false;
 	}
-
-	/**
-	 * Modifie l'état du Bateau
-	 * @param new_etat nouvel état du Bateau
-	 */
-	protected void setEtatBateau(Etat_bateau new_etat)
-	{
-		this.etat = new_etat;
-	}
 }
