@@ -1,11 +1,13 @@
 package BatailleNavale.Model;
+
+import BatailleNavale.Model.Flotte.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Classe ChampDeBataille 
- * @date 23/10/14
- * @author Boukari Yanis - Abderemane Brady
+/** 
+ * Classe <code> ChampsDeBataille </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class ChampDeBataille 
 {

@@ -1,10 +1,9 @@
 package BatailleNavale.Model.Flotte;
 
 
-/**
- * enum Etat_Bateau 
- * @date 16/10/14
- * @author Théo CHELIM et Yanis BOUKARI
+/** 
+ * Enumeration <code> Etat_bateau </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public enum Etat_bateau
 {

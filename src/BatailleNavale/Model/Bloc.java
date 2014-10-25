@@ -1,9 +1,10 @@
 package BatailleNavale.Model;
 
-/**
- * Classe Bloc 
- * @date 17/10/14
- * @author Théo CHELIM et Yanis BOUKARI
+import BatailleNavale.Model.Flotte.*;
+
+/** 
+ * Classe <code> Bloc </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Bloc
 {

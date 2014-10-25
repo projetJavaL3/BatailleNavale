@@ -1,11 +1,15 @@
 package BatailleNavale.Model;
+
+import BatailleNavale.Model.Joueur.*;
+
 import java.util.ArrayList;
 
-/**
- * Class Partie
- * @date 25/10/14
- * @author Boukari Yanis - Abderemane Brady - Chelim Theo
-public class Partie {
+/** 
+ * Classe <code> Partie </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
+public class Partie 
+{
 
 	/**
 	 * Liste de Joueur.
@@ -30,27 +34,19 @@ public class Partie {
 	 */
 	private boolean estTermine()
 	{	
-		int nombreDeJoueurs = joueurs.size();
 		int nombreDePerdants = 0;
-		for(int i=0; i<nombreDeJoueurs;i++)
-		{
-			if(joueurs.get(i).aPerdu())
-			{
-				nombreDePerdants ++;
-			}
-		}
 		
-		if(nombreDePerdants == nombreDeJoueurs-1;)
-			return true;
+		for(int i=0; i<joueurs.size();i++)
+			if(joueurs.get(i).aPerdu())
+				nombreDePerdants ++;
 
-		else
-			return false;
+		return (nombreDePerdants == joueurs.size()-1);
 	}
 	
 	/**
 	 * Renvoie le type de la Partie
 	 */
-	public Type_Partie getTypePartie()
+	public Type_partie getTypePartie()
 	{
 		return this.type;
 	}

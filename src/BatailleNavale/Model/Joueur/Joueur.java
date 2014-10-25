@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import BatailleNavale.Model.*;
 import BatailleNavale.Model.Flotte.*;
 
-/**
- * Classe décrivant le joueur de bataille navale.
+/** 
+ * Classe <code> Joueur </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public abstract class Joueur {
+public abstract class Joueur
+{
 	/**
 	 * Champ de bataille du joueur.
 	 */
@@ -26,7 +28,8 @@ public abstract class Joueur {
 	private ArrayList<Bateau> flotte;
 
 	
-	public Joueur (ChampDeBataille c){
+	public Joueur (ChampDeBataille c)
+	{
 		champ_de_bataille = new ChampDeBataille(c.getLongueur(), c.getHauteur());
 		tirs_joues = new ArrayList<>();
 		flotte = new ArrayList<>();
@@ -36,7 +39,6 @@ public abstract class Joueur {
 	 * Positionne un bateau sur le champ de bataille.
 	 * @param bateau
 	 * @param placement
-	 * @return
 	 */
 	public boolean positionneBateau (Bateau bateau, Placement placement){
 		if(!champ_de_bataille.placementAutorise(placement, bateau)){
@@ -111,7 +113,7 @@ public abstract class Joueur {
 	
 	/**
 	 * 
-	 * @return true si le joueur n'a plus que des bateaux coulés, false sinon
+	 * @return true si le joueur n'a plus que des bateaux coules, false sinon
 	 */
 	public boolean aPerdu(){
 		for(int i=0; i<flotte.size();i++){

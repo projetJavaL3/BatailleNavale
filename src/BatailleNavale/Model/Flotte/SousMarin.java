@@ -1,9 +1,8 @@
 package BatailleNavale.Model.Flotte;
 
-/**
- * Classe SousMarin
- * @date 16/10/14
- * @author Théo CHELIM et Yanis BOUKARI
+/** 
+ * Classe <code> SousMarin </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class SousMarin extends Bateau
 {

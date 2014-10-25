@@ -1,9 +1,8 @@
 package BatailleNavale.Model;
 
-/**
- * enum Type_partie 
- * @date 17/10/14
- * @author Théo CHELIM et Yanis BOUKARI
+/** 
+ * Enumeration <code> Type_partie </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public enum Type_partie
 {	

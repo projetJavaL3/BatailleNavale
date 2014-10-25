@@ -1,9 +1,8 @@
 package BatailleNavale.Model;
 
 /** 
- * 16/10/2014
- * @author Maxime Kermarquer - Brady Abderemane - Théo Chelim - Yanis Boukari
- * @version 1.0.0
+ * Classe <code> Position </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Position
 {
@@ -17,7 +16,7 @@ public class Position
 	private int coord_Y;
 	
 	/**
-	 * Construit une <code>Position</code> à partir de deux entiers x,y.
+	 * Construit une <code>Position</code> a partir de deux entiers x,y.
 	 * @param x
 	 * @param y
 	 */
@@ -28,7 +27,7 @@ public class Position
 	}
 	
 	/**
-	 * Construit une <code>Position</code> à partir d'une autre.
+	 * Construit une <code>Position</code> a partir d'une autre.
 	 * @param p
 	 */
 	public Position (Position p) 
@@ -82,7 +81,7 @@ public class Position
 	/**
 	 * Calcule la distance approchee entre deux <code>Position</code>.
 	 * @param p
-	 * @return
+	 * @return distance de l'objet Position a p
 	 */
 	public int distance (Position p) 
 	{

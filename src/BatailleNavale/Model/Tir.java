@@ -1,9 +1,10 @@
 package BatailleNavale.Model;
 
+import BatailleNavale.Model.Joueur.*;
+
 /** 
- * 16/10/2014
- * @author Maxime Kermarquer - Brady Abderemane - Théo Chelim - Yanis Boukari
- * @version 1.0.0
+ * Classe <code> Tir </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Tir
 {
@@ -17,7 +18,7 @@ public class Tir
 	private Joueur joueur;
 
 	/**
-	 * Construit un Tir à partir d'une position et d'un joueur 
+	 * Construit un Tir a partir d'une position et d'un joueur 
 	 * @param p position du Tir
 	 * @param j joueur cible du Tir
 	 */
@@ -28,7 +29,7 @@ public class Tir
 	}
 
 	/** 
-	 * Construit un tir à partir d'un autre.
+	 * Construit un tir a partir d'un autre.
 	 * @param t
 	 */
 	public Tir (Tir t) 

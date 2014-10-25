@@ -1,9 +1,8 @@
 package BatailleNavale.Model;
 
 /** 
- * 16/10/2014
- * @author Maxime Kermarquer - Brady Abderemane - Théo Chelim - Yanis Boukari
- * @version 1.0.0
+ * Classe <code> Placement </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Placement 
 {

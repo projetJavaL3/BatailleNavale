@@ -1,9 +1,8 @@
 package BatailleNavale.Model.Flotte;
 
-/**
- * Classe Zodiac 
- * @date 16/10/14
- * @author Théo CHELIM et Yanis BOUKARI
+/** 
+ * Classe <code> Zodiac </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Zodiac extends Bateau
 {
