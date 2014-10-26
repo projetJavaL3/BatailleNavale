@@ -11,19 +11,12 @@ import BatailleNavale.Model.Flotte.*;
 public class Humain extends Joueur
 {
 
-	private final String nom;
 	
 	public Humain(String nom, Options options)
 	{
-		super(options);
-		this.nom = nom;
+		super(nom, options);
 	}
 	
-	public String getNom()
-	{
-		return this.nom;
-	}
-
 	public boolean tir(Tir t)
 	{
 		return true;

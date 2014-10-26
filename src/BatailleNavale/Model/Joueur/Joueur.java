@@ -30,14 +30,20 @@ public abstract class Joueur
 	 * Liste des joueurs adversaires
 	 */
 	protected ArrayList<Joueur> adversaires;
+	
+	/**
+	 * Nom du joueur
+	 */
+	protected String nom;
 
 	
-	public Joueur(Options options)
+	public Joueur(String nom, Options options)
 	{
 		this.champ_de_bataille = new ChampDeBataille(options.getLongueur(), options.getHauteur());
 		this.tirs_joues = new ArrayList<Tir>();
 		this.flotte = new ArrayList<Bateau>();
 		this.adversaires = new ArrayList<Joueur>();
+		this.nom = nom;
 	}
 	
 	/**
@@ -191,5 +197,10 @@ public abstract class Joueur
 	public Joueur[] getAdversaires()
 	{
 		return this.adversaires.toArray(new Joueur[adversaires.size()]);
+	}
+	
+	public String getNom()
+	{
+		return this.nom;
 	}
 }
