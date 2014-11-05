@@ -3,11 +3,13 @@ package BatailleNavale.Model;
 import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.Model.Joueur.*;
 
+import java.util.Observable;
+
 /** 
- * Classe <code> BatailleNavale </code> 
+ * Classe <code> Modele </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class BatailleNavale
+public class Modele extends Observable
 {
 	/**
 	 * La partie de bataille navale
@@ -16,9 +18,9 @@ public class BatailleNavale
 	private Options options;
 
 	/**
-	 * Constructeur du jeu de bataille navale
+	 * Constructeur du Modele
 	 */
-	public BatailleNavale()
+	public Modele()
 	{
 		this.options = new Options();
 	}
@@ -29,6 +31,8 @@ public class BatailleNavale
 	public void initialiserPartie(Type_partie type)
 	{
 		this.partie = new Partie(type);
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -51,7 +55,7 @@ public class BatailleNavale
 
 	public static void main(String[] args)
 	{
-		BatailleNavale bn = new BatailleNavale();
+		Modele bn = new Modele();
 
 		Humain h1 = new Humain("Yanis", bn.getOptions());
 		Humain h2 = new Humain("Maxime", bn.getOptions());
