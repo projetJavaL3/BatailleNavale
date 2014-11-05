@@ -6,6 +6,7 @@ Pour le Modele
 - Faire la classe ordinateur ainsi que ces methodes de tir_aleatoire et placement_aleatoire 
 - Vérifier toutes les classes ainsi que leur javadoc 
 - Continuer de tester les méthodes du modeles dans le main de BatailleNavale
+- Mettre toutes les classes du modele Observable et mettre les notifyObserver() et setChanged()
 - ...
 
 Pour les vues:
@@ -16,5 +17,3 @@ Pour les controleurs
 - ...
 
 Questions :
-
-(Par Théo) * Pourquoi ne pas déplacer l'attribut nom de Humain dans joueur et construit le noms des ordi avec une variable static ? 
