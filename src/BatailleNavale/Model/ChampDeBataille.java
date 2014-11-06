@@ -130,8 +130,18 @@ public class ChampDeBataille extends Observable
          */
         public Position[] getEmplacementsLibres()
         {
-            //ArrayList<Position> 
-            return null;
+            ArrayList<Position> positions_libres = new ArrayList<Position>();
+            for(int i=0; i<longueur; i++)
+            {
+                for(int j=0; j<hauteur; j++ )
+                {
+                    Position position_courante = new Position(i, j);
+                    if(!existeBloc(position_courante))
+                        positions_libres.add(position_courante);
+                }
+            }
+            
+            return positions_libres.toArray(new Position[positions_libres.size()]);
         }
 
 	/**
