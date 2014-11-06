@@ -4,6 +4,7 @@ import BatailleNavale.Model.Joueur.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 /** 
  * Classe <code> Partie </code> 
@@ -75,6 +76,8 @@ public class Partie
 			joueur.ajouterAdversaire(adversaire);
 			adversaire.ajouterAdversaire(joueur);
 		}
+		setChanged();
+		notifyObservers();
 		return this.joueurs.add(joueur);
 	}
 	
@@ -92,6 +95,9 @@ public class Partie
 		}
 
 		joueur.reinitialiserListeAdversaires();
+
+		setChanged();
+		notifyObservers();
 
 		return this.joueurs.remove(joueur);
 	}

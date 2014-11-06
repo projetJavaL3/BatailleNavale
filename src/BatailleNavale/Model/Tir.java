@@ -3,6 +3,7 @@ package BatailleNavale.Model;
 import BatailleNavale.Model.Joueur.*;
 
 import java.util.Iterator;
+import java.util.Observable;
 
 /** 
  * Classe <code> Tir </code> 
@@ -65,6 +66,8 @@ public class Tir
 	public void setPosition(Position p)
 	{
 		this.position = new Position(p);
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -74,6 +77,8 @@ public class Tir
 	public void setJoueur(Joueur j)
 	{
 		this.joueur = j;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
