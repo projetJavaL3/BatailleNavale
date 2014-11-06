@@ -6,7 +6,7 @@ import java.util.Observable;
  * Classe <code> Placement </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Placement 
+public class Placement extends Observable
 {
 	/**
 	 * Position du placement

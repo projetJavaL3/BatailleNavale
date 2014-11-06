@@ -9,7 +9,7 @@ import java.util.Observable;
  * Classe <code> Tir </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Tir
+public class Tir extends Observable
 {
 	/**
 	 * Position du Tir

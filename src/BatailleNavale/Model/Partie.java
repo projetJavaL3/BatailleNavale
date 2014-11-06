@@ -10,7 +10,7 @@ import java.util.Observable;
  * Classe <code> Partie </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Partie 
+public class Partie extends Observable
 {
 
 	/**

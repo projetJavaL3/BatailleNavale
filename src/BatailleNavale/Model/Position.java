@@ -6,7 +6,7 @@ import java.util.Observable;
  * Classe <code> Position </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Position
+public class Position extends Observable
 {
 	/**
 	 * Coordonnee X

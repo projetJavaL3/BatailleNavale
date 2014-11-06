@@ -124,6 +124,15 @@ public class ChampDeBataille extends Observable
 	{
 		return this.emplacements_bateau.toArray(new Bloc[emplacements_bateau.size()]);
 	}
+        
+        /**
+         * Renvoie les <code>Position</code> disponibles du champ de bataille 
+         */
+        public Position[] getEmplacementsLibres()
+        {
+            //ArrayList<Position> 
+            return null;
+        }
 
 	/**
 	 * Ajoute un Bloc
