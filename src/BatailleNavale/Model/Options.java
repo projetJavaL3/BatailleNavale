@@ -1,10 +1,12 @@
 package BatailleNavale.Model;
 
+import java.util.Observable;
+
 /** 
  * Classe <code> Options </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Options
+public class Options extends Observable
 {
 	/**
 	 * La partie de bataille navale
@@ -34,10 +36,14 @@ public class Options
 	public void setLongueur(int l)
 	{
 		this.longueur = l;
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setHauteur(int h)
 	{
 		this.hauteur = h;
+		setChanged();
+		notifyObservers();
 	}
 }

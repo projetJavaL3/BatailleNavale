@@ -4,12 +4,14 @@ import BatailleNavale.Model.*;
 import BatailleNavale.Model.Flotte.*;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Iterator;
 
 /** 
  * Classe <code> Joueur </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public abstract class Joueur
+public class Joueur
 {
 	/**
 	 * Champ de bataille du joueur.
@@ -93,12 +95,67 @@ public abstract class Joueur
 		return retirer;
 	}
 	
+        /**
+         * Calcul un placement alétoire disponible sur le champ de bataille pour un bateau donné.
+         */
+        public Placement placementAleatoire(Bateau bateau) 
+        {
+            Position[] positions_libres = champ_de_bataille.getEmplacementsLibres();
+            Placement placement_alea;
+            Random r = new Random();
+                    
+            //Melange alétoire des positions libres
+            for(int i=0; i<positions_libres.length; i++)
+            {
+                int k = r.nextInt(positions_libres.length-1);
+                Position tmp = positions_libres[i];
+                positions_libres[i] = positions_libres[k];
+                positions_libres[k] = tmp;
+            }
+            
+            //Recherche d'un placement libre
+            for(int i=0; i<positions_libres.length; i++)
+            {
+                int k = r.nextInt(1);
+                placement_alea = new Placement(positions_libres[i], k==1);
+                if(champ_de_bataille.placementAutorise(placement_alea, bateau))
+                {
+                    return placement_alea;
+                }
+                placement_alea = new Placement(positions_libres[i], k!=1);
+                if(champ_de_bataille.placementAutorise(placement_alea, bateau))
+                {
+                    return placement_alea;
+                }
+            }
+            
+            return null;
+        }
+        
+        /**
+         * Place tous les bateaux du joueur aléatoirement.
+        */
+        public void placementAleatoireFlotte()
+        {
+            Iterator iterateur = flotte.iterator();
+            while(iterateur.hasNext())
+            {
+                Placement placement_courant = placementAleatoire( (Bateau) iterateur.next() );
+                placerBateau((Bateau) iterateur.next(), placement_courant);
+            }
+        }
 
+        /**
+         * Ajoute un bateau à la flotte du joueur.
+         */
 	public boolean ajouterBateau(Bateau b)
 	{
 		return flotte.add(b);
 	}
 
+        /**
+         * Supprime un bateau à la flotte du joueur.
+         */
 	public boolean supprimerBateau(Bateau b)
 	{
 		return flotte.remove(b);
@@ -107,7 +164,10 @@ public abstract class Joueur
 	/**
 	 * Fonction de Tir du joueur
 	 */
-	public abstract boolean tir (Tir t);
+	public boolean tir (Tir t){
+            //A coder
+            return true;
+        }
 	
 	/**
 	 * Accesseur du champ de bataille

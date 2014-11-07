@@ -4,12 +4,13 @@ import BatailleNavale.Model.Flotte.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 /** 
  * Classe <code> ChampsDeBataille </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class ChampDeBataille 
+public class ChampDeBataille extends Observable
 {
 	/**
 	 * Longueur du Champ de Bataille
@@ -123,6 +124,25 @@ public class ChampDeBataille
 	{
 		return this.emplacements_bateau.toArray(new Bloc[emplacements_bateau.size()]);
 	}
+        
+        /**
+         * Renvoie les <code>Position</code> disponibles du champ de bataille 
+         */
+        public Position[] getEmplacementsLibres()
+        {
+            ArrayList<Position> positions_libres = new ArrayList<Position>();
+            for(int i=0; i<longueur; i++)
+            {
+                for(int j=0; j<hauteur; j++ )
+                {
+                    Position position_courante = new Position(i, j);
+                    if(!existeBloc(position_courante))
+                        positions_libres.add(position_courante);
+                }
+            }
+            
+            return positions_libres.toArray(new Position[positions_libres.size()]);
+        }
 
 	/**
 	 * Ajoute un Bloc
@@ -130,6 +150,8 @@ public class ChampDeBataille
 	 */
 	public boolean addBloc(Bloc bloc)
 	{
+		setChanged();
+		notifyObservers();
 		return this.emplacements_bateau.add(bloc);
 	}
 	
@@ -139,6 +161,8 @@ public class ChampDeBataille
 	 */
 	public boolean removeBloc(Bloc bloc)
 	{
+		setChanged();
+		notifyObservers();
 		return this.emplacements_bateau.remove(bloc);
 	}
 	

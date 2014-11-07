@@ -1,10 +1,12 @@
 package BatailleNavale.Model;
 
+import java.util.Observable;
+
 /** 
  * Classe <code> Position </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Position
+public class Position extends Observable
 {
 	/**
 	 * Coordonnee X
@@ -52,6 +54,8 @@ public class Position
 	public void setCoord_X(int coord_X)
 	{
 		this.coord_X = coord_X;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -70,6 +74,8 @@ public class Position
 	public void setCoord_Y(int coord_Y)
 	{
 		this.coord_Y = coord_Y;
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
