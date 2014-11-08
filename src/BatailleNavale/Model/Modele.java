@@ -135,15 +135,17 @@ public class Modele extends Observable
 		int j;
 		for(j=0;j<=blocs.length;j++)
 		{
+			//Cuirasse
 			if(j<3)
 				System.out.println("Cuirasse : "+blocs[j].getEtatBloc());
-			
+			//Sous-marin
 			else if(j<7)
 				System.out.println("Sous-Marin : "+blocs[j].getEtatBloc());
-			
+			//Zodiac
 			else if(j<9)
 				System.out.println("Zodiac :"+blocs[j].getEtatBloc());
 			
+			//Porte avion
 			else if(j<13)
 				System.out.println("Porte-Avion :"+blocs[j].getEtatBloc());
 		}
