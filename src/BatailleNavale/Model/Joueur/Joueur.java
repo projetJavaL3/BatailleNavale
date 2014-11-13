@@ -193,6 +193,26 @@ public class Joueur
 	{
 		return tirs_joues.toArray(new Tir[tirs_joues.size()]);
 	}
+        
+        /**
+         * 
+         * @return les tirs non joués par le joueur
+         */
+        protected Tir[] tirsNonJoues()
+        {
+            ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
+            for(int i=0; i<adversaires.size(); i++)
+            {
+                for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)
+                {
+                    for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
+                    {
+                        
+                    }
+                }
+            }
+            return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
+        }
 
 	/**
 	 * @return le nombre de bateaux du joueurs
@@ -263,4 +283,23 @@ public class Joueur
 	{
 		return this.nom;
 	}
+        
+        public boolean equals(Object o)
+        {
+            if (o==null || !( o instanceof Joueur))
+                return false;
+            
+            Joueur tmp = (Joueur)o;
+            if(tmp.adversaires != adversaires)
+                return false;
+            if(tmp.champ_de_bataille != champ_de_bataille)
+                return false;
+            if(tmp.nom.equals(nom))
+                return false;
+            if(tmp.flotte != flotte)
+                return false;
+            if(tmp.tirs_joues != tirs_joues)
+                return false;
+            return true;
+        }
 }
