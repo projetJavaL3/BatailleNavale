@@ -22,6 +22,7 @@ public class MainView extends JFrame implements Observer
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
+		this.initMenu();
 		this.changerVue(new AccueilView(this, modele));
 		this.setVisible(true);		
 	}
@@ -35,6 +36,28 @@ public class MainView extends JFrame implements Observer
 	{
 		this.container = view;
 		this.setContentPane(container.getPanel());
+	}
+	
+	/**
+	 * Initialise notre Menu
+	 */
+	public void initMenu()
+	{
+		JMenuBar menubar = new JMenuBar();
+		JMenu menu1 = new JMenu("Fichier");
+		JMenu menu2 = new JMenu("Edition");
+		JMenuItem demarrer = new JMenuItem("Démarrer");
+		JMenuItem fin = new JMenuItem("Fin");
+		JMenuItem annuler = new JMenuItem("Annuler");
+		
+		menu1.add(demarrer);
+		menu1.add(fin);
+		menu2.add(annuler);
+
+		menubar.add(menu1);
+		menubar.add(menu2);
+				
+		this.setJMenuBar(menubar);
 	}
 
 	public static void main(String[] args)
