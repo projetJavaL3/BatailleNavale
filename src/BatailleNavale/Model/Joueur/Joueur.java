@@ -132,6 +132,7 @@ public class Joueur
             return null;
         }
         
+        
         /**
          * Place tous les bateaux du joueur aléatoirement.
         */
@@ -140,8 +141,9 @@ public class Joueur
             Iterator iterateur = flotte.iterator();
             while(iterateur.hasNext())
             {
-                Placement placement_courant = placementAleatoire( (Bateau) iterateur.next() );
-                placerBateau((Bateau) iterateur.next(), placement_courant);
+            	Bateau b = (Bateau) iterateur.next();
+                Placement placement_courant = placementAleatoire( b );
+                placerBateau(b, placement_courant);
             }
         }
 
@@ -165,8 +167,22 @@ public class Joueur
 	 * Fonction de Tir du joueur
 	 */
 	public boolean tir (Tir t){
-            //A coder
-            return true;
+            tirs_joues.add(t);
+            ChampDeBataille cible = t.getJoueur().getChampDeBataille();
+            Position pos = t.getPosition();
+ 
+            if (cible.existeBloc(pos))
+            {
+                Bloc bloc = cible.getBloc(pos);
+                if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
+                {
+                    bloc.setEtatBloc(Etat_bloc.TOUCHE);
+                    bloc.getBateau().retirerPointDeVie();
+                    return true;
+                }
+            }
+
+            return false;
         }
 	
 	/**
@@ -198,7 +214,7 @@ public class Joueur
          * 
          * @return les tirs non joués par le joueur
          */
-        protected Tir[] tirsNonJoues()
+        public Tir[] tirsNonJoues()
         {
             ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
             for(int i=0; i<adversaires.size(); i++)
@@ -207,12 +223,21 @@ public class Joueur
                 {
                     for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
                     {
+                        Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));
+                        //Parcours des tirs joués
+                        for(int l=0; l<tirs_joues.size(); l++)
+                        {
+                            if(!tirs_joues.get(l).equals(tir_ajout))
+                                tirs_non_joues.add(tir_ajout);
+                        }
                         
                     }
                 }
             }
             return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
         }
+        
+        
 
 	/**
 	 * @return le nombre de bateaux du joueurs

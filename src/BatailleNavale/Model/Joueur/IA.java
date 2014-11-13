@@ -23,24 +23,37 @@ public class IA extends Joueur {
         public Tir tir_aleatoire()
         {
             Random r = new Random();
-            int index_joueur_alea = r.nextInt(getAdversaires().length);
-            int coord_X = r.nextInt( getChampDeBataille().getLongueur() );
-            int coord_Y = r.nextInt( getChampDeBataille().getHauteur() );
-            Joueur joueur_alea = getAdversaires()[index_joueur_alea];
-            Position position_alea = new Position( coord_X , coord_Y );
-            Tir tir_alea = new Tir( position_alea , joueur_alea );
-            boolean nouvelle_position = !tirDansTirsJoues( tir_alea );
+            int index_joueur_alea;
+            int coord_X;
+            int coord_Y;
+            Joueur joueur_alea;
+            Position position_alea;
+            Tir tir_alea;
+            boolean nouvelle_position;
             
-            while(!nouvelle_position)
-            {
-                coord_X = r.nextInt(getChampDeBataille().getLongueur());
+            
+            do{
+                index_joueur_alea = r.nextInt(getAdversaires().length);
+                joueur_alea = getAdversaires()[index_joueur_alea];
+                coord_X = r.nextInt(joueur_alea.getChampDeBataille().getLongueur());
                 coord_Y = r.nextInt(getChampDeBataille().getHauteur());
-                position_alea.setCoord_XY(coord_X, coord_Y);
-                tir_alea.setPosition(position_alea);
+                position_alea = new Position(coord_X, coord_Y);
+                tir_alea = new Tir(position_alea, joueur_alea);
                 nouvelle_position = !tirDansTirsJoues( tir_alea );
             }
+            while(!nouvelle_position);
             
             return tir_alea;
+        }
+        
+        public Tir tir_aleatoire2()
+        {
+            Tir[] tir_non_joues = tirsNonJoues();
+            Random r = new Random();
+            if(tir_non_joues.length==0)
+               //Tous les tirs ont été joués
+                return null;
+            return tir_non_joues[r.nextInt(tir_non_joues.length)];
         }
         
         /**

@@ -1,19 +1,22 @@
 Liste des choses Ã  faire: 
 [libre Ã  vous de continuer cette liste]
 
-Pour le Modele 
-- Faire la fonction de tir dans joueur celle-ci n'est pas abstract finalement car le fonctionnement du tir est le meme pour un humain ou un ordi
-- Faire la classe ordinateur ainsi que ces methodes de tir_aleatoire et placement_aleatoire 
-- VÃ©rifier toutes les classes ainsi que leur javadoc 
+Pour le Modele
+- Vérifier toutes les classes ainsi que leur javadoc 
 - Continuer de tester les mÃ©thodes du modeles dans le main de BatailleNavale
 - Mettre toutes les classes du modele Observable et mettre les notifyObserver() et setChanged()
 - ...
 
 Pour les vues:
-- RÃ©flechir a quoi ressemblera l'interface graphique
+- Réflechir a quoi ressemblera l'interface graphique
 - ...
 
 Pour les controleurs 
 - ...
 
 Questions :
+
+- Peut on changer la façon dans on tire ?
+	C'est à dire au lieu de choisir le Joueur et la Position,
+	on choisira uniquement la Position et on tira sur TOUS 	les Joueurs à cette Position.
+	
