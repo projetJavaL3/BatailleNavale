@@ -10,9 +10,10 @@ import java.util.Random;
  * Classe <code> IA </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class IA extends Joueur {
+public class IA extends Joueur 
+{
     
-    	public IA (Options options)
+    public IA (Options options)
 	{
 		super("IA", options);
 	}
@@ -20,16 +21,16 @@ public class IA extends Joueur {
         /**
          * Calcul d'un <code>Tir</code> aléatoire
          */
-        public Tir tir_aleatoire()
-        {
-            Random r = new Random();
-            int index_joueur_alea;
-            int coord_X;
-            int coord_Y;
-            Joueur joueur_alea;
-            Position position_alea;
-            Tir tir_alea;
-            boolean nouvelle_position;
+    public Tir tir_aleatoire()
+    {
+        Random r = new Random();
+        int index_joueur_alea;
+        int coord_X;
+        int coord_Y;
+        Joueur joueur_alea;
+        Position position_alea;
+        Tir tir_alea;
+        boolean nouvelle_position;
             
             
             do{

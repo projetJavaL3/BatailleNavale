@@ -11,15 +11,9 @@ import BatailleNavale.Model.Flotte.*;
 public class Humain extends Joueur
 {
 
-	
 	public Humain(String nom, Options options)
 	{
 		super(nom, options);
-	}
-	
-	public boolean tir(Tir t)
-	{
-		return true;
 	}
 
 	public String toString()

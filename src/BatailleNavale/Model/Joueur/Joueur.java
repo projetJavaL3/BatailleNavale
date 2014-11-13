@@ -166,24 +166,25 @@ public class Joueur
 	/**
 	 * Fonction de Tir du joueur
 	 */
-	public boolean tir (Tir t){
-            tirs_joues.add(t);
-            ChampDeBataille cible = t.getJoueur().getChampDeBataille();
-            Position pos = t.getPosition();
+	public boolean tir (Tir t)
+	{
+        tirs_joues.add(t);
+        ChampDeBataille cible = t.getJoueur().getChampDeBataille();
+        Position pos = t.getPosition();
  
-            if (cible.existeBloc(pos))
+        if (cible.existeBloc(pos))
+        {
+            Bloc bloc = cible.getBloc(pos);
+            if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
             {
-                Bloc bloc = cible.getBloc(pos);
-                if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
-                {
-                    bloc.setEtatBloc(Etat_bloc.TOUCHE);
-                    bloc.getBateau().retirerPointDeVie();
-                    return true;
-                }
+                bloc.setEtatBloc(Etat_bloc.TOUCHE);
+                bloc.getBateau().retirerPointDeVie();
+                return true;
             }
-
-            return false;
         }
+ 
+        return false;
+    }
 	
 	/**
 	 * Accesseur du champ de bataille

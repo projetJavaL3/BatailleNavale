@@ -16,7 +16,7 @@ public abstract class TypeView extends AbstractView
 {
 	public TypeView()
 	{	
-		super(view ,modele);
+		super(view, modele);
 	}
 	
 	public void initPanel()
@@ -34,4 +34,4 @@ public abstract class TypeView extends AbstractView
 		getPanel().add(bouton4);
 		getPanel().add(bouton5);
 	}
-
+}
