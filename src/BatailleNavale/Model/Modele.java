@@ -9,7 +9,7 @@ import java.util.Observable;
  * Classe <code> Modele </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Modele extends Observable
+public class Modele 
 {
 	/**
 	 * La partie de bataille navale
@@ -29,11 +29,9 @@ public class Modele extends Observable
 	/**
 	 * initialise la partie de bataille navale
 	 */
-	public void initialiserPartie(Type_partie type)
+	public void initialiserPartie(Partie partie)
 	{
-		this.partie = new Partie(type);
-		setChanged();
-		notifyObservers();
+		this.partie = partie;
 	}
 
 	/**
@@ -63,7 +61,7 @@ public class Modele extends Observable
 		Humain h3 = new Humain("Brady", bn.getOptions());
 		Humain h4 = new Humain("Théo", bn.getOptions());
 
-		bn.initialiserPartie(Type_partie.CLASSIQUE);
+		bn.initialiserPartie(new Partie(Type_partie.CLASSIQUE, h1, h2));
 
 		bn.getPartie().ajouterJoueur(h1);
 		bn.getPartie().ajouterJoueur(h2);

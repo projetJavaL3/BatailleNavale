@@ -21,15 +21,22 @@ public class Partie extends Observable
 	 * Type de la Partie
 	 */
 	private final Type_partie type;
+	/**
+	 * Indice du joueur courant
+	 */
+	private int indice_joueur_courant;
 	
 	/**
 	 * Constructeur d'une Instance de Partie
 	 * @param type le Type de Partie choisis par l'utilisateur
 	 */
-	public Partie(Type_partie type)
+	public Partie(Type_partie type, Joueur j1, Joueur j2)
 	{
 		this.joueurs = new ArrayList<Joueur>();
+		this.ajouterJoueur(j1);
+		this.ajouterJoueur(j2);
 		this.type = type;
+		this.indice_joueur_courant = 0;
 	}	
 	
 	/**
@@ -76,8 +83,7 @@ public class Partie extends Observable
 			joueur.ajouterAdversaire(adversaire);
 			adversaire.ajouterAdversaire(joueur);
 		}
-		setChanged();
-		notifyObservers();
+
 		return this.joueurs.add(joueur);
 	}
 	
@@ -87,6 +93,9 @@ public class Partie extends Observable
 	 */
 	public boolean retirerJoueur(Joueur joueur)
 	{
+		if(joueurs.size()<=2)
+			return false;
+
 		Iterator iterateur = joueurs.iterator();
 		while (iterateur.hasNext())
 		{
@@ -96,10 +105,20 @@ public class Partie extends Observable
 
 		joueur.reinitialiserListeAdversaires();
 
+		return this.joueurs.remove(joueur);
+	}
+
+	public Joueur getJoueurCourant()
+	{
+		return this.joueurs.get(indice_joueur_courant);
+	}
+
+	public void joueurSuivant()
+	{
+		this.indice_joueur_courant++;
+		this.indice_joueur_courant %= joueurs.size();
 		setChanged();
 		notifyObservers();
-
-		return this.joueurs.remove(joueur);
 	}
 
 	/**

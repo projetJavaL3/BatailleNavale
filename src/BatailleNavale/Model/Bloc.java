@@ -1,14 +1,12 @@
-//plop
 package BatailleNavale.Model;
 
 import BatailleNavale.Model.Flotte.*;
-import java.util.Observable;
 
 /** 
  * Classe <code> Bloc </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Bloc extends Observable
+public class Bloc 
 {
 	/**
 	 * Etat dans lequel le Bloc se trouve
@@ -64,8 +62,6 @@ public class Bloc extends Observable
 	public void setEtatBloc(Etat_bloc new_etat)
 	{
 		this.etat = new_etat;
-		setChanged();
-		notifyObservers();
 	}
 	
 	/**
@@ -75,8 +71,6 @@ public class Bloc extends Observable
 	public void setBateau(Bateau bateau) 
 	{
 		this.bateau = bateau;
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -86,7 +80,5 @@ public class Bloc extends Observable
 	public void setPosition(Position p)
 	{
 		this.position = new Position(p);
-		setChanged();
-		notifyObservers();
 	}
 }

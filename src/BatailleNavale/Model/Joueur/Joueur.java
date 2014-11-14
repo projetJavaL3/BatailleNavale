@@ -51,7 +51,7 @@ public class Joueur
 	/**
 	 * Place un bateau sur le champ de bataille.
 	 * @param bateau
-	 * @param p
+	 * @param placement
 	 */
 	public boolean placerBateau(Bateau bateau, Placement placement)
 	{
@@ -95,96 +95,96 @@ public class Joueur
 		return retirer;
 	}
 	
-        /**
-         * Calcul un placement alétoire disponible sur le champ de bataille pour un bateau donné.
-         */
-        public Placement placementAleatoire(Bateau bateau) 
-        {
-            Position[] positions_libres = champ_de_bataille.getEmplacementsLibres();
-            Placement placement_alea;
-            Random r = new Random();
-                    
-            //Melange alétoire des positions libres
-            for(int i=0; i<positions_libres.length; i++)
-            {
-                int k = r.nextInt(positions_libres.length-1);
-                Position tmp = positions_libres[i];
-                positions_libres[i] = positions_libres[k];
-                positions_libres[k] = tmp;
-            }
-            
-            //Recherche d'un placement libre
-            for(int i=0; i<positions_libres.length; i++)
-            {
-                int k = r.nextInt(1);
-                placement_alea = new Placement(positions_libres[i], k==1);
-                if(champ_de_bataille.placementAutorise(placement_alea, bateau))
-                {
-                    return placement_alea;
-                }
-                placement_alea = new Placement(positions_libres[i], k!=1);
-                if(champ_de_bataille.placementAutorise(placement_alea, bateau))
-                {
-                    return placement_alea;
-                }
-            }
-            
-            return null;
-        }
-        
-        
-        /**
-         * Place tous les bateaux du joueur aléatoirement.
-        */
-        public void placementAleatoireFlotte()
-        {
-            Iterator iterateur = flotte.iterator();
-            while(iterateur.hasNext())
-            {
-            	Bateau b = (Bateau) iterateur.next();
-                Placement placement_courant = placementAleatoire( b );
-                placerBateau(b, placement_courant);
-            }
-        }
+    /**
+     * Calcul un placement alétoire disponible sur le champ de bataille pour un bateau donné.
+     */
+    public Placement placementAleatoire(Bateau bateau) 
+    {
+    	Position[] positions_libres = champ_de_bataille.getEmplacementsLibres();
+    	Placement placement_alea;
+    	Random r = new Random();
 
-        /**
-         * Ajoute un bateau à la flotte du joueur.
-         */
-	public boolean ajouterBateau(Bateau b)
-	{
-		return flotte.add(b);
-	}
+        //Melange alétoire des positions libres
+    	for(int i=0; i<positions_libres.length; i++)
+    	{
+    		int k = r.nextInt(positions_libres.length-1);
+    		Position tmp = positions_libres[i];
+    		positions_libres[i] = positions_libres[k];
+    		positions_libres[k] = tmp;
+    	}
 
-        /**
-         * Supprime un bateau à la flotte du joueur.
-         */
-	public boolean supprimerBateau(Bateau b)
-	{
-		return flotte.remove(b);
-	}
+        //Recherche d'un placement libre
+    	for(int i=0; i<positions_libres.length; i++)
+    	{
+    		int k = r.nextInt(1);
+    		placement_alea = new Placement(positions_libres[i], k==1);
+    		if(champ_de_bataille.placementAutorise(placement_alea, bateau))
+    		{
+    			return placement_alea;
+    		}
+    		placement_alea = new Placement(positions_libres[i], k!=1);
+    		if(champ_de_bataille.placementAutorise(placement_alea, bateau))
+    		{
+    			return placement_alea;
+    		}
+    	}
+
+    	return null;
+    }
+     
+        
+    /**
+     * Place tous les bateaux du joueur aléatoirement.
+    */
+    public void placementAleatoireFlotte()
+    {
+    	Iterator iterateur = flotte.iterator();
+    	while(iterateur.hasNext())
+    	{
+    		Bateau b = (Bateau) iterateur.next();
+    		Placement placement_courant = placementAleatoire( b );
+    		placerBateau(b, placement_courant);
+    	}
+    }
+
+    /**
+     * Ajoute un bateau à la flotte du joueur.
+     */
+    public boolean ajouterBateau(Bateau b)
+    {
+    	return flotte.add(b);
+    }
+
+    /**
+     * Supprime un bateau à la flotte du joueur.
+     */
+    public boolean supprimerBateau(Bateau b)
+    {
+    	return flotte.remove(b);
+    }
 
 	/**
 	 * Fonction de Tir du joueur
 	 */
-	public boolean tir (Tir t)
+	public boolean tir(Tir t)
 	{
-        tirs_joues.add(t);
-        ChampDeBataille cible = t.getJoueur().getChampDeBataille();
-        Position pos = t.getPosition();
- 
-        if (cible.existeBloc(pos))
-        {
-            Bloc bloc = cible.getBloc(pos);
-            if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
-            {
-                bloc.setEtatBloc(Etat_bloc.TOUCHE);
-                bloc.getBateau().retirerPointDeVie();
-                return true;
-            }
-        }
- 
-        return false;
-    }
+		tirs_joues.add(t);
+		ChampDeBataille cible = t.getJoueur().getChampDeBataille();
+		Position pos = t.getPosition();
+
+		if (cible.existeBloc(pos))
+		{
+			Bloc bloc = cible.getBloc(pos);
+			if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
+			{
+				bloc.setEtatBloc(Etat_bloc.TOUCHE);
+				bloc.getBateau().retirerPointDeVie();
+				return true;
+			}
+		}
+
+		return false;
+	}
 	
 	/**
 	 * Accesseur du champ de bataille
@@ -210,35 +210,34 @@ public class Joueur
 	{
 		return tirs_joues.toArray(new Tir[tirs_joues.size()]);
 	}
-        
-        /**
-         * 
-         * @return les tirs non joués par le joueur
-         */
-        public Tir[] tirsNonJoues()
-        {
-            ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
-            for(int i=0; i<adversaires.size(); i++)
-            {
-                for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)
-                {
-                    for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
-                    {
-                        Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));
-                        //Parcours des tirs joués
-                        for(int l=0; l<tirs_joues.size(); l++)
-                        {
-                            if(!tirs_joues.get(l).equals(tir_ajout))
-                                tirs_non_joues.add(tir_ajout);
-                        }
-                        
-                    }
-                }
-            }
-            return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
-        }
-        
-        
+
+    /**
+     * 
+     * @return les tirs non joués par le joueur
+     */
+    public Tir[] tirsNonJoues()
+    {
+    	ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
+    	for(int i=0; i<adversaires.size(); i++)
+    	{
+    		for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)
+    		{
+    			for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
+    			{
+    				Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));
+                    //Parcours des tirs joués
+    				for(int l=0; l<tirs_joues.size(); l++)
+    				{
+    					if(!tirs_joues.get(l).equals(tir_ajout))
+    						tirs_non_joues.add(tir_ajout);
+    				}
+
+    			}
+    		}
+    	}
+    	
+    	return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
+    }   
 
 	/**
 	 * @return le nombre de bateaux du joueurs
@@ -270,7 +269,7 @@ public class Joueur
 
 		return intacts.toArray(new Bateau[intacts.size()]);
 	}
-	
+
 	/**
 	 * 
 	 * @return true si le joueur n'a plus que des bateaux coules, false sinon
@@ -309,23 +308,24 @@ public class Joueur
 	{
 		return this.nom;
 	}
-        
-        public boolean equals(Object o)
-        {
-            if (o==null || !( o instanceof Joueur))
-                return false;
-            
-            Joueur tmp = (Joueur)o;
-            if(tmp.adversaires != adversaires)
-                return false;
-            if(tmp.champ_de_bataille != champ_de_bataille)
-                return false;
-            if(tmp.nom.equals(nom))
-                return false;
-            if(tmp.flotte != flotte)
-                return false;
-            if(tmp.tirs_joues != tirs_joues)
-                return false;
-            return true;
-        }
+
+	public boolean equals(Object o)
+	{
+		if (o==null || !( o instanceof Joueur))
+			return false;
+
+		Joueur tmp = (Joueur)o;
+		if(tmp.adversaires != adversaires)
+			return false;
+		if(tmp.champ_de_bataille != champ_de_bataille)
+			return false;
+		if(tmp.nom.equals(nom))
+			return false;
+		if(tmp.flotte != flotte)
+			return false;
+		if(tmp.tirs_joues != tirs_joues)
+			return false;
+		return true;
+	}
+
 }

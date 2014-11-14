@@ -6,7 +6,7 @@ import java.util.Observable;
  * Classe <code> Bateau </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public abstract class Bateau extends Observable
+public abstract class Bateau 
 {
 	/**
 	 * Nom du Bateau
@@ -83,8 +83,6 @@ public abstract class Bateau extends Observable
 			if(point_de_vie == 0)
 				this.etat = Etat_bateau.COULE;
 			
-			setChanged();
-			notifyObservers();
 			return true;			
 		}
 		

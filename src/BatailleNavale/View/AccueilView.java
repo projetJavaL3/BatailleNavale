@@ -1,6 +1,7 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Controller.*;
 
 import java.util.Observable;
@@ -39,7 +40,7 @@ public class AccueilView extends AbstractView
 		bouton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				modele.initialiserPartie(Type_partie.CLASSIQUE);
+				modele.initialiserPartie(new Partie(Type_partie.CLASSIQUE, new Humain("Yanis", modele.getOptions()), new Humain("Yanis", modele.getOptions())));
 			}
 		});		
 	}

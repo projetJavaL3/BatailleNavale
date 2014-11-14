@@ -12,7 +12,7 @@ import javax.swing.JMenu;
 
 import java.awt.Dimension;
 
-public class MainView extends JFrame implements Observer
+public class MainView extends JFrame 
 {
 
 	private AbstractView container;
@@ -20,7 +20,6 @@ public class MainView extends JFrame implements Observer
 	public MainView(Modele modele)
 	{
 		super("Bataille Navale");
-		modele.addObserver(this);
 		this.setSize(new Dimension(700,540));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -28,11 +27,6 @@ public class MainView extends JFrame implements Observer
 		this.initMenu();
 		this.changerVue(new AccueilView(this, modele));
 		this.setVisible(true);		
-	}
-
-	public void update(Observable obs, Object o)
-	{
-		container.update(obs, o);
 	}
 
 	public void changerVue(AbstractView view)

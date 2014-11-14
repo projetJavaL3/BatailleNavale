@@ -1,12 +1,11 @@
 package BatailleNavale.Model;
 
-import java.util.Observable;
 
 /** 
  * Classe <code> Placement </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Placement extends Observable
+public class Placement 
 {
 	/**
 	 * Position du placement
@@ -63,8 +62,6 @@ public class Placement extends Observable
 	public void setPosition(Position p)
 	{
 		this.position = new Position(p);
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -74,8 +71,6 @@ public class Placement extends Observable
 	public void setDirection(boolean d)
 	{
 		this.direction = d;
-		setChanged();
-		notifyObservers();
 	}
 
 	public String toString()

@@ -3,13 +3,12 @@ package BatailleNavale.Model;
 import BatailleNavale.Model.Joueur.*;
 
 import java.util.Iterator;
-import java.util.Observable;
 
 /** 
  * Classe <code> Tir </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Tir extends Observable
+public class Tir 
 {
 	/**
 	 * Position du Tir
@@ -66,8 +65,6 @@ public class Tir extends Observable
 	public void setPosition(Position p)
 	{
 		this.position = new Position(p);
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -77,8 +74,6 @@ public class Tir extends Observable
 	public void setJoueur(Joueur j)
 	{
 		this.joueur = j;
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
