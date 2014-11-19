@@ -37,12 +37,6 @@ public class AccueilView extends AbstractView
 		this.panel.add(texte, BorderLayout.CENTER);
 		this.panel.add(bouton, BorderLayout.SOUTH);
 		
-		bouton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event)
-			{
-				modele.initialiserPartie(new Partie(Type_partie.CLASSIQUE, new Humain("Yanis", modele.getOptions()), new Humain("Yanis", modele.getOptions())));
-			}
-		});		
 	}
 
 	public void update(Observable obs, Object o)

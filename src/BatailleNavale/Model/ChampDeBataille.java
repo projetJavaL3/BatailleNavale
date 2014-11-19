@@ -24,6 +24,15 @@ public class ChampDeBataille
 	 */
 	private ArrayList<Bloc> emplacements_bateau;
 
+
+	/** 
+	 * Constructeur par defaut d'une Instance de Champ de Bataille
+	 */
+	public ChampDeBataille()
+	{
+		this(15,15);
+	}
+
 	/** 
 	 * Constructeur d'une Instance de Champ de Bataille
 	 * @param longueur la longueur du Champ de Bataille
@@ -78,7 +87,7 @@ public class ChampDeBataille
 	 * Retourne le Bloc correspondant à la position p
 	 * @param p position du bloc à recuperer
 	 */
-	public Bloc getBloc (Position p)
+	public Bloc getBloc(Position p)
 	{
 		Iterator iterateur = emplacements_bateau.iterator();
 		while (iterateur.hasNext())

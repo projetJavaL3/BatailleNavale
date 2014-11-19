@@ -1,7 +1,5 @@
 package BatailleNavale.Model.Flotte;
 
-import java.util.Observable;
-
 /** 
  * Classe <code> Bateau </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari

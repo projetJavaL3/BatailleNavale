@@ -78,7 +78,7 @@ public class Position
 	 * @param coord_X
 	 * @param coord_Y
 	 */
-	public void setCoord_XY (int coord_X, int coord_Y)
+	public void setCoord_XY(int coord_X, int coord_Y)
 	{
 		setCoord_X(coord_X);
 		setCoord_Y(coord_Y);
@@ -89,7 +89,7 @@ public class Position
 	 * @param p
 	 * @return distance de l'objet Position a p
 	 */
-	public int distance (Position p) 
+	public int distance(Position p) 
 	{
 		return (int) Math.sqrt( (p.coord_X - coord_X)*(p.coord_X - coord_X) + (p.coord_Y - coord_Y)*(p.coord_Y - coord_Y));
 	}

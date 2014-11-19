@@ -39,9 +39,9 @@ public class Joueur
 	protected String nom;
 
 	
-	public Joueur(String nom, Options options)
+	public Joueur(String nom)
 	{
-		this.champ_de_bataille = new ChampDeBataille(options.getLongueur(), options.getHauteur());
+		this.champ_de_bataille = new ChampDeBataille();
 		this.tirs_joues = new ArrayList<Tir>();
 		this.flotte = new ArrayList<Bateau>();
 		this.adversaires = new ArrayList<Joueur>();
@@ -308,24 +308,4 @@ public class Joueur
 	{
 		return this.nom;
 	}
-
-	public boolean equals(Object o)
-	{
-		if (o==null || !( o instanceof Joueur))
-			return false;
-
-		Joueur tmp = (Joueur)o;
-		if(tmp.adversaires != adversaires)
-			return false;
-		if(tmp.champ_de_bataille != champ_de_bataille)
-			return false;
-		if(tmp.nom.equals(nom))
-			return false;
-		if(tmp.flotte != flotte)
-			return false;
-		if(tmp.tirs_joues != tirs_joues)
-			return false;
-		return true;
-	}
-
 }
