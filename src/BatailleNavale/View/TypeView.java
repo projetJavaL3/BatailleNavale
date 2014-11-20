@@ -12,9 +12,9 @@ import javax.swing.BoxLayout;
 
 import java.awt.Dimension;
 
-public abstract class TypeView extends AbstractView
+public class TypeView extends AbstractView
 {
-	public TypeView()
+	public TypeView(MainView view, Modele modele)
 	{	
 		super(view, modele);
 	}
@@ -26,12 +26,13 @@ public abstract class TypeView extends AbstractView
 		JButton bouton3 = new JButton("Artillerie");
 		JButton bouton4 = new JButton("Alerte");
 
-		getPanel().setLayout(new BoxLayout(panneau, BoxLayout.Y_AXIS));
+		this.panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		getPanel().add(bouton1);
-		getPanel().add(bouton2);
-		getPanel().add(bouton3);
-		getPanel().add(bouton4);
-		getPanel().add(bouton5);
+		this.panel.add(bouton1);
+		this.panel.add(bouton2);
+		this.panel.add(bouton3);
+		this.panel.add(bouton4);
 	}
+
+	public void update(Observable obs, Object o){}
 }

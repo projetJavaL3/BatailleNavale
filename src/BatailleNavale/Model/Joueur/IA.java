@@ -1,9 +1,8 @@
 
 package BatailleNavale.Model.Joueur;
 
-import BatailleNavale.Model.Options;
-import BatailleNavale.Model.Position;
-import BatailleNavale.Model.Tir;
+import BatailleNavale.Model.*;
+
 import java.util.Random;
 
 /**
