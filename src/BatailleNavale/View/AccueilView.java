@@ -30,7 +30,7 @@ public class AccueilView extends AbstractView
 
 	public void initPanel()
 	{
-		texte = new JLabel("Attente du début de la partie");
+		texte = new JLabel("Bienvenue dans la Bataille Navale");
 		
 		bouton = new JButton("Déclencher partie");
 
@@ -39,8 +39,6 @@ public class AccueilView extends AbstractView
 		
 	}
 
-	public void update(Observable obs, Object o)
-	{
-		texte.setText("Partie lancé avec succes");
-	}
+	public void update(Observable obs, Object o){}
+
 }
