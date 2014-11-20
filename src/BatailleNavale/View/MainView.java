@@ -25,7 +25,7 @@ public class MainView extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new AccueilView(this, modele));
+		this.changerVue(new OptionsView(this, modele));
 		this.setVisible(true);		
 	}
 
