@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"pa",
+				"partie_commencee"
+			],
+			[
 				"o",
 				"oppose"
 			],
@@ -510,15 +514,118 @@
 			[
 				"nom",
 				"nombre_kilometre"
-			],
-			[
-				"ty",
-				"TypeAvance"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "src/BatailleNavale/Model/Flotte/Etat_bateau.java",
+			"settings":
+			{
+				"buffer_size": 306,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "package BatailleNavale.Model.Joueur;\n\nimport BatailleNavale.Model.*;\nimport BatailleNavale.Model.Flotte.*;\n\nimport java.util.ArrayList;\nimport java.util.Random;\nimport java.util.Iterator;\n\n/** \n * Classe <code> Joueur </code> \n * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari\n */\npublic class Joueur\n{\n	/**\n	 * Champ de bataille du joueur.\n	 */\n	protected ChampDeBataille champ_de_bataille;\n	\n	/**\n	 * Ensemble des tirs joues par le joueur.\n	 */\n	protected ArrayList<Tir> tirs_joues;\n	\n	/**\n	 * Liste des bateaux du joueur\n	 */\n	protected ArrayList<Bateau> flotte;\n\n	/**\n	 * Liste des joueurs adversaires\n	 */\n	protected ArrayList<Joueur> adversaires;\n	\n	/**\n	 * Nom du joueur\n	 */\n	protected String nom;\n\n	\n	public Joueur(String nom)\n	{\n		this.champ_de_bataille = new ChampDeBataille();\n		this.tirs_joues = new ArrayList<Tir>();\n		this.flotte = new ArrayList<Bateau>();\n		this.adversaires = new ArrayList<Joueur>();\n		this.nom = nom;\n	}\n	\n	/**\n	 * Place un bateau sur le champ de bataille.\n	 * @param bateau\n	 * @param placement\n	 */\n	public boolean placerBateau(Bateau bateau, Placement placement)\n	{\n		int orientation = placement.getDirection()?1:0;\n\n		if(!champ_de_bataille.placementAutorise(placement, bateau))\n			return false;\n\n		for(int i=0; i<bateau.getTaille(); i++)\n		{\n			Position pos = new Position(placement.getPosition().getCoord_X() + orientation * i, placement.getPosition().getCoord_Y() + (1-orientation) * i);\n			champ_de_bataille.addBloc(new Bloc(bateau, pos));\n		}\n\n		return true;\n	}\n	\n	/**\n	 * Retire un bateau du champ de bataille.\n	 * @param bateau\n	 */\n	public boolean retirerBateau(Bateau bateau)\n	{\n		Bloc[] emplacements = champ_de_bataille.getEmplacements();\n		int bloc_enleves = 0;\n\n		boolean retirer = false;\n\n		for(int i=0; i<emplacements.length; i++)\n		{\n			if(emplacements[i].getBateau()==bateau)\n			{\n				champ_de_bataille.removeBloc(emplacements[i]);\n				bloc_enleves++;\n				retirer = true;\n				if(bloc_enleves==bateau.getTaille())\n					break;\n			}\n		}\n\n		return retirer;\n	}\n	\n    /**\n     * Calcul un placement alétoire disponible sur le champ de bataille pour un bateau donné.\n     */\n    public Placement placementAleatoire(Bateau bateau) \n    {\n    	Position[] positions_libres = champ_de_bataille.getEmplacementsLibres();\n    	Placement placement_alea;\n    	Random r = new Random();\n\n        //Melange alétoire des positions libres\n    	for(int i=0; i<positions_libres.length; i++)\n    	{\n    		int k = r.nextInt(positions_libres.length-1);\n    		Position tmp = positions_libres[i];\n    		positions_libres[i] = positions_libres[k];\n    		positions_libres[k] = tmp;\n    	}\n\n        //Recherche d'un placement libre\n    	for(int i=0; i<positions_libres.length; i++)\n    	{\n    		int k = r.nextInt(1);\n    		placement_alea = new Placement(positions_libres[i], k==1);\n    		if(champ_de_bataille.placementAutorise(placement_alea, bateau))\n    		{\n    			return placement_alea;\n    		}\n    		placement_alea = new Placement(positions_libres[i], k!=1);\n    		if(champ_de_bataille.placementAutorise(placement_alea, bateau))\n    		{\n    			return placement_alea;\n    		}\n    	}\n\n    	return null;\n    }\n     \n        \n    /**\n     * Place tous les bateaux du joueur aléatoirement.\n    */\n    public void placementAleatoireFlotte()\n    {\n    	Iterator iterateur = flotte.iterator();\n    	while(iterateur.hasNext())\n    	{\n    		Bateau b = (Bateau) iterateur.next();\n    		Placement placement_courant = placementAleatoire( b );\n    		placerBateau(b, placement_courant);\n    	}\n    }\n\n    /**\n     * Ajoute un bateau à la flotte du joueur.\n     */\n    public boolean ajouterBateau(Bateau b)\n    {\n    	return flotte.add(b);\n    }\n\n    /**\n     * Supprime un bateau à la flotte du joueur.\n     */\n    public boolean supprimerBateau(Bateau b)\n    {\n    	return flotte.remove(b);\n    }\n\n	/**\n	 * Fonction de Tir du joueur\n	 */\n	public boolean tir(Tir t)\n	{\n		tirs_joues.add(t);\n		ChampDeBataille cible = t.getJoueur().getChampDeBataille();\n		Position pos = t.getPosition();\n\n		if (cible.existeBloc(pos))\n		{\n			Bloc bloc = cible.getBloc(pos);\n			if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)\n			{\n				bloc.setEtatBloc(Etat_bloc.TOUCHE);\n				bloc.getBateau().retirerPointDeVie();\n				return true;\n			}\n		}\n\n		return false;\n	}\n	\n	/**\n	 * Accesseur du champ de bataille\n	 * @return le champ de bataille\n	 */\n	public ChampDeBataille getChampDeBataille()\n	{\n		return this.champ_de_bataille;\n	}\n\n	/**\n	 * @return le nombre de tirs joues\n	 */\n	public int getNbTirsJoues()\n	{\n		return tirs_joues.size();\n	}\n\n	/**\n	 * @return la liste des tirs joues\n	 */\n	public Tir[] getTirs()\n	{\n		return tirs_joues.toArray(new Tir[tirs_joues.size()]);\n	}\n\n    /**\n     * \n     * @return les tirs non joués par le joueur\n     */\n    public Tir[] tirsNonJoues()\n    {\n    	ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();\n    	for(int i=0; i<adversaires.size(); i++)\n    	{\n    		for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)\n    		{\n    			for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)\n    			{\n    				Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));\n                    //Parcours des tirs joués\n    				for(int l=0; l<tirs_joues.size(); l++)\n    				{\n    					if(!tirs_joues.get(l).equals(tir_ajout))\n    						tirs_non_joues.add(tir_ajout);\n    				}\n    			}\n    		}\n    	}\n    	\n    	return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);\n    }   \n\n	/**\n	 * @return le nombre de bateaux du joueurs\n	 */\n	public int getNbBateaux()\n	{\n		return flotte.size();\n	}\n\n	/**\n	 * @return la liste des bateaux du joueurs\n	 */\n	public Bateau[] getBateaux()\n	{\n		return flotte.toArray(new Bateau[flotte.size()]);\n	}\n	\n	/**\n	 * Liste des bateaux encore en jeu.\n	 * @return les bateaux intacts ou touche\n	 */\n	public Bateau[] getBateauxNonCoules()\n	{\n		ArrayList<Bateau> intacts = new ArrayList<>();\n\n		for(int i=0; i<flotte.size();i++)\n			if(flotte.get(i).getEtatBateau() != Etat_bateau.COULE)\n				intacts.add(flotte.get(i));\n\n		return intacts.toArray(new Bateau[intacts.size()]);\n	}\n\n	/**\n	 * \n	 * @return true si le joueur n'a plus que des bateaux coules, false sinon\n	 */\n	public boolean aPerdu()\n	{\n		return (getBateauxNonCoules().length == 0);\n	}\n\n	public int getNbAdversaires()\n	{\n		return this.adversaires.size();\n	}\n\n	public boolean ajouterAdversaire(Joueur j)\n	{\n		return this.adversaires.add(j);\n	}\n	\n	public boolean retirerAdversaire(Joueur j)\n	{\n		return this.adversaires.remove(j);\n	}\n\n	public void reinitialiserListeAdversaires()\n	{\n		this.adversaires = new ArrayList<Joueur>();\n	}\n\n	public Joueur[] getAdversaires()\n	{\n		return this.adversaires.toArray(new Joueur[adversaires.size()]);\n	}\n	\n	public String getNom()\n	{\n		return this.nom;\n	}\n}\n",
+			"file": "src/BatailleNavale/Model/Joueur/Joueur.java",
+			"file_size": 6771,
+			"file_write_time": 130609075275668714,
+			"settings":
+			{
+				"buffer_size": 6762,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/ChampDeBataille.java",
+			"settings":
+			{
+				"buffer_size": 4209,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/View/TypeView.java",
+			"settings":
+			{
+				"buffer_size": 821,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/View/MainView.java",
+			"settings":
+			{
+				"buffer_size": 1360,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/View/AbstractView.java",
+			"settings":
+			{
+				"buffer_size": 592,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Modele.java",
+			"settings":
+			{
+				"buffer_size": 5389,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Placement.java",
+			"settings":
+			{
+				"buffer_size": 1405,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Position.java",
+			"settings":
+			{
+				"buffer_size": 1982,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/View/AccueilView.java",
+			"settings":
+			{
+				"buffer_size": 904,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Joueur/Humain.java",
+			"settings":
+			{
+				"buffer_size": 375,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Joueur/IA.java",
+			"settings":
+			{
+				"buffer_size": 1619,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/BatailleNavale/Model/Flotte/Bateau.java",
+			"settings":
+			{
+				"buffer_size": 1466,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -602,6 +709,7 @@
 		"height": 139.0,
 		"history":
 		[
+			"cd ..",
 			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"cd ..",
 			"ls",
@@ -619,16 +727,21 @@
 	},
 	"expanded_folders":
 	[
-		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale"
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Controller",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Flotte",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Joueur",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/View"
 	],
 	"file_history":
 	[
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Modele.java",
+		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Options.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/untitled.sublime-workspace",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Bloc.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/ChampDeBataille.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Etat_bloc.java",
-		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Modele.java",
-		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Options.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Partie.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Placement.java",
 		"/home/magneto/Bureau/BatailleNavale/src/BatailleNavale/Model/Position.java",
@@ -769,6 +882,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"options",
+			"option",
 			"48",
 			"item9",
 			"		\n",
@@ -894,9 +1009,7 @@
 			"contentPane",
 			"'$'",
 			"'€'",
-			"'€'\n",
-			");\n",
-			"contentPane"
+			"'€'\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -946,8 +1059,385 @@
 	"groups":
 	[
 		{
+			"selected": 9,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/BatailleNavale/Model/Flotte/Etat_bateau.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								36
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/BatailleNavale/Model/Joueur/Joueur.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6762,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4757,
+								4757
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3432.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/BatailleNavale/Model/ChampDeBataille.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4209,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3895,
+								3895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1950.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/BatailleNavale/View/TypeView.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 821,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								821,
+								821
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/BatailleNavale/View/MainView.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1360,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								605,
+								605
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 117.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/BatailleNavale/View/AbstractView.java",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 592,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/BatailleNavale/Model/Modele.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5389,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								461,
+								461
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1482.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/BatailleNavale/Model/Placement.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 468.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/BatailleNavale/Model/Position.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1982,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1513,
+								1513
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 897.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/BatailleNavale/View/AccueilView.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								750,
+								733
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/BatailleNavale/Model/Joueur/Humain.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								308,
+								308
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/BatailleNavale/Model/Joueur/IA.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1619,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								245,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "src/BatailleNavale/Model/Flotte/Bateau.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1466,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1418,
+								1418
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1037,7 +1527,7 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": true,
+	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 240.0,

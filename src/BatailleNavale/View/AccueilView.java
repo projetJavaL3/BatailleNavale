@@ -19,7 +19,7 @@ public class AccueilView extends AbstractView
 	private AbstractController controleur;
 
 	private JLabel texte;
-	private JButton bouton;
+	private JButton bouton1, bouton2, bouton3;
 
 	public AccueilView(MainView view, Modele modele)
 	{
@@ -32,10 +32,14 @@ public class AccueilView extends AbstractView
 	{
 		texte = new JLabel("Bienvenue dans la Bataille Navale");
 		
-		bouton = new JButton("Déclencher partie");
+		bouton1 = new JButton("Commencer partie");
+		bouton2 = new JButton("Options");
+		bouton3 = new JButton("Crédits");
 
-		this.panel.add(texte, BorderLayout.CENTER);
-		this.panel.add(bouton, BorderLayout.SOUTH);
+		this.panel.add(texte, BorderLayout.NORTH);
+		this.panel.add(bouton1, BorderLayout.CENTER);
+		this.panel.add(bouton2, BorderLayout.CENTER);
+		this.panel.add(bouton3, BorderLayout.CENTER);
 		
 	}
 
