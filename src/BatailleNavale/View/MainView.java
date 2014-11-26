@@ -20,12 +20,12 @@ public class MainView extends JFrame
 	public MainView(Modele modele)
 	{
 		super("Bataille Navale");
-		this.setSize(new Dimension(700,540));
+		this.setSize(new Dimension(1000,680));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.initMenu();
-		this.changerVue(new OptionsView(this, modele));
+		this.changerVue(new TypeView(this, modele));
 		this.setVisible(true);		
 	}
 

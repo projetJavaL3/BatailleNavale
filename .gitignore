@@ -1,4 +1,4 @@
-*.class
-*.html
-*.css
+doc
+bin
+untitled.sublime-workspace
 
