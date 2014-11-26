@@ -6,7 +6,8 @@ echo "#                     &                         #"
 echo "#          Génération de la javadoc             #"
 echo "#################################################"
 
-
+rm -rf bin/
+mkdir bin/
 javac -Xlint:unchecked -encoding UTF-8 -sourcepath src/ -d bin/ src/BatailleNavale/View/MainView.java
 cp -R bin/BatailleNavale .
 
