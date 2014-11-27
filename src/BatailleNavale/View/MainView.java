@@ -25,7 +25,7 @@ public class MainView extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		this.initMenu();
-		this.changerVue(new TypeView(this, modele));
+		this.changerVue(new JoueurView(this, modele));
 		this.setVisible(true);		
 	}
 
