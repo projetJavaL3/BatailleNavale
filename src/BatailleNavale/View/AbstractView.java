@@ -25,8 +25,6 @@ public abstract class AbstractView
 		this.modele = modele;
 		this.panel = new ImagePanel(new ImageIcon("images/fond.jpg").getImage());
 		this.panel.setPreferredSize(view.getSize());
-		//this.panel.setBackground(Color.white);	
-
 	}
 	
 	protected JPanel getPanel()
@@ -37,26 +35,29 @@ public abstract class AbstractView
 	protected abstract void initPanel();	
 	protected abstract void update(Observable obs, Object o);
 
-	class ImagePanel extends JPanel {
-
-  private Image img;
-
-  public ImagePanel(String img) {
-    this(new ImageIcon(img).getImage());
-  }
-
-  public ImagePanel(Image img) {
-    this.img = img;
-    Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
-    setPreferredSize(size);
-    setMinimumSize(size);
-    setMaximumSize(size);
-    setSize(size);
-    setLayout(null);
-  }
-
-  public void paintComponent(Graphics g) {
-    g.drawImage(img, 0, 0, null);
-  }
-}
+	class ImagePanel extends JPanel
+	{
+		private Image img;
+		
+		public ImagePanel(String img) 
+		{
+			this(new ImageIcon(img).getImage());
+		}
+		
+		public ImagePanel(Image img) 
+		{
+			this.img = img;
+			Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+			setPreferredSize(size);
+			setMinimumSize(size);
+			setMaximumSize(size);
+			setSize(size);
+			setLayout(null);
+		}
+		
+		public void paintComponent(Graphics g) 
+		{
+			g.drawImage(img, -100,-100,  null);
+		}
+	}
 }

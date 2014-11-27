@@ -20,6 +20,8 @@ javadoc -encoding ISO-8859-1 -private BatailleNavale.Controller BatailleNavale.V
 wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java
 wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java | wc -l
 
+java -jar BatailleNavale.jar
+
 echo "##############################################"
 echo "#            Fin de l'opération              #"
 echo "##############################################"
