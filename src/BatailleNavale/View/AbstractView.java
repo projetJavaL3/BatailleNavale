@@ -57,7 +57,7 @@ public abstract class AbstractView
 		
 		public void paintComponent(Graphics g) 
 		{
-			g.drawImage(img, -100,-100,  null);
+			g.drawImage(img, 0, 0,  null);
 		}
 	}
 }
