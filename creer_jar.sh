@@ -14,11 +14,17 @@ cp -R bin/BatailleNavale .
 jar cvfm BatailleNavale.jar META-INF/MANIFEST.MF BatailleNavale/ src/
 rm -R BatailleNavale/
 chmod 777 BatailleNavale.jar
-cd src/
-javadoc -encoding ISO-8859-1 -private BatailleNavale.Controller BatailleNavale.View BatailleNavale.Model BatailleNavale.Model.Flotte BatailleNavale.Model.Joueur -d ../doc/
 
-wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java
-wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java | wc -l
+if [ "$1" = "-javadoc" ];
+then
+	cd src/
+	javadoc -encoding ISO-8859-1 -private BatailleNavale.Controller BatailleNavale.View BatailleNavale.Model BatailleNavale.Model.Flotte 		BatailleNavale.Model.Joueur -d ../doc/
+
+	wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java
+	wc BatailleNavale/View/*.java BatailleNavale/Controller/*.java BatailleNavale/Model/*.java BatailleNavale/Model/Flotte/*.java BatailleNavale/Model/Joueur/*.java | wc -l
+
+	cd ..
+fi
 
 java -jar BatailleNavale.jar
 

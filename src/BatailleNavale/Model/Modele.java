@@ -27,8 +27,7 @@ public class Modele extends Observable
 	private int indice_joueur_courant;
 	
 	/**
-	 * Constructeur d'une Instance de Partie
-	 * @param type le Type de Partie choisis par l'utilisateur
+	 * Constructeur par defaut du modele
 	 */
 	public Modele()
 	{
@@ -111,6 +110,7 @@ public class Modele extends Observable
 
 		return this.joueurs.remove(joueur);
 	}
+
 
 	public Joueur getJoueurCourant()
 	{

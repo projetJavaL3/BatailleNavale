@@ -116,7 +116,7 @@ public class Joueur
         //Recherche d'un placement libre
     	for(int i=0; i<positions_libres.length; i++)
     	{
-    		int k = r.nextInt(1);
+    		int k = r.nextInt(2);
     		placement_alea = new Placement(positions_libres[i], k==1);
     		if(champ_de_bataille.placementAutorise(placement_alea, bateau))
     		{
@@ -270,6 +270,29 @@ public class Joueur
 		return intacts.toArray(new Bateau[intacts.size()]);
 	}
 
+	public Tir[] getTirsSurJoueur()
+	{
+		ArrayList<Tir> liste_tirs = new ArrayList<Tir>();
+		for(int i=0; i<adversaires.size(); i++)
+		{
+				Tir[] tirs = adversaires.get(i).getTirs();
+				for(int j=0; j<tirs.length; j++)
+					if(tirs[j].getJoueur() == this)
+						liste_tirs.add(tirs[j]);
+		}
+
+		return liste_tirs.toArray(new Tir[liste_tirs.size()]);
+	}
+
+	public boolean dansTirsSurJoueur(Position p)
+	{
+		Tir[] tirs = getTirsSurJoueur();
+		for(int i=0; i<tirs.length; i++)
+			if(tirs[i].getPosition().equals(p))
+				return true;
+		return false;
+	}
+
 	/**
 	 * 
 	 * @return true si le joueur n'a plus que des bateaux coules, false sinon
@@ -305,6 +328,11 @@ public class Joueur
 	}
 	
 	public String getNom()
+	{
+		return this.nom;
+	}
+
+	public String toString()
 	{
 		return this.nom;
 	}

@@ -28,7 +28,6 @@ public class TypeView extends AbstractView
 	{	
 		JLabel type_label = new JLabel("Sélectionner le type de partie:");
 		type_label.setBounds(5,60,250,40);
-		type_label.setForeground(new Color(255,255,255));
 		this.panel.add(type_label);
 
 		JButton b_classique = new JButton("Classique");
@@ -54,7 +53,6 @@ public class TypeView extends AbstractView
 		JComboBox<Integer> combobox = new JComboBox<Integer>();
 
 		combobox_label.setBounds(5,200,250,40);
-		combobox_label.setForeground(new Color(255,255,255));
 		this.panel.add(combobox_label);
 		for(int i = 2 ; i<=10 ; i++)
 			combobox.addItem(i);

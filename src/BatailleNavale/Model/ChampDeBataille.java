@@ -30,7 +30,7 @@ public class ChampDeBataille
 	 */
 	public ChampDeBataille()
 	{
-		this(15,15);
+		this(10, 10);
 	}
 
 	/** 
@@ -133,24 +133,24 @@ public class ChampDeBataille
 		return this.emplacements_bateau.toArray(new Bloc[emplacements_bateau.size()]);
 	}
         
-        /**
-         * Renvoie les <code>Position</code> disponibles du champ de bataille 
-         */
-        public Position[] getEmplacementsLibres()
+    /**
+     * Renvoie les <code>Position</code> disponibles du champ de bataille 
+     */
+    public Position[] getEmplacementsLibres()
+    {
+        ArrayList<Position> positions_libres = new ArrayList<Position>();
+        for(int i=0; i<longueur; i++)
         {
-            ArrayList<Position> positions_libres = new ArrayList<Position>();
-            for(int i=0; i<longueur; i++)
+            for(int j=0; j<hauteur; j++ )
             {
-                for(int j=0; j<hauteur; j++ )
-                {
-                    Position position_courante = new Position(i, j);
-                    if(!existeBloc(position_courante))
-                        positions_libres.add(position_courante);
-                }
+                Position position_courante = new Position(i, j);
+                if(!existeBloc(position_courante))
+                    positions_libres.add(position_courante);
             }
-            
-            return positions_libres.toArray(new Position[positions_libres.size()]);
         }
+        
+        return positions_libres.toArray(new Position[positions_libres.size()]);
+    }
 
 	/**
 	 * Ajoute un Bloc
