@@ -25,6 +25,7 @@ public abstract class AbstractView
 		this.modele = modele;
 		this.panel = new ImagePanel(new ImageIcon("images/fond.jpg").getImage());
 		this.panel.setPreferredSize(view.getSize());
+		this.panel.setLayout(null);
 	}
 	
 	protected JPanel getPanel()
@@ -57,7 +58,7 @@ public abstract class AbstractView
 		
 		public void paintComponent(Graphics g) 
 		{
-			g.drawImage(img, 0, 0,  null);
+			g.drawImage(img, 0,0, fen.getWidth(), fen.getHeight(),  null);
 		}
 	}
 }
