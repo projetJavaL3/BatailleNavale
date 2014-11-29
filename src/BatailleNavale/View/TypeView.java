@@ -16,6 +16,11 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class TypeView extends AbstractView
 {		
 	public TypeView(MainView view, Modele modele)
@@ -27,22 +32,22 @@ public class TypeView extends AbstractView
 	public void initPanel()
 	{	
 		JLabel type_label = new JLabel("Sélectionner le type de partie:");
-		type_label.setBounds(5,60,250,40);
+		type_label.setBounds(10,60,250,40);
 		this.panel.add(type_label);
 
-		JButton b_classique = new JButton("Classique");
-		JButton b_radar = new JButton("Radar");
-		JButton b_artillerie = new JButton("Artillerie");
-		JButton b_alerte = new JButton("Alerte");
+		final Boutton b_classique = new Boutton("Classique");
+		final Boutton b_radar = new Boutton("Radar");
+		final Boutton b_artillerie = new Boutton("Artillerie");
+		final Boutton b_alerte = new Boutton("Alerte");
 
 		//On initialise notre Layout à null pour pouvoir appliquer la méthode setBounds()
 		this.panel.setLayout(null);
 		
 		//setBounds(Coordonée x, Coordonee y, Largeur du composant, Hauteur du composant)
-		b_classique.setBounds(10, 100, 160, 50);
-		b_radar.setBounds(175, 100, 170, 50);
-		b_artillerie.setBounds(350, 100, 170, 50);
-		b_alerte.setBounds(525, 100, 165, 50);
+		b_classique.setBounds(10, 100, 240, 50);
+		b_radar.setBounds(250, 100, 240, 50);
+		b_artillerie.setBounds(500, 100, 240, 50);
+		b_alerte.setBounds(750, 100, 240, 50);
 		
 		this.panel.add(b_classique);
 		this.panel.add(b_radar);
@@ -52,15 +57,15 @@ public class TypeView extends AbstractView
 		JLabel combobox_label = new JLabel("Sélectionner le nombre de joueurs:");
 		JComboBox<Integer> combobox = new JComboBox<Integer>();
 
-		combobox_label.setBounds(5,200,250,40);
+		combobox_label.setBounds(20,260,250,40);
 		this.panel.add(combobox_label);
 		for(int i = 2 ; i<=10 ; i++)
 			combobox.addItem(i);
 			
-		combobox.setBounds(5,240,690,30);		
+		combobox.setBounds(20,300,960,30);		
 		
-		JButton b_suivant = new JButton("Suivant");
-		b_suivant.setBounds(300 , 470 , 100 , 40);
+		Boutton b_suivant = new Boutton("Suivant");
+		b_suivant.setBounds(450 , 610 , 100 , 40);
 		
 		this.panel.add(b_suivant);
 		this.panel.add(combobox);
