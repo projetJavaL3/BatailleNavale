@@ -6,21 +6,7 @@ import BatailleNavale.Controller.*;
 import java.util.Observer;
 import java.util.Observable;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
-import java.awt.Color;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TypeView extends AbstractView
 {		
@@ -30,6 +16,7 @@ public class TypeView extends AbstractView
 	private final Bouton b_radar = new Bouton("Radar");
 	private final Bouton b_artillerie = new Bouton("Artillerie");
 	private final Bouton b_alerte = new Bouton("Alerte");
+	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
 
 	public TypeView(MainView view, Modele modele)
 	{	
@@ -42,26 +29,23 @@ public class TypeView extends AbstractView
 	{	
 		this.panel.setLayout(null);
 
-		JLabel type_label = new JLabel("Sélectionner le type de partie:");
 		type_label.setBounds(100,80,250,40);
-		this.panel.add(type_label);
 
-		//setBounds(Coordonée x, Coordonee y, Largeur du composant, Hauteur du composant)
 		b_classique.setBounds(280, 130, 330, 65);
 		b_radar.setBounds(280, 230, 330, 65);
 		b_artillerie.setBounds(280, 330, 330, 65);
 		b_alerte.setBounds(280, 430, 330, 65);
 		
-		b_classique.addMouseListener(controleur);
-		b_radar.addMouseListener(controleur);
-		b_artillerie.addMouseListener(controleur);
-		b_alerte.addMouseListener(controleur);
+		b_classique.addActionListener(controleur);
+		b_radar.addActionListener(controleur);
+		b_artillerie.addActionListener(controleur);
+		b_alerte.addActionListener(controleur);
 
+		this.panel.add(type_label);
 		this.panel.add(b_classique);
 		this.panel.add(b_radar);
 		this.panel.add(b_artillerie);
 		this.panel.add(b_alerte);	
-		
 	}
 
 	public Bouton getBoutonClassique()

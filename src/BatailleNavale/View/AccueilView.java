@@ -4,23 +4,14 @@ import BatailleNavale.Model.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Controller.*;
 
+import java.util.Observer;
 import java.util.Observable;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.border.LineBorder;
+
 
 public class AccueilView extends AbstractView
 {
@@ -56,9 +47,9 @@ public class AccueilView extends AbstractView
 		b_options.setBounds(500, 330, 200, 60);
 		b_credits.setBounds(500, 420, 200, 60);
 		
-		b_jouer.addMouseListener(controleur);
-		b_options.addMouseListener(controleur);
-		b_credits.addMouseListener(controleur);
+		b_jouer.addActionListener(controleur);
+		b_options.addActionListener(controleur);
+		b_credits.addActionListener(controleur);
 
 		this.panel.add(texte);
 		this.panel.add(texte2);

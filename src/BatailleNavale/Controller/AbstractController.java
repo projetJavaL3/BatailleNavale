@@ -13,5 +13,4 @@ public abstract class AbstractController
 		this.view = view;
 		this.modele = modele;
 	}
-	
 }

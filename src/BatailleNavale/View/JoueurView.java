@@ -1,14 +1,14 @@
-
-
 package BatailleNavale.View;
 
-import BatailleNavale.Controller.AbstractController;
-import BatailleNavale.Model.Modele;
+import BatailleNavale.Model.*;
+
+import java.util.Observer;
 import java.util.Observable;
+
 import javax.swing.*;
 
-public class JoueurView extends AbstractView {
-    private Modele modele; 
+public class JoueurView extends AbstractView 
+{
     private JLabel label_joueur;
     private JLabel label_type;
     private JLabel[] label_j;
@@ -17,12 +17,14 @@ public class JoueurView extends AbstractView {
     private JPanel[] panel_j;
     private JButton valider;
     
-    public JoueurView (MainView view, Modele modele) {	
+    public JoueurView (MainView view, Modele modele)
+    {	
 		super(view, modele);
 		initPanel();
     }
     
-    public void initPanel() {
+    public void initPanel()
+    {
         this.panel.setLayout(null);
         int nb_joueurs = 4;
         //Panneau entête
@@ -32,12 +34,13 @@ public class JoueurView extends AbstractView {
         panel_entete.add(label_joueur,label_type);
         this.panel.add(panel_entete);
         
-
         //Crétion et ajout au paneau principal des panneaux des joueurs
         label_j = new JLabel[nb_joueurs];
         combo_j = new JComboBox[nb_joueurs];
         panel_j = new JPanel[nb_joueurs];
-        for(int i=0; i<nb_joueurs;i++){
+
+        for(int i=0; i<nb_joueurs;i++)
+        {
             label_j[i] = new JLabel((i+1)+"");
             combo_j[i] = new JComboBox();
             combo_j[i].addItem("Humain");
@@ -53,11 +56,7 @@ public class JoueurView extends AbstractView {
         panel_valider = new JPanel();
         panel_valider.add(valider);
         this.panel.add(panel_valider);
-        
-        
     }
 
     protected void update(Observable obs, Object o) {}
-
-
 }

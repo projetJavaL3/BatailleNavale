@@ -1,9 +1,8 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
-import BatailleNavale.Model.Joueur.*;
-import BatailleNavale.Controller.*;
 
+import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.JTextField;
@@ -11,8 +10,6 @@ import javax.swing.JTextField;
 import java.awt.Checkbox;
 import java.awt.GridLayout;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class OptionsView extends AbstractView
 {

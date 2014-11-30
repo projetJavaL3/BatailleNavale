@@ -1,7 +1,5 @@
 package BatailleNavale.View;
 
-import BatailleNavale.Model.*;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -14,7 +12,9 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
-public class Bouton extends JButton 
+import java.awt.event.*;
+
+public class Bouton extends JButton implements MouseListener
 {
  
 	private int inset = 2;
@@ -28,6 +28,7 @@ public class Bouton extends JButton
 		setForeground(Color.white);
 		setBorder(null);
 		setFocusPainted(false);
+		addMouseListener(this);
 	}
  
  	protected void paintComponent(Graphics g)
@@ -79,15 +80,20 @@ public class Bouton extends JButton
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 	}
 
-	public void mouseIn()
-	{
-		this.move(getX()+10, getY());
-		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
-	}
 
-	public void mouseOut()
+    public void mouseEntered(MouseEvent event)
+    {
+    	this.setLocation(getX()+10, getY());
+		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
+    }
+
+	public void mouseExited(MouseEvent event)
 	{
-		this.move(getX()-10, getY());
+		this.setLocation(getX()-10, getY());
 		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
 	}
+
+	public void mouseClicked(MouseEvent event){}
+	public void mousePressed(MouseEvent event){}
+	public void mouseReleased(MouseEvent event){}  
 }

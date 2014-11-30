@@ -5,7 +5,7 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
-public class AccueilController extends AbstractController implements MouseListener
+public class AccueilController extends AbstractController implements ActionListener
 {
 
 	public AccueilController(MainView view, Modele modele)
@@ -13,33 +13,20 @@ public class AccueilController extends AbstractController implements MouseListen
 		super(view, modele);
 	}
 
-    public void mouseClicked(MouseEvent event) 
+    public void actionPerformed(ActionEvent arg0) 
     {
     	AccueilView container = (AccueilView) view.getContainer();
-    	if(event.getSource() == container.getBoutonJouer())
+    	if(arg0.getSource() == container.getBoutonJouer())
     	{
     		view.changerVue(new TypeView(view, modele));
     	}
-    	else if(event.getSource() == container.getBoutonOptions())
+    	else if(arg0.getSource() == container.getBoutonOptions())
     	{
     		view.changerVue(new OptionsView(view, modele));
     	}
-    	else if(event.getSource() == container.getBoutonCredits())
+    	else if(arg0.getSource() == container.getBoutonCredits())
     	{
     		view.changerVue(new CreditsView(view, modele));
     	}
-	}
-
-    public void mouseEntered(MouseEvent event)
-    {
-    	((Bouton) event.getSource()).mouseIn();
-    }
-
-	public void mouseExited(MouseEvent event)
-	{
-		((Bouton) event.getSource()).mouseOut();
-	}
-
-	public void mousePressed(MouseEvent event){}
-	public void mouseReleased(MouseEvent event){}     
+	}  
 }

@@ -1,16 +1,11 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
-import BatailleNavale.Model.Joueur.*;
-import BatailleNavale.Controller.*;
 
+import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CreditsView extends AbstractView
 {
@@ -21,8 +16,7 @@ public class CreditsView extends AbstractView
 	}
 	
 	public void initPanel()
-	{
-		
+	{		
 		JTextField text = new JTextField("Projet de Bataille Navale réalisé par 4 élèves de L3 à l'Université d'Evry" );
 		this.panel.add(text);
 	}

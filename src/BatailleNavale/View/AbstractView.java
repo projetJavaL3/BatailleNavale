@@ -5,17 +5,13 @@ import BatailleNavale.Model.*;
 import java.util.Observable;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
 import javax.swing.border.LineBorder;
+
 
 public abstract class AbstractView
 {

@@ -1,16 +1,11 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
-import BatailleNavale.Model.Joueur.*;
-import BatailleNavale.Controller.*;
 
+import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AideView extends AbstractView
 {
