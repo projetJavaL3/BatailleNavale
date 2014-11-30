@@ -50,7 +50,7 @@ public abstract class AbstractView
 		
 		public ImagePanel(String img) 
 		{
-			this.img = new ImageIcon(img).getImage();
+			this.img = new ImageIcon(getClass().getClassLoader().getResource(img)).getImage();
 			this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
 		}
 		
