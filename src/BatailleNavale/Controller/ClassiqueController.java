@@ -4,9 +4,6 @@ import BatailleNavale.Model.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.View.*;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-
 import java.awt.event.*;
 
 public class ClassiqueController extends AbstractController implements MouseListener, ItemListener
@@ -26,7 +23,6 @@ public class ClassiqueController extends AbstractController implements MouseList
 		joueur_courant.tir(new Tir(pos, ennemi));
 		modele.joueurSuivant();
 		view.afficherMessage(joueur_courant.getNom() + " vient de tirer sur " + ennemi.getNom() + " à la position " + pos + "\nJoueur suivant: " + modele.getJoueurCourant().getNom(), "Tir effectué");	
-	
 	}
 
 	public Position caseTouched(MouseEvent event)
@@ -53,14 +49,14 @@ public class ClassiqueController extends AbstractController implements MouseList
     {
     	Position pcase = caseTouched(event);
     	JeuView vue = (JeuView) view.getContainer();
-		vue.survol(pcase.getCoord_X(), pcase.getCoord_Y());
+		vue.mouseIn(pcase.getCoord_X(), pcase.getCoord_Y());
     }
 
 	public void mouseExited(MouseEvent event)
 	{
 		Position pcase = caseTouched(event);
 		JeuView vue = (JeuView) view.getContainer();
-		vue.finSurvol(pcase.getCoord_X(), pcase.getCoord_Y());
+		vue.mouseOut(pcase.getCoord_X(), pcase.getCoord_Y());
 	}
 
 	public void mousePressed(MouseEvent event){}

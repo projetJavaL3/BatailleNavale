@@ -176,13 +176,13 @@ public class JeuView extends AbstractView implements Observer
 		return selection_adversaire;
 	}
 
-	public void finSurvol(int x, int y)
+	public void mouseOut(int x, int y)
 	{
 		JPanel case_event = flotte_ennemi[x][y];
 		case_event.setBackground(couleur_en_cours);
 	}
 
-	public void survol(int x, int y)
+	public void mouseIn(int x, int y)
 	{
 		JPanel case_event = flotte_ennemi[x][y];
 		couleur_en_cours = case_event.getBackground();

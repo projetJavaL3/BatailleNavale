@@ -10,7 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
- 
+import java.awt.Font;
+
 import javax.swing.JButton;
 
 public class Bouton extends JButton 
@@ -31,8 +32,7 @@ public class Bouton extends JButton
  
  	protected void paintComponent(Graphics g)
 	{
- 
-		Graphics2D g2d = (Graphics2D) g;
+ 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
  
 		int largeur = getWidth(); //vWidth
@@ -77,5 +77,17 @@ public class Bouton extends JButton
 		super.paintComponent(g);
  
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+	}
+
+	public void mouseIn()
+	{
+		this.move(getX()+10, getY());
+		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
+	}
+
+	public void mouseOut()
+	{
+		this.move(getX()-10, getY());
+		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
 	}
 }
