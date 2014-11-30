@@ -12,9 +12,9 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreditView extends AbstractView
+public class CreditsView extends AbstractView
 {
-	public CreditView(MainView view, Modele modele)
+	public CreditsView(MainView view, Modele modele)
 	{	
 		super(view, modele);
 		initPanel();

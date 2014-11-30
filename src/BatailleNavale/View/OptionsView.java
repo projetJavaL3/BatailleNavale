@@ -30,7 +30,6 @@ public class OptionsView extends AbstractView
 		Checkbox check4 = new Checkbox("Cuirassés furtifs");
 		Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions");
 		
-		
 		this.panel.setLayout(new GridLayout(5, 1));
 		
 		this.panel.add(check1);

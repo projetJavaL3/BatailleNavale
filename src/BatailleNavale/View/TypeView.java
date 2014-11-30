@@ -31,8 +31,10 @@ public class TypeView extends AbstractView
 	
 	public void initPanel()
 	{	
+		this.panel.setLayout(null);
+
 		JLabel type_label = new JLabel("Sélectionner le type de partie:");
-		type_label.setBounds(10,60,250,40);
+		type_label.setBounds(100,80,250,40);
 		this.panel.add(type_label);
 
 		final Boutton b_classique = new Boutton("Classique");
@@ -40,36 +42,17 @@ public class TypeView extends AbstractView
 		final Boutton b_artillerie = new Boutton("Artillerie");
 		final Boutton b_alerte = new Boutton("Alerte");
 
-		//On initialise notre Layout à null pour pouvoir appliquer la méthode setBounds()
-		this.panel.setLayout(null);
-		
 		//setBounds(Coordonée x, Coordonee y, Largeur du composant, Hauteur du composant)
-		b_classique.setBounds(10, 100, 240, 50);
-		b_radar.setBounds(250, 100, 240, 50);
-		b_artillerie.setBounds(500, 100, 240, 50);
-		b_alerte.setBounds(750, 100, 240, 50);
+		b_classique.setBounds(280, 130, 330, 65);
+		b_radar.setBounds(280, 230, 330, 65);
+		b_artillerie.setBounds(280, 330, 330, 65);
+		b_alerte.setBounds(280, 430, 330, 65);
 		
 		this.panel.add(b_classique);
 		this.panel.add(b_radar);
 		this.panel.add(b_artillerie);
-		this.panel.add(b_alerte);
+		this.panel.add(b_alerte);	
 		
-		JLabel combobox_label = new JLabel("Sélectionner le nombre de joueurs:");
-		JComboBox<Integer> combobox = new JComboBox<Integer>();
-
-		combobox_label.setBounds(20,260,250,40);
-		this.panel.add(combobox_label);
-		for(int i = 2 ; i<=10 ; i++)
-			combobox.addItem(i);
-			
-		combobox.setBounds(20,300,960,30);		
-		
-		Boutton b_suivant = new Boutton("Suivant");
-		b_suivant.setBounds(450 , 610 , 100 , 40);
-		
-		this.panel.add(b_suivant);
-		this.panel.add(combobox);
-
 	}
 
 	public void update(Observable obs, Object o){}

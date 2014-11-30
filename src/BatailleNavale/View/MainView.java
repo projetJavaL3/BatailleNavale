@@ -35,7 +35,7 @@ public class MainView extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new JeuView(this, modele));
+		this.changerVue(new AccueilView(this, modele));
 		this.setVisible(true);		
 	}
 
@@ -43,6 +43,7 @@ public class MainView extends JFrame
 	{
 		this.container = view;
 		this.setContentPane(container.getPanel());
+		this.getContentPane().revalidate();
 	}
 
 	public void afficherMessage(String message, String entete)

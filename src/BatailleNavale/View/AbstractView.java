@@ -13,6 +13,10 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+
 public abstract class AbstractView
 {
 	protected Modele modele;
@@ -23,11 +27,15 @@ public abstract class AbstractView
 	{
 		this.fen = view;
 		this.modele = modele;
-		this.panel = new ImagePanel(new ImageIcon("images/fond.jpg").getImage());
-		this.panel.setPreferredSize(view.getSize());
-		this.panel.setLayout(null);
+		this.panel = new ImagePanel("images/fond.jpg");
 	}
 	
+	public AbstractView(MainView view, Modele modele, String image_de_fond)
+	{
+		this(view, modele);
+		this.panel = new ImagePanel(image_de_fond);
+	}
+
 	protected JPanel getPanel()
 	{
 		return this.panel;
@@ -42,23 +50,13 @@ public abstract class AbstractView
 		
 		public ImagePanel(String img) 
 		{
-			this(new ImageIcon(img).getImage());
-		}
-		
-		public ImagePanel(Image img) 
-		{
-			this.img = img;
-			Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
-			setPreferredSize(size);
-			setMinimumSize(size);
-			setMaximumSize(size);
-			setSize(size);
-			setLayout(null);
+			this.img = new ImageIcon(img).getImage();
+			this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
 		}
 		
 		public void paintComponent(Graphics g) 
 		{
-			g.drawImage(img, 0,0, fen.getWidth(), fen.getHeight(),  null);
+			g.drawImage(img, 0, 0, fen.getWidth(), fen.getHeight(), null);
 		}
 	}
 }

@@ -13,19 +13,21 @@ import java.awt.geom.RoundRectangle2D;
  
 import javax.swing.JButton;
 
-public class Boutton extends JButton {
+public class Bouton extends JButton 
+{
  
-	//private static final long serialVersionUID = 1671314658637614873L;
 	private int inset = 2;
 	private Color buttonColor = Color.black.brighter().brighter().brighter().brighter();
  
  
-	public Boutton(String Nom){
+	public Bouton(String Nom)
+	{
 		super(Nom);
 		setContentAreaFilled(false);
 		setForeground(Color.white);
+		setBorder(null);
+		setFocusPainted(false);
 	}
- 
  
  	protected void paintComponent(Graphics g)
 	{

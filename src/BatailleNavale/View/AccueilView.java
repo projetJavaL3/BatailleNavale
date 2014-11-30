@@ -18,91 +18,68 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class AccueilView extends AbstractView
 {
-	private AbstractController controleur;
+	private AccueilController controleur;
 
-	private JLabel texte;
+	private JLabel texte, texte2;
+	private final Bouton b_jouer = new Bouton("Jouer");
+	private final Bouton b_options = new Bouton("Options");
+	private final Bouton b_credits = new Bouton("Crédits");
 
 	public AccueilView(MainView view, Modele modele)
 	{
-		super(view, modele);
-		this.controleur = new ClassiqueController(view, modele);
+		super(view, modele, "images/fond_accueil.jpg");
+		this.controleur = new AccueilController(view, modele);
 		initPanel();
 	}
 
 	public void initPanel()
 	{
-		texte = new JLabel("Bienvenue dans la Bataille Navale");
-		
-		final Boutton b_jouer = new Boutton("Jouer");
-		final Boutton b_options = new Boutton("Options");
-		final Boutton b_credit = new Boutton("Credits");
-		
 		this.panel.setLayout(null);
 		
-		b_jouer.setBounds(500, 400, 170, 50);
-		b_jouer.addMouseListener(new MouseAdapter()
-		{
-			
-			public void mouseEntered(MouseEvent e) {
-				b_jouer.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
-				b_jouer.setBounds(510,400,170,50);
-			}
-			
-			public void mouseExited(MouseEvent e) {
-				b_jouer.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
-				b_jouer.setBounds(500, 400, 170, 50);
-			}
-			
-			public void mouseClicked(MouseEvent e) {
-			
-			}
-		});
+		texte = new JLabel("Bataille");
+		texte.setFont(new Font("Impact", Font.ITALIC, 50));
+		texte.setForeground(new Color(50,50,50));
+		texte.setBounds(280,60, 400, 70);
+
+		texte2 = new JLabel("Navale");
+		texte2.setFont(new Font("Impact", Font.ITALIC, 50));
+		texte2.setForeground(new Color(50,50,50));
+		texte2.setBounds(440, 80, 400, 70);
 		
-		b_options.setBounds(500, 460, 170, 50);
-		b_options.addMouseListener(new MouseAdapter()
-		{
-			
-			public void mouseEntered(MouseEvent e) {
-				b_options.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
-				b_options.setBounds(510,460,170,50);
-			}
-			
-			public void mouseExited(MouseEvent e) {
-				b_options.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
-				b_options.setBounds(500, 460, 170, 50);
-			}
-			
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
+		b_jouer.setBounds(500,240,200,60);
+		b_options.setBounds(500, 330, 200, 60);
+		b_credits.setBounds(500, 420, 200, 60);
 		
-		b_credit.setBounds(500, 520, 170, 50);
-		b_credit.addMouseListener(new MouseAdapter()
-		{
-			
-			public void mouseEntered(MouseEvent e) {
-				b_credit.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
-				b_credit.setBounds(510,520,170,50);
-			}
-			
-			public void mouseExited(MouseEvent e) {
-				b_credit.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
-				b_credit.setBounds(500, 520, 170, 50);
-			}
-			
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
+		b_jouer.addMouseListener(controleur);
+		b_options.addMouseListener(controleur);
+		b_credits.addMouseListener(controleur);
 
 		this.panel.add(texte);
+		this.panel.add(texte2);
 		this.panel.add(b_jouer);
 		this.panel.add(b_options);
-		this.panel.add(b_credit);
-		
+		this.panel.add(b_credits);
+	}
+
+	public Bouton getBoutonJouer()
+	{
+		return b_jouer;
+	}
+
+	public Bouton getBoutonCredits()
+	{
+		return b_credits;
+	}
+
+	public Bouton getBoutonOptions()
+	{
+		return b_options;
 	}
 
 	public void update(Observable obs, Object o){}
