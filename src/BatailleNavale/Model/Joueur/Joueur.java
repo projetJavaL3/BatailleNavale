@@ -146,7 +146,7 @@ public class Joueur
 		ArrayList<Bateau> intacts = new ArrayList<>();
 
 		for(int i=0; i<flotte.size();i++)
-			if(flotte.get(i).getEtatBateau() != Etat_bateau.COULE)
+			if(flotte.get(i).getEtatBateau() != EtatBateau.COULE)
 				intacts.add(flotte.get(i));
 
 		return intacts.toArray(new Bateau[intacts.size()]);
