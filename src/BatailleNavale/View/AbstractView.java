@@ -21,7 +21,7 @@ public abstract class AbstractView extends JPanel
 
 	public AbstractView(Fenetre fenetre, Modele modele)
 	{
-		this(fenetre, modele, "images/fond_accueil.jpg");
+		this(fenetre, modele, "images/fond.jpg");
 	}
 	
 	public AbstractView(Fenetre fenetre, Modele modele, String image_de_fond)
