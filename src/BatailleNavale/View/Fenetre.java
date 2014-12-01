@@ -39,7 +39,7 @@ public class Fenetre extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new JeuView(this, modele));
+		this.changerVue(new AccueilView(this, modele));
 		this.setVisible(true);		
 	}
 
@@ -102,6 +102,8 @@ public class Fenetre extends JFrame
 		Humain h4 = new Humain("Théo");
 
 		modele.commencerPartie(Type_partie.CLASSIQUE, h1, h2);
+
+		modele.ajouterJoueur(h3);
 
 		h1.ajouterBateau(new Cuirasse());
 		h1.ajouterBateau(new SousMarin());

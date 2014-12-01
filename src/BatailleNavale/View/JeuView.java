@@ -16,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
+import java.awt.event.*;
 
-public class JeuView extends AbstractView implements Observer
+public class JeuView extends AbstractView implements ItemListener, Observer
 {		
 	private JeuController controleur;
 
@@ -25,6 +26,8 @@ public class JeuView extends AbstractView implements Observer
 	private Joueur[] adversaires;
 	private Tir[] tirs;
 	
+	private int indice = 0;
+
 	private JComboBox<Joueur> selection_adversaire = new JComboBox<Joueur>();
 	private Grille grille_joueur;
 	private Grille grille_ennemi;
@@ -48,6 +51,7 @@ public class JeuView extends AbstractView implements Observer
 		adversaires = joueur_courant.getAdversaires();
 
 		selection_adversaire = new JComboBox<Joueur>(adversaires);
+		selection_adversaire.setSelectedIndex(indice);
 		selection_adversaire.setBounds(700, 155, 119, 24);
 
 		ennemi = adversaires[selection_adversaire.getSelectedIndex()];
@@ -82,9 +86,9 @@ public class JeuView extends AbstractView implements Observer
 		this.add(grille_joueur);
 		this.add(grille_ennemi);
 
-		selection_adversaire.addItemListener(controleur);
+		selection_adversaire.addItemListener(this);
 
-		this.repaint();
+		this.revalidate();
 	}
 
 	public Grille getGrilleEnnemi()
@@ -92,10 +96,22 @@ public class JeuView extends AbstractView implements Observer
 		return this.grille_ennemi;
 	}
 
-	public JComboBox getSelectionAdversaire()
+	public int getIndiceAdversaire()
 	{
-		return selection_adversaire;
+		return this.indice;
 	}
+
+	public void setIndiceAdversaire(int indice)
+	{
+		this.indice = indice;
+	}
+
+	public void itemStateChanged(ItemEvent e)
+	{
+		int num = selection_adversaire.getSelectedIndex();
+		setIndiceAdversaire(num);
+		this.initPanel();
+	}     
 
 	public void update(Observable obs, Object o)
 	{

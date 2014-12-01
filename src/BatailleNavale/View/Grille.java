@@ -49,22 +49,22 @@ public class Grille extends JPanel implements MouseListener
 			for(int j=0; j<taille; j++)
 			{
 				cases[i][j] = new JButton();
-				cases[i][j].setBackground(new Color(112, 128, 144, 200));
+				cases[i][j].setBackground(new Color(112, 128, 144));
 				cases[i][j].setBorder(new LineBorder(new Color(200,200,200), 1, false));
 				cases[i][j].setFocusable(false);
 				cases[i][j].setEnabled(false);
 
 				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)))
-					cases[i][j].setBackground(new Color(250, 150, 0, 200));
+					cases[i][j].setBackground(new Color(250, 150, 0));
 
 				if(joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 					if(afficher_bateaux)
 						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() != Etat_bloc.TOUCHE)
-							cases[i][j].setBackground(new Color(0, 0, 0, 225));
+							cases[i][j].setBackground(new Color(0, 0, 0));
 						else 
-							cases[i][j].setBackground(new Color(255, 0, 0, 200));
+							cases[i][j].setBackground(new Color(255, 0, 0));
 					else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == Etat_bloc.TOUCHE)
-						cases[i][j].setBackground(new Color(255, 0, 0, 200));
+						cases[i][j].setBackground(new Color(255, 0, 0));
 
 				this.add(cases[i][j]);	
 			}
@@ -100,16 +100,15 @@ public class Grille extends JPanel implements MouseListener
     public void mouseEntered(MouseEvent event)
     {
     	JButton bouton = (JButton) event.getSource();
-
     	couleur = bouton.getBackground();
-		//bouton.setBackground(new Color(220,220,220, 255));
+		bouton.setBackground(new Color(220,220,220));
 	}
 
 	public void mouseExited(MouseEvent event)
 	{
 		JButton bouton = (JButton) event.getSource();
 		bouton.setEnabled(true);
-    	//bouton.setBackground(couleur);
+    	bouton.setBackground(couleur);
 	}
 
 	public void mouseReleased(MouseEvent event){}  

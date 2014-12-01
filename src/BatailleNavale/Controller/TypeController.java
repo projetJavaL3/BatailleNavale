@@ -23,6 +23,7 @@ public class TypeController extends AbstractController implements ActionListener
     	{
     		// action à faire lorsque l'on clique sur le bouton classique
             fenetre.afficherMessage("Vous allez commencer une partie classique !", "Début de partie");
+            fenetre.changerVue(new JeuView(fenetre, modele));
     	}
     	else if(arg0.getSource() == view.getBoutonRadar())
     	{

@@ -5,7 +5,7 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
-public abstract class JeuController extends AbstractController implements ActionListener, ItemListener
+public abstract class JeuController extends AbstractController implements ActionListener
 {
 
 	protected JeuView view;
@@ -18,10 +18,6 @@ public abstract class JeuController extends AbstractController implements Action
 
 	public abstract void tirerSurEnnemi(int x, int y, int indice_adversaire);   
 
-	public void itemStateChanged(ItemEvent e)
-	{
-		//vue.afficherFlotteEnnemi();
-	}     
 
 	public void actionPerformed(ActionEvent arg0)
     {
@@ -29,6 +25,6 @@ public abstract class JeuController extends AbstractController implements Action
         for(int i=0; i<grille.getTaille(); i++)
         	for(int j=0; j<grille.getTaille(); j++)
         		if(arg0.getSource() == grille.getCase(i, j))
-        			tirerSurEnnemi(i, j, 0);
+        			tirerSurEnnemi(i, j, view.getIndiceAdversaire());
     }
 }
