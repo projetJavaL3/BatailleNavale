@@ -17,22 +17,22 @@ public class JoueurView extends AbstractView
     private JPanel[] panel_j;
     private JButton valider;
     
-    public JoueurView (MainView view, Modele modele)
+    public JoueurView (Fenetre fenetre, Modele modele)
     {	
-		super(view, modele);
+		super(fenetre, modele);
 		initPanel();
     }
     
     public void initPanel()
     {
-        this.panel.setLayout(null);
+        this.setLayout(null);
         int nb_joueurs = 4;
         //Panneau entête
         label_joueur = new JLabel("Joueur");
         label_type = new JLabel("Type");
         panel_entete = new JPanel();
         panel_entete.add(label_joueur,label_type);
-        this.panel.add(panel_entete);
+        this.add(panel_entete);
         
         //Crétion et ajout au paneau principal des panneaux des joueurs
         label_j = new JLabel[nb_joueurs];
@@ -48,15 +48,13 @@ public class JoueurView extends AbstractView
             panel_j[i] = new JPanel();
             panel_j[i].add(label_j[i]);
             panel_j[i].add(combo_j[i]);
-            this.panel.add(panel_j[i]);
+            this.add(panel_j[i]);
         }
         
         //Panneau valider
         valider = new JButton("Valider");
         panel_valider = new JPanel();
         panel_valider.add(valider);
-        this.panel.add(panel_valider);
+        this.add(panel_valider);
     }
-
-    protected void update(Observable obs, Object o) {}
 }

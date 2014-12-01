@@ -18,16 +18,16 @@ public class TypeView extends AbstractView
 	private final Bouton b_alerte = new Bouton("Alerte");
 	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
 
-	public TypeView(MainView view, Modele modele)
+	public TypeView(Fenetre fenetre, Modele modele)
 	{	
-		super(view, modele);
-		this.controleur = new TypeController(view, modele);
+		super(fenetre, modele);
+		this.controleur = new TypeController(this, modele);
 		initPanel();
 	}
 	
 	public void initPanel()
 	{	
-		this.panel.setLayout(null);
+		this.setLayout(null);
 
 		type_label.setBounds(100,80,250,40);
 
@@ -41,11 +41,11 @@ public class TypeView extends AbstractView
 		b_artillerie.addActionListener(controleur);
 		b_alerte.addActionListener(controleur);
 
-		this.panel.add(type_label);
-		this.panel.add(b_classique);
-		this.panel.add(b_radar);
-		this.panel.add(b_artillerie);
-		this.panel.add(b_alerte);	
+		this.add(type_label);
+		this.add(b_classique);
+		this.add(b_radar);
+		this.add(b_artillerie);
+		this.add(b_alerte);	
 	}
 
 	public Bouton getBoutonClassique()
@@ -67,6 +67,4 @@ public class TypeView extends AbstractView
 	{
 		return b_alerte;
 	}
-
-	public void update(Observable obs, Object o){}
 }

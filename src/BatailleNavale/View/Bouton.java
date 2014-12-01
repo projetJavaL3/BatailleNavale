@@ -42,8 +42,7 @@ public class Bouton extends JButton implements MouseListener
     	catch(Exception e)
     	{
     		e.printStackTrace();
-    	}  
-    
+    	}   
 	}
  
  	protected void paintComponent(Graphics g)

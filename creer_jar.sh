@@ -8,7 +8,7 @@ echo "#################################################"
 
 rm -rf bin/
 mkdir bin/
-javac -Xlint:unchecked  -Xlint:deprecation -encoding UTF-8 -sourcepath src/ -d bin/ src/BatailleNavale/View/MainView.java
+javac -Xlint:unchecked  -Xlint:deprecation -encoding UTF-8 -sourcepath src/ -d bin/ src/BatailleNavale/View/Fenetre.java
 cp -R bin/BatailleNavale .
 
 jar cvfm BatailleNavale.jar META-INF/MANIFEST.MF BatailleNavale/ src/ images/ sons/

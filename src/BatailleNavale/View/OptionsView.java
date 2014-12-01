@@ -13,28 +13,26 @@ import java.awt.GridLayout;
 
 public class OptionsView extends AbstractView
 {
-	public OptionsView(MainView view, Modele modele)
+	private final Checkbox check1 = new Checkbox("Porte-avions");
+	private final Checkbox check2 = new Checkbox("Sous-marin nucléaire");
+	private final Checkbox check3 = new Checkbox("Cuirassés furtifs");
+	private final Checkbox check4 = new Checkbox("Cuirassés furtifs");
+	private final Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions");
+
+	public OptionsView(Fenetre fenetre, Modele modele)
 	{	
-		super(view, modele);
+		super(fenetre, modele);
 		initPanel();
 	}
 	
 	public void initPanel()
-	{
-		Checkbox check1 = new Checkbox("Porte-avions");
-		Checkbox check2 = new Checkbox("Sous-marin nucléaire");
-		Checkbox check3 = new Checkbox("Cuirassés furtifs");
-		Checkbox check4 = new Checkbox("Cuirassés furtifs");
-		Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions");
+	{		
+		this.setLayout(new GridLayout(5, 1));
 		
-		this.panel.setLayout(new GridLayout(5, 1));
-		
-		this.panel.add(check1);
-		this.panel.add(check2);
-		this.panel.add(check3);
-		this.panel.add(check4);
-		this.panel.add(check5);
+		this.add(check1);
+		this.add(check2);
+		this.add(check3);
+		this.add(check4);
+		this.add(check5);
 	}
-
-	public void update(Observable obs, Object o){}
 }

@@ -9,17 +9,15 @@ import javax.swing.JTextField;
 
 public class CreditsView extends AbstractView
 {
-	public CreditsView(MainView view, Modele modele)
+	public CreditsView(Fenetre fenetre, Modele modele)
 	{	
-		super(view, modele);
+		super(fenetre, modele);
 		initPanel();
 	}
 	
 	public void initPanel()
 	{		
 		JTextField text = new JTextField("Projet de Bataille Navale réalisé par 4 élèves de L3 à l'Université d'Evry" );
-		this.panel.add(text);
+		this.add(text);
 	}
-
-	public void update(Observable obs, Object o){}
 }

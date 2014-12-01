@@ -13,46 +13,34 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
 
-public abstract class AbstractView
+public abstract class AbstractView extends JPanel
 {
 	protected Modele modele;
-	protected MainView fen;
-	protected JPanel panel;
+	protected Fenetre fenetre;
+	protected Image img;
 
-	public AbstractView(MainView view, Modele modele)
+	public AbstractView(Fenetre fenetre, Modele modele)
 	{
-		this.fen = view;
+		this(fenetre, modele, "images/fond_accueil.jpg");
+	}
+	
+	public AbstractView(Fenetre fenetre, Modele modele, String image_de_fond)
+	{		
+		this.fenetre = fenetre;
 		this.modele = modele;
-		this.panel = new ImagePanel("images/fond.jpg");
-	}
-	
-	public AbstractView(MainView view, Modele modele, String image_de_fond)
-	{
-		this(view, modele);
-		this.panel = new ImagePanel(image_de_fond);
+		this.img = new ImageIcon(getClass().getClassLoader().getResource(image_de_fond)).getImage();
+		this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
 	}
 
-	protected JPanel getPanel()
+	public void paintComponent(Graphics g) 
 	{
-		return this.panel;
+		g.drawImage(img, 0, 0, fenetre.getWidth(), fenetre.getHeight(), null);
 	}
-	
+
+	public Fenetre getFenetre()
+	{
+		return this.fenetre;
+	}
+
 	protected abstract void initPanel();	
-	protected abstract void update(Observable obs, Object o);
-
-	class ImagePanel extends JPanel
-	{
-		private Image img;
-		
-		public ImagePanel(String img) 
-		{
-			this.img = new ImageIcon(getClass().getClassLoader().getResource(img)).getImage();
-			this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
-		}
-		
-		public void paintComponent(Graphics g) 
-		{
-			g.drawImage(img, 0, 0, fen.getWidth(), fen.getHeight(), null);
-		}
-	}
 }

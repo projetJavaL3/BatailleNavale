@@ -6,11 +6,11 @@ import BatailleNavale.View.*;
 public abstract class AbstractController
 {
 	protected Modele modele;
-	protected MainView view;
+	protected Fenetre fenetre;
 
-	public AbstractController(MainView view, Modele modele)
+	public AbstractController(Fenetre fenetre, Modele modele)
 	{
-		this.view = view;
+		this.fenetre = fenetre;
 		this.modele = modele;
 	}
 }

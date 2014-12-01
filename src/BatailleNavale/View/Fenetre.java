@@ -3,6 +3,7 @@ package BatailleNavale.View;
 import BatailleNavale.Model.*;
 import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.Model.Joueur.*;
+import BatailleNavale.Controller.*;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -15,34 +16,37 @@ import javax.swing.JMenu;
 
 import java.awt.Dimension;
 
-public class MainView extends JFrame 
+public class Fenetre extends JFrame 
 {
-
+	private MenuController controleur;
+	private Modele modele;
 	private AbstractView container;
 	private JOptionPane boite_dialogue = new JOptionPane();
 	private JMenuBar menubar = new JMenuBar();
 	private JMenu menu_fichier = new JMenu("Fichier");
 	private	JMenu menu_edition = new JMenu("Edition");
-	private	JMenuItem menu_fichier_demarrer = new JMenuItem("Démarrer");
-	private	JMenuItem menu_fichier_fin = new JMenuItem("Fin");
-	private	JMenuItem menu_edition_annuler = new JMenuItem("Annuler");
+	private	JMenuItem item_fichier_menuPrincipal = new JMenuItem("Menu principal");
+	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
+	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
 
-	public MainView(Modele modele)
+ 	
+	public Fenetre(Modele modele)
 	{
 		super("Bataille Navale");
+		this.modele = modele;
 		this.setSize(new Dimension(900, 640));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new AccueilView(this, modele));
+		this.changerVue(new JeuView(this, modele));
 		this.setVisible(true);		
 	}
 
 	public void changerVue(AbstractView view)
 	{
 		this.container = view;
-		this.setContentPane(container.getPanel());
+		this.setContentPane(container);
 		this.getContentPane().revalidate();
 	}
 
@@ -62,15 +66,30 @@ public class MainView extends JFrame
 	 */
 	public void initMenu()
 	{		
-		menu_fichier.add(menu_fichier_demarrer);
-		menu_fichier.add(menu_fichier_fin);
+		this.controleur = new MenuController(this, modele);
+		
+		menu_fichier.add(item_fichier_menuPrincipal);
+		menu_fichier.add(item_fichier_quitter);
 
-		menu_edition.add(menu_edition_annuler);
+		menu_edition.add(item_edition_annuler);
 
 		menubar.add(menu_fichier);
 		menubar.add(menu_edition);
 				
 		this.setJMenuBar(menubar);
+
+		item_fichier_menuPrincipal.addActionListener(controleur);
+		item_fichier_quitter.addActionListener(controleur);
+	}
+
+	public JMenuItem getItemMenuPrincipal()
+	{
+		return this.item_fichier_menuPrincipal;
+	}
+
+	public JMenuItem getItemQuitter()
+	{
+		return this.item_fichier_quitter;
 	}
 
 	public static void main(String[] args)
@@ -113,6 +132,6 @@ public class MainView extends JFrame
 		h3.placementAleatoireFlotte();
 		h4.placementAleatoireFlotte();
 
-		MainView fen = new MainView(modele);
+		Fenetre fenetre = new Fenetre(modele);
 	}
 }

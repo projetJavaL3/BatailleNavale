@@ -22,16 +22,16 @@ public class AccueilView extends AbstractView
 	private final Bouton b_options = new Bouton("Options");
 	private final Bouton b_credits = new Bouton("Crédits");
 
-	public AccueilView(MainView view, Modele modele)
+	public AccueilView(Fenetre fenetre, Modele modele)
 	{
-		super(view, modele, "images/fond_accueil.jpg");
-		this.controleur = new AccueilController(view, modele);
+		super(fenetre, modele, "images/fond_accueil.jpg");
+		this.controleur = new AccueilController(this, modele);
 		initPanel();
 	}
 
 	public void initPanel()
 	{
-		this.panel.setLayout(null);
+		this.setLayout(null);
 		
 		texte = new JLabel("Bataille");
 		texte.setFont(new Font("Impact", Font.ITALIC, 50));
@@ -51,11 +51,11 @@ public class AccueilView extends AbstractView
 		b_options.addActionListener(controleur);
 		b_credits.addActionListener(controleur);
 
-		this.panel.add(texte);
-		this.panel.add(texte2);
-		this.panel.add(b_jouer);
-		this.panel.add(b_options);
-		this.panel.add(b_credits);
+		this.add(texte);
+		this.add(texte2);
+		this.add(b_jouer);
+		this.add(b_options);
+		this.add(b_credits);
 	}
 
 	public Bouton getBoutonJouer()
@@ -72,7 +72,5 @@ public class AccueilView extends AbstractView
 	{
 		return b_options;
 	}
-
-	public void update(Observable obs, Object o){}
 
 }

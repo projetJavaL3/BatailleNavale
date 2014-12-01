@@ -7,26 +7,27 @@ import java.awt.event.*;
 
 public class AccueilController extends AbstractController implements ActionListener
 {
+    private AccueilView view;
 
-	public AccueilController(MainView view, Modele modele)
+	public AccueilController(AccueilView view, Modele modele)
 	{
-		super(view, modele);
+        super(view.getFenetre(), modele);
+		this.view = view;
 	}
 
     public void actionPerformed(ActionEvent arg0) 
     {
-    	AccueilView container = (AccueilView) view.getContainer();
-    	if(arg0.getSource() == container.getBoutonJouer())
+    	if(arg0.getSource() == view.getBoutonJouer())
     	{
-    		view.changerVue(new TypeView(view, modele));
+    		fenetre.changerVue(new TypeView(fenetre, modele));
     	}
-    	else if(arg0.getSource() == container.getBoutonOptions())
+    	else if(arg0.getSource() == view.getBoutonOptions())
     	{
-    		view.changerVue(new OptionsView(view, modele));
+    		fenetre.changerVue(new OptionsView(fenetre, modele));
     	}
-    	else if(arg0.getSource() == container.getBoutonCredits())
+    	else if(arg0.getSource() == view.getBoutonCredits())
     	{
-    		view.changerVue(new CreditsView(view, modele));
+    		fenetre.changerVue(new CreditsView(fenetre, modele));
     	}
 	}  
 }
