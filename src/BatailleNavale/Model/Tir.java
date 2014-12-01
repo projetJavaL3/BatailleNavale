@@ -34,7 +34,7 @@ public class Tir
 	 * Construit un tir a partir d'un autre.
 	 * @param t
 	 */
-	public Tir (Tir t) 
+	public Tir(Tir t) 
 	{
 		this.position = new Position(t.position);
 		this.joueur = t.joueur;
@@ -79,5 +79,21 @@ public class Tir
 	public String toString()
 	{
 		return "Tir sur " + joueur.toString() + " à la position " + position.toString();
+	}
+
+	public boolean equals(Object o)
+	{
+		if(o == null || !(o instanceof Tir))
+			return false;
+		
+		Tir tmp = (Tir) o;
+		
+		if(!tmp.position.equals(position))
+			return false;
+		
+		if(tmp.joueur != joueur)
+			return false;
+		
+		return true;
 	}
 }

@@ -11,8 +11,14 @@ import java.util.Random;
  */
 public class Ordinateur extends Joueur 
 {
+    /**
+     * Niveau de l'ordinateur
+     */
     private int niveau;
 
+    /**
+     *  Constructeur par defaut de l'ordinateur
+     */
     public Ordinateur(String nom, int niveau)
 	{
 		super(nom);
@@ -38,6 +44,7 @@ public class Ordinateur extends Joueur
     public Tir[] getTirsNonJoues()
     {
         ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
+        
         for(int i=0; i<adversaires.size(); i++)
         {
             for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)
@@ -51,7 +58,6 @@ public class Ordinateur extends Joueur
                         if(!tirs_joues.get(l).equals(tir_ajout))
                             tirs_non_joues.add(tir_ajout);
                     }
-
                 }
             }
         }

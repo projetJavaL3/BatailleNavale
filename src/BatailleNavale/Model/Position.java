@@ -21,7 +21,7 @@ public class Position
 	 * @param x
 	 * @param y
 	 */
-	public Position (int x, int y) 
+	public Position(int x, int y) 
 	{
 		coord_X = x;
 		coord_Y = y;
@@ -31,7 +31,7 @@ public class Position
 	 * Construit une <code>Position</code> a partir d'une autre.
 	 * @param p
 	 */
-	public Position (Position p) 
+	public Position(Position p) 
 	{
 		coord_X = p.coord_X;
 		coord_Y = p.coord_Y;
@@ -101,17 +101,17 @@ public class Position
 	
 	public boolean equals(Object o)
 	{
-		if(o == null || !(o instanceof Position)){
+		if(o == null || !(o instanceof Position))
 			return false;
-		}
-		Position tmp = (Position)o;
-		if(tmp.coord_X != coord_X){
+		
+		Position tmp = (Position) o;
+		
+		if(tmp.coord_X != coord_X)
 			return false;
-		}
-		if(tmp.coord_Y != coord_Y){
+		
+		if(tmp.coord_Y != coord_Y)
 			return false;
-		}	
+			
 		return true;
 	}
-	
 }
