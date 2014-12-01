@@ -1,10 +1,10 @@
 package BatailleNavale.Model.Flotte;
 
 /** 
- * Enumeration <code> Etat_bateau </code> 
+ * Enumeration <code> EtatBateau </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public enum Etat_bateau
+public enum EtatBateau
 {
 	/**
 	 * Bateau intact

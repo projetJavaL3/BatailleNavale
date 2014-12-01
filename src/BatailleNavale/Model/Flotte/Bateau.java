@@ -21,7 +21,7 @@ public abstract class Bateau
 	/**
 	 * Etat dans lequel le Bateau se trouve
 	 */
-	protected Etat_bateau etat; 
+	protected EtatBateau etat; 
 
 	/**
 	 * Constructeur d'instance de Bateau 
@@ -33,13 +33,13 @@ public abstract class Bateau
 		this.nom = nom;
 		this.taille = taille;
 		this.point_de_vie = taille;
-		this.etat = Etat_bateau.INTACT;
+		this.etat = EtatBateau.INTACT;
 	}
 
 	/**
 	 * Renvoie l'état du bateau
 	 */
-	public Etat_bateau getEtatBateau()
+	public EtatBateau getEtatBateau()
 	{
 		return this.etat;
 	}
@@ -77,9 +77,9 @@ public abstract class Bateau
 		if(point_de_vie > 0)
 		{
 			point_de_vie--;
-			this.etat = Etat_bateau.TOUCHE;
+			this.etat = EtatBateau.TOUCHE;
 			if(point_de_vie == 0)
-				this.etat = Etat_bateau.COULE;
+				this.etat = EtatBateau.COULE;
 			
 			return true;			
 		}
