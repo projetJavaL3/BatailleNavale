@@ -1,10 +1,10 @@
 package BatailleNavale.Model; 
 
 /** 
- * Enumeration <code> Etat_bloc </code> 
+ * Enumeration <code> EtatBloc </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public enum Etat_bloc {
+public enum EtatBloc {
 
 	/**
 	 * Bloc non touche

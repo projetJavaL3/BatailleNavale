@@ -1,23 +1,13 @@
 package BatailleNavale.Model.Joueur;
 
-
-import BatailleNavale.Model.*;
-import BatailleNavale.Model.Flotte.*;
-
 /** 
  * Classe <code> Humain </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
 public class Humain extends Joueur
 {
-
 	public Humain(String nom)
 	{
 		super(nom);
-	}
-
-	public String toString()
-	{
-		return "(" + nom + ")";
 	}
 }

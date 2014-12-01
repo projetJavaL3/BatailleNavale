@@ -20,49 +20,21 @@ public class Modele extends Observable
 	/**
 	 * Type de la Partie
 	 */
-	private Type_partie type;
+	private TypePartie type;
 	/**
 	 * Indice du joueur courant
 	 */
 	private int indice_joueur_courant;
-	
+
 	/**
 	 * Constructeur par defaut du modele
 	 */
 	public Modele()
 	{
+		this.joueurs = new ArrayList<Joueur>();
+		this.type = TypePartie.CLASSIQUE;
 		this.indice_joueur_courant = 0;
 	}	
-
-	public void commencerPartie(Type_partie type, Joueur j1, Joueur j2)
-	{
-		this.joueurs = new ArrayList<Joueur>();
-		this.type = type;
-		this.ajouterJoueur(j1);
-		this.ajouterJoueur(j2);
-	}
-	
-	/**
-	 * @return le type de la Partie
-	 */
-	public Type_partie getTypePartie()
-	{
-		return this.type;
-	}
-
-	/**
-	 * @return true si une partie est termine
-	 */
-	public boolean estTermine()
-	{	
-		int nombreDePerdants = 0;
-		
-		for(int i=0; i<joueurs.size();i++)
-			if(joueurs.get(i).aPerdu())
-				nombreDePerdants ++;
-
-		return (nombreDePerdants == joueurs.size()-1);
-	}
 	
 	/**
 	 * @return le nombre de joueurs 
@@ -96,9 +68,6 @@ public class Modele extends Observable
 	 */
 	public boolean retirerJoueur(Joueur joueur)
 	{
-		if(joueurs.size()<=2)
-			return false;
-
 		Iterator iterateur = joueurs.iterator();
 		while (iterateur.hasNext())
 		{
@@ -111,16 +80,30 @@ public class Modele extends Observable
 		return this.joueurs.remove(joueur);
 	}
 
-
+	/**
+	 * @return le joueur courant
+	 */
 	public Joueur getJoueurCourant()
 	{
 		return this.joueurs.get(indice_joueur_courant);
 	}
 
+	/**
+	 * on passe au joueur suivant
+	 */
 	public void joueurSuivant()
 	{
-		this.indice_joueur_courant++;
-		this.indice_joueur_courant %= joueurs.size();
+		int cpt = 0;
+		do
+		{
+			this.indice_joueur_courant++;
+			this.indice_joueur_courant %= joueurs.size();
+			
+			if(cpt++>joueurs.size())
+				break;
+
+		} while(joueurs.get(indice_joueur_courant).aPerdu());
+
 		setChanged();
 		notifyObservers();
 	}
@@ -133,6 +116,37 @@ public class Modele extends Observable
 		return this.joueurs.toArray(new Joueur[this.joueurs.size()]);
 	}
 
+	/**
+	 * @return true si une partie est termine
+	 */
+	public boolean partieTermine()
+	{	
+		int nombreDePerdants = 0;
+		
+		for(int i=0; i<joueurs.size();i++)
+			if(joueurs.get(i).aPerdu())
+				nombreDePerdants ++;
+
+		return (nombreDePerdants >= joueurs.size()-1);
+	}
+
+	/**
+	 * Modifieur du type de partie
+	 * @param type type de la partie
+	 */
+	public void setTypePartie(TypePartie type)
+	{		
+		this.type = type;
+	}
+	
+	/**
+	 * @return le type de la Partie
+	 */
+	public TypePartie getTypePartie()
+	{
+		return this.type;
+	}
+
 	public static void main(String[] args)
 	{
 		Modele bn = new Modele();
@@ -142,7 +156,7 @@ public class Modele extends Observable
 		Humain h3 = new Humain("Brady");
 		Humain h4 = new Humain("Théo");
 
-		bn.commencerPartie(Type_partie.CLASSIQUE, h1, h2);
+		bn.setTypePartie(TypePartie.CLASSIQUE);
 
 		bn.ajouterJoueur(h1);
 		bn.ajouterJoueur(h2);
@@ -152,7 +166,7 @@ public class Modele extends Observable
 		Joueur[] adversaires = h3.getAdversaires();
 		for(int i=0; i<adversaires.length; i++)
 		{
-			System.out.println("Adversaire n°" + i + ": " + ((Humain) adversaires[i]).toString());
+			System.out.println("Adversaire n°" + i + ": " + adversaires[i].toString());
 		}
 
 		h2.ajouterBateau(new Cuirasse());
@@ -183,11 +197,11 @@ public class Modele extends Observable
 		/**
 		 * Bloc Toucher(temporaire)
 		 */
-		blocs[1].setEtatBloc(Etat_bloc.TOUCHE);
+		blocs[1].setEtatBloc(EtatBloc.TOUCHE);
 		bateauxH2[0].retirerPointDeVie();
-		blocs[2].setEtatBloc(Etat_bloc.TOUCHE);
+		blocs[2].setEtatBloc(EtatBloc.TOUCHE);
 		bateauxH2[0].retirerPointDeVie();
-		blocs[5].setEtatBloc(Etat_bloc.TOUCHE);
+		blocs[5].setEtatBloc(EtatBloc.TOUCHE);
 		bateauxH2[1].retirerPointDeVie();
 		
 

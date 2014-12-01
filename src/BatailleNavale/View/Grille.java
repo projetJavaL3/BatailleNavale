@@ -59,11 +59,11 @@ public class Grille extends JPanel implements MouseListener
 
 				if(joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 					if(afficher_bateaux)
-						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() != Etat_bloc.TOUCHE)
+						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() != EtatBloc.TOUCHE)
 							cases[i][j].setBackground(new Color(0, 0, 0));
 						else 
 							cases[i][j].setBackground(new Color(255, 0, 0));
-					else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == Etat_bloc.TOUCHE)
+					else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
 						cases[i][j].setBackground(new Color(255, 0, 0));
 
 				this.add(cases[i][j]);	

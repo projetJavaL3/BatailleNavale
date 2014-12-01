@@ -11,7 +11,7 @@ public class Bloc
 	/**
 	 * Etat dans lequel le Bloc se trouve
 	 */
-	protected Etat_bloc etat;
+	protected EtatBloc etat;
 	/**
 	 * Declaration d'un objet de type Bateau
 	 */
@@ -28,13 +28,13 @@ public class Bloc
 	{
 		this.bateau = bateau;
 		this.position = new Position(position);
-		this.etat = Etat_bloc.PAS_TOUCHE;
+		this.etat = EtatBloc.PAS_TOUCHE;
 	}
 	
 	/**
 	 * Retroune l'Etat dans lequel le Bloc se trouve
 	 */
-	public Etat_bloc getEtatBloc()
+	public EtatBloc getEtatBloc()
 	{
 		return this.etat;
 	}
@@ -59,7 +59,7 @@ public class Bloc
 	 * Modifie l'état du Bloc
 	 * @param new_etat le nouvel état du Bloc
 	 */
-	public void setEtatBloc(Etat_bloc new_etat)
+	public void setEtatBloc(EtatBloc new_etat)
 	{
 		this.etat = new_etat;
 	}

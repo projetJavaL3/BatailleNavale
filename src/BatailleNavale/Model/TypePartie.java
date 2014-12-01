@@ -1,10 +1,10 @@
 package BatailleNavale.Model;
 
 /** 
- * Enumeration <code> Type_partie </code> 
+ * Enumeration <code> TypePartie </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public enum Type_partie
+public enum TypePartie
 {	
 	/**
 	 * Partie de type Classique

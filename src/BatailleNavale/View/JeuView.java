@@ -48,7 +48,7 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 		this.setLayout(null);
 
 		joueur_courant = modele.getJoueurCourant();
-		adversaires = joueur_courant.getAdversaires();
+		adversaires = joueur_courant.getAdversairesEnVie();
 
 		selection_adversaire = new JComboBox<Joueur>(adversaires);
 		selection_adversaire.setSelectedIndex(indice);

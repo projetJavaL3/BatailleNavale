@@ -179,7 +179,7 @@ public class ChampDeBataille
 			for(int j=1; j<=longueur; j++)
 			{
 				if(existeBloc(new Position(j,i)))
-					if(getBloc(new Position(j,i)).getEtatBloc() == Etat_bloc.TOUCHE)
+					if(getBloc(new Position(j,i)).getEtatBloc() == EtatBloc.TOUCHE)
 						s += "O|";
 					else 
 						s += "X|";

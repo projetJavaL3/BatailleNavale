@@ -17,37 +17,56 @@ public class Joueur
 	 * Champ de bataille du joueur.
 	 */
 	protected ChampDeBataille champ_de_bataille;
-	
 	/**
 	 * Ensemble des tirs joues par le joueur.
 	 */
 	protected ArrayList<Tir> tirs_joues;
-	
 	/**
 	 * Liste des bateaux du joueur
 	 */
 	protected ArrayList<Bateau> flotte;
-
+	/**
+	 * Liste des bateaux places du joueur
+	 */
+	protected ArrayList<Bateau> bateaux_places;
 	/**
 	 * Liste des joueurs adversaires
 	 */
 	protected ArrayList<Joueur> adversaires;
-	
 	/**
 	 * Nom du joueur
 	 */
-	protected String nom;
-
+	protected final String nom;
 	
+	
+
 	public Joueur(String nom)
 	{
 		this.champ_de_bataille = new ChampDeBataille();
 		this.tirs_joues = new ArrayList<Tir>();
 		this.flotte = new ArrayList<Bateau>();
+		this.bateaux_places = new ArrayList<Bateau>();
 		this.adversaires = new ArrayList<Joueur>();
 		this.nom = nom;
 	}
 	
+	/**
+     * Ajoute un bateau à la flotte du joueur.
+     */
+    public boolean ajouterBateau(Bateau b)
+    {
+    	return flotte.add(b);
+    }
+
+    /**
+     * Supprime un bateau à la flotte du joueur.
+     */
+    public boolean supprimerBateau(Bateau b)
+    {
+    	retirerBateau(b);
+    	return flotte.remove(b);
+    }
+
 	/**
 	 * Place un bateau sur le champ de bataille.
 	 * @param bateau
@@ -55,6 +74,9 @@ public class Joueur
 	 */
 	public boolean placerBateau(Bateau bateau, Placement placement)
 	{
+		if(!flotte.contains(bateau) || bateaux_places.contains(bateau))
+			return false;
+
 		int orientation = placement.getDirection()?1:0;
 
 		if(!champ_de_bataille.placementAutorise(placement, bateau))
@@ -65,6 +87,8 @@ public class Joueur
 			Position pos = new Position(placement.getPosition().getCoord_X() + orientation * i, placement.getPosition().getCoord_Y() + (1-orientation) * i);
 			champ_de_bataille.addBloc(new Bloc(bateau, pos));
 		}
+
+		bateaux_places.add(bateau);
 
 		return true;
 	}
@@ -92,11 +116,52 @@ public class Joueur
 			}
 		}
 
+		bateaux_places.remove(bateau);
+
 		return retirer;
 	}
+
+	/**
+	 * @return le nombre de bateaux du joueurs
+	 */
+	public int getNbBateaux()
+	{
+		return flotte.size();
+	}
+
+	/**
+	 * @return la liste des bateaux du joueurs
+	 */
+	public Bateau[] getBateaux()
+	{
+		return flotte.toArray(new Bateau[flotte.size()]);
+	}
 	
+	/**
+	 * Liste des bateaux encore en jeu.
+	 * @return les bateaux intacts ou touche
+	 */
+	public Bateau[] getBateauxNonCoules()
+	{
+		ArrayList<Bateau> intacts = new ArrayList<>();
+
+		for(int i=0; i<flotte.size();i++)
+			if(flotte.get(i).getEtatBateau() != Etat_bateau.COULE)
+				intacts.add(flotte.get(i));
+
+		return intacts.toArray(new Bateau[intacts.size()]);
+	}
+	
+	/**
+	 * Renvoie true si tous les bateaux de la flotte ont ete places
+	 */
+	public boolean bateauxPlaces()
+	{
+		return flotte.size() == bateaux_places.size();
+	}
+
     /**
-     * Calcul un placement alétoire disponible sur le champ de bataille pour un bateau donné.
+     * Calcul un placement aleatoire disponible sur le champ de bataille pour un bateau donné.
      */
     public Placement placementAleatoire(Bateau bateau) 
     {
@@ -147,22 +212,6 @@ public class Joueur
     	}
     }
 
-    /**
-     * Ajoute un bateau à la flotte du joueur.
-     */
-    public boolean ajouterBateau(Bateau b)
-    {
-    	return flotte.add(b);
-    }
-
-    /**
-     * Supprime un bateau à la flotte du joueur.
-     */
-    public boolean supprimerBateau(Bateau b)
-    {
-    	return flotte.remove(b);
-    }
-
 	/**
 	 * Fonction de Tir du joueur
 	 */
@@ -175,9 +224,9 @@ public class Joueur
 		if (cible.existeBloc(pos))
 		{
 			Bloc bloc = cible.getBloc(pos);
-			if (bloc.getEtatBloc() == Etat_bloc.PAS_TOUCHE)
+			if (bloc.getEtatBloc() == EtatBloc.PAS_TOUCHE)
 			{
-				bloc.setEtatBloc(Etat_bloc.TOUCHE);
+				bloc.setEtatBloc(EtatBloc.TOUCHE);
 				bloc.getBateau().retirerPointDeVie();
 				return true;
 			}
@@ -210,66 +259,10 @@ public class Joueur
 	{
 		return tirs_joues.toArray(new Tir[tirs_joues.size()]);
 	}
-
-    /**
-     * 
-     * @return les tirs non joués par le joueur
-     */
-    public Tir[] tirsNonJoues()
-    {
-    	ArrayList<Tir> tirs_non_joues = new ArrayList<Tir>();
-    	for(int i=0; i<adversaires.size(); i++)
-    	{
-    		for(int j=0; j<adversaires.get(i).getChampDeBataille().getHauteur(); j++)
-    		{
-    			for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
-    			{
-    				Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));
-                    //Parcours des tirs joués
-    				for(int l=0; l<tirs_joues.size(); l++)
-    				{
-    					if(!tirs_joues.get(l).equals(tir_ajout))
-    						tirs_non_joues.add(tir_ajout);
-    				}
-
-    			}
-    		}
-    	}
-    	
-    	return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
-    }   
-
+ 
 	/**
-	 * @return le nombre de bateaux du joueurs
+	 * @return la liste des tirs effectues sur le joueur
 	 */
-	public int getNbBateaux()
-	{
-		return flotte.size();
-	}
-
-	/**
-	 * @return la liste des bateaux du joueurs
-	 */
-	public Bateau[] getBateaux()
-	{
-		return flotte.toArray(new Bateau[flotte.size()]);
-	}
-	
-	/**
-	 * Liste des bateaux encore en jeu.
-	 * @return les bateaux intacts ou touche
-	 */
-	public Bateau[] getBateauxNonCoules()
-	{
-		ArrayList<Bateau> intacts = new ArrayList<>();
-
-		for(int i=0; i<flotte.size();i++)
-			if(flotte.get(i).getEtatBateau() != Etat_bateau.COULE)
-				intacts.add(flotte.get(i));
-
-		return intacts.toArray(new Bateau[intacts.size()]);
-	}
-
 	public Tir[] getTirsSurJoueur()
 	{
 		ArrayList<Tir> liste_tirs = new ArrayList<Tir>();
@@ -284,6 +277,9 @@ public class Joueur
 		return liste_tirs.toArray(new Tir[liste_tirs.size()]);
 	}
 
+	/**
+	 * @return true si un tir a ete effectue sur le joueur a la position p
+	 */
 	public boolean dansTirsSurJoueur(Position p)
 	{
 		Tir[] tirs = getTirsSurJoueur();
@@ -294,7 +290,6 @@ public class Joueur
 	}
 
 	/**
-	 * 
 	 * @return true si le joueur n'a plus que des bateaux coules, false sinon
 	 */
 	public boolean aPerdu()
@@ -302,38 +297,73 @@ public class Joueur
 		return (getBateauxNonCoules().length == 0);
 	}
 
+	/**
+	 * @return le nombre d'adversaires du joueur
+	 */
 	public int getNbAdversaires()
 	{
 		return this.adversaires.size();
 	}
 
+	/**
+	 * Ajoute un joueur dans la liste des adversaires
+	 * @param j le joueur a ajouter
+	 */
 	public boolean ajouterAdversaire(Joueur j)
 	{
 		return this.adversaires.add(j);
 	}
 	
+	/**
+	 * Retire un joueur de la liste des adversaires
+	 * @param j le joueur a retirer
+	 */
 	public boolean retirerAdversaire(Joueur j)
 	{
 		return this.adversaires.remove(j);
 	}
 
+	/**
+	 * Remet la liste des adversaires a zero
+	 */
 	public void reinitialiserListeAdversaires()
 	{
 		this.adversaires = new ArrayList<Joueur>();
 	}
 
+	/**
+	 * @return la liste des adversaires du joueur
+	 */
 	public Joueur[] getAdversaires()
 	{
 		return this.adversaires.toArray(new Joueur[adversaires.size()]);
 	}
 	
+	/**
+	 * @return la liste des adversaires toujours en jeu du joueur
+	 */
+	public Joueur[] getAdversairesEnVie()
+	{
+		ArrayList<Joueur> liste_adversaires = new ArrayList<Joueur>();
+		for(int i=0; i<adversaires.size(); i++)
+			if(!adversaires.get(i).aPerdu())
+				liste_adversaires.add(adversaires.get(i));
+		return liste_adversaires.toArray(new Joueur[liste_adversaires.size()]);
+	}
+
+	/**
+	 * @return nom du joueur
+	 */
 	public String getNom()
 	{
 		return this.nom;
 	}
 
+	/**
+	 * toString de Joueur 
+	 */
 	public String toString()
 	{
-		return this.nom;
+		return "[" + nom + "]";
 	}
 }

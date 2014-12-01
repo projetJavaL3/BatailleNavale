@@ -76,20 +76,6 @@ public class Tir
 		this.joueur = j;
 	}
 
-	/**
-	 * @return true si le tir touche un bateau 
-	 */
-	public boolean toucheBateau()
-	{
-		Bloc[] emplacements = this.joueur.getChampDeBataille().getEmplacements();
-		for(int i=0; i<emplacements.length; i++)
-			if(emplacements[i].getPosition().equals(this.position))
-				if(emplacements[i].getEtatBloc() == Etat_bloc.PAS_TOUCHE)
-					return true;
-
-		return false;
-	}
-
 	public String toString()
 	{
 		return "Tir sur " + joueur.toString() + " à la position " + position.toString();
