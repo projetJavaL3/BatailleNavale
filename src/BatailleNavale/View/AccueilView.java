@@ -34,18 +34,18 @@ public class AccueilView extends AbstractView
 		this.setLayout(null);
 		
 		texte = new JLabel("Bataille");
-		texte.setFont(new Font("Impact", Font.ITALIC, 50));
+		texte.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 100));
 		texte.setForeground(new Color(50,50,50));
-		texte.setBounds(280,60, 400, 70);
+		texte.setBounds(50,60, 450, 90);
 
 		texte2 = new JLabel("Navale");
-		texte2.setFont(new Font("Impact", Font.ITALIC, 50));
+		texte2.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD, 100)); //Impact
 		texte2.setForeground(new Color(50,50,50));
-		texte2.setBounds(440, 80, 400, 70);
+		texte2.setBounds(480, 60, 400, 90);
 		
-		b_jouer.setBounds(500,240,200,60);
-		b_options.setBounds(500, 330, 200, 60);
-		b_credits.setBounds(500, 420, 200, 60);
+		b_jouer.setBounds(500,330,200,60);
+		b_options.setBounds(500, 410, 200, 60);
+		b_credits.setBounds(500, 490, 200, 60);
 		
 		b_jouer.addActionListener(controleur);
 		b_options.addActionListener(controleur);
