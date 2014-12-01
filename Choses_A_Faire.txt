@@ -1,22 +1,17 @@
-Liste des choses Ã  faire: 
-[libre Ã  vous de continuer cette liste]
+Liste des choses à faire: 
+[libre à vous de continuer cette liste]
 
 Pour le Modele
 - Vérifier toutes les classes ainsi que leur javadoc 
-- Continuer de tester les mÃ©thodes du modeles dans le main de BatailleNavale
-- Mettre toutes les classes du modele Observable et mettre les notifyObserver() et setChanged()
+- Continuer de tester les méthodes du modeles dans la classe 
 - ...
 
 Pour les vues:
-- Réflechir a quoi ressemblera l'interface graphique
+- Faires les vues OptionsView, CreditsView, FinView, JoueursView, PlacementView
 - ...
 
 Pour les controleurs 
+- Faire les controleurs ClassiqueController, RadarController, AlerteController, ArtillerieController pour les différents modes de jeux 
 - ...
 
 Questions :
-
-- Peut on changer la façon dans on tire ?
-	C'est à dire au lieu de choisir le Joueur et la Position,
-	on choisira uniquement la Position et on tira sur TOUS 	les Joueurs à cette Position.
-	
