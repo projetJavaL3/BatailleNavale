@@ -40,5 +40,10 @@ public class TypeController extends AbstractController implements ActionListener
             // action à faire lorsque l'on clique sur le bouton alerte
             fenetre.afficherMessage("Vous allez commencer une partie alerte !", "Début de partie");
         }
+	else if(arg0.getSource() == view.getBoutonRetour())
+	{	
+		// action à faire lorsque l'on clique sur le bouton retour
+		fenetre.changerVue(new AccueilView(fenetre, modele));
+	}
 	}
 }
