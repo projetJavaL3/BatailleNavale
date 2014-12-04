@@ -41,7 +41,7 @@ public class Fenetre extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new PlacementView(this, modele));
+		this.changerVue(new AccueilView(this, modele));
 		this.setVisible(true);		
 	}
 
