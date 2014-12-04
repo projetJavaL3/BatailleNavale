@@ -4,9 +4,11 @@ import BatailleNavale.Model.*;
 import BatailleNavale.View.*;
 
 import java.awt.event.*;
+import javax.swing.JOptionPane;
 
 public class MenuController extends AbstractController implements ActionListener
 {
+    private int choix;
 
     public MenuController(Fenetre fenetre, Modele modele)
     {
@@ -21,13 +23,13 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if(arg0.getSource() == fenetre.getItemQuitter())
         {
-            fenetre.afficherMessage("Etes-vous sur de vouloir quitter ?", "Attention");
-            System.exit(0);
+            choix = fenetre.afficherChoixMessage("Êtes-vous sur de vouloir quitter ?", "Attention");
+            if(choix == JOptionPane.YES_OPTION)
+                System.exit(0);
         }
         else if(arg0.getSource() == fenetre.getItemAide())
         {
-            fenetre.afficherMessage("Tu veux savoir comment marche le jeu, bin tu te debrouille, non mais ooh! PFF", "Aide");
-            //System.exit(0);
+            fenetre.changerVue(new AideView(fenetre, modele));
         }
 	}  
 }

@@ -55,7 +55,11 @@ public class Fenetre extends JFrame
 	public void afficherMessage(String message, String entete)
 	{
 		boite_dialogue.showMessageDialog(null, message, entete, JOptionPane.INFORMATION_MESSAGE);
-		
+	}
+
+	public int afficherChoixMessage(String message, String entete)
+	{
+		return boite_dialogue.showConfirmDialog(null, message, entete, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	}
 
 	public AbstractView getContainer()
