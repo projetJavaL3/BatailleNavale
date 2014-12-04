@@ -21,8 +21,13 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if(arg0.getSource() == fenetre.getItemQuitter())
         {
-            fenetre.afficherMessage("Etes-vous sûr de vouloir quitter ?", "Attention");
+            fenetre.afficherMessage("Etes-vous sur de vouloir quitter ?", "Attention");
             System.exit(0);
+        }
+        else if(arg0.getSource() == fenetre.getItemAide())
+        {
+            fenetre.afficherMessage("Tu veux savoir comment marche le jeu, bin tu te debrouille, non mais ooh! PFF", "Aide");
+            //System.exit(0);
         }
 	}  
 }
