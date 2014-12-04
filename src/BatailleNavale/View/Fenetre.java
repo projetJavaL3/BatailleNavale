@@ -29,12 +29,9 @@ public class Fenetre extends JFrame
 	private	JMenuItem item_fichier_menuPrincipal = new JMenuItem("Menu principal");
 	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
 	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
-<<<<<<< HEAD
 
-=======
 	private	JMenuItem item_aide = new JMenuItem("A propos de Bataille Navale");
  	
->>>>>>> b38da0ca8ba6ea316f735e5d36dba4bde773f0f3
 	public Fenetre(Modele modele)
 	{
 		super("Bataille Navale");
@@ -60,8 +57,6 @@ public class Fenetre extends JFrame
 		boite_dialogue.showMessageDialog(null, message, entete, JOptionPane.INFORMATION_MESSAGE);
 		
 	}
-	
-	
 
 	public AbstractView getContainer()
 	{
