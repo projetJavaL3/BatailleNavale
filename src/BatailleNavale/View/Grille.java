@@ -25,8 +25,7 @@ public class Grille extends JPanel implements MouseListener
  	private JButton[][] cases;
  	private Joueur joueur;
  	private boolean afficher_bateaux;
- 	private JeuController controleur;
-
+ 
  	private Color couleur;
 
  	public Grille(int taille, Joueur joueur, boolean afficher_bateaux)
@@ -75,13 +74,24 @@ public class Grille extends JPanel implements MouseListener
 
 	public void addController(JeuController controleur)
 	{
-		this.controleur = controleur;
 		for (int i=0; i<taille; i++)
 		{
 			for(int j=0; j<taille; j++)
 			{
 				cases[i][j].addMouseListener(this);
 				cases[i][j].addActionListener(controleur);
+				cases[i][j].setEnabled(true);
+			}			
+		}
+	}
+
+	public void addController(PlacementController controleur)
+	{
+		for (int i=0; i<taille; i++)
+		{
+			for(int j=0; j<taille; j++)
+			{
+				cases[i][j].addMouseListener(controleur);
 				cases[i][j].setEnabled(true);
 			}			
 		}

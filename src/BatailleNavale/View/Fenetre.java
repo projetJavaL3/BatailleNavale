@@ -25,10 +25,12 @@ public class Fenetre extends JFrame
 	private JMenuBar menubar = new JMenuBar();
 	private JMenu menu_fichier = new JMenu("Fichier");
 	private	JMenu menu_edition = new JMenu("Edition");
+	private	JMenu menu_aide = new JMenu("Aide");
 	private	JMenuItem item_fichier_menuPrincipal = new JMenuItem("Menu principal");
 	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
 	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
 
+	private	JMenuItem item_aide = new JMenuItem("A propos de Bataille Navale");
  	
 	public Fenetre(Modele modele)
 	{
@@ -54,7 +56,11 @@ public class Fenetre extends JFrame
 	{
 		boite_dialogue.showMessageDialog(null, message, entete, JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
+	public int afficherChoixMessage(String message, String entete)
+	{
+		return boite_dialogue.showConfirmDialog(null, message, entete, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	}
 
 	public AbstractView getContainer()
 	{
@@ -70,16 +76,20 @@ public class Fenetre extends JFrame
 		
 		menu_fichier.add(item_fichier_menuPrincipal);
 		menu_fichier.add(item_fichier_quitter);
+		
 
 		menu_edition.add(item_edition_annuler);
-
+		menu_aide.add(item_aide);
+		
 		menubar.add(menu_fichier);
 		menubar.add(menu_edition);
+		menubar.add(menu_aide);
 				
 		this.setJMenuBar(menubar);
 
 		item_fichier_menuPrincipal.addActionListener(controleur);
 		item_fichier_quitter.addActionListener(controleur);
+		item_aide.addActionListener(controleur);
 	}
 
 	public JMenuItem getItemMenuPrincipal()
@@ -90,6 +100,10 @@ public class Fenetre extends JFrame
 	public JMenuItem getItemQuitter()
 	{
 		return this.item_fichier_quitter;
+	}
+	public JMenuItem getItemAide()
+	{
+		return this.item_aide;
 	}
 
 	public static void main(String[] args)

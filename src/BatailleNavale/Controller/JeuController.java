@@ -18,7 +18,6 @@ public abstract class JeuController extends AbstractController implements Action
 
 	public abstract void tirerSurEnnemi(int x, int y, int indice_adversaire);   
 
-
 	public void actionPerformed(ActionEvent arg0)
     {
  		Grille grille = view.getGrilleEnnemi();
