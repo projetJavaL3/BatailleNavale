@@ -29,7 +29,6 @@ public class Fenetre extends JFrame
 	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
 	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
 
- 	
 	public Fenetre(Modele modele)
 	{
 		super("Bataille Navale");
@@ -39,7 +38,7 @@ public class Fenetre extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new AccueilView(this, modele));
+		this.changerVue(new PlacementView(this, modele));
 		this.setVisible(true);		
 	}
 
@@ -54,6 +53,7 @@ public class Fenetre extends JFrame
 	{
 		boite_dialogue.showMessageDialog(null, message, entete, JOptionPane.INFORMATION_MESSAGE);
 	}
+	
 	
 
 	public AbstractView getContainer()
