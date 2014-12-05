@@ -30,7 +30,6 @@ import java.awt.event.WindowEvent;
 public class OptionsView extends AbstractView
 {
 	private OptionsController controleur;
-	private OptionsController listener ;
 	
 	private JPanel pan = new JPanel();
 	private JPanel pan2 = new JPanel();
@@ -84,7 +83,6 @@ public class OptionsView extends AbstractView
 		//Texte Sélectionner le niveau de l'IA
 		texte3.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
 		texte3.setForeground(Color.white);
-		//texte3.setBounds(500,280, 500, 50);
 		
 		check1.setBackground(Color.black); // new Color(0,0,0,125));
 		check1.setForeground(Color.white);
@@ -149,18 +147,17 @@ public class OptionsView extends AbstractView
 		rb_difficile.setBounds(20,150,100,20);
 		texte3.setBounds(10,10,300,20);
 		
-		check1.setName("c1");
 		b_jouer.addActionListener(controleur);
 		b_retour.addActionListener(controleur);
-		check1.addItemListener(listener);
-		/*check1.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				int state = arg0.getStateChange();
-			    if (state == ItemEvent.SELECTED)
-					System.out.println("Porte Avion selectionné ");
-			}
-			});*/
-		//check1.addItemListener(controleur);
+		check1.addItemListener(controleur);
+		check2.addItemListener(controleur);
+		check3.addItemListener(controleur);
+		check4.addItemListener(controleur);
+		check5.addItemListener(controleur);
+		rb_facile.addItemListener(controleur);
+		rb_moyen.addItemListener(controleur);
+		rb_difficile.addItemListener(controleur);
+	
 		
 		bg.add(rb_facile);
 		bg.add(rb_moyen);
