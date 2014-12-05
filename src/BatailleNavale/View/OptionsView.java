@@ -17,14 +17,20 @@ import javax.swing.JPanel;
 
 import java.awt.Checkbox;
 import java.awt.GridLayout;
-
+import java.awt.event.*;
 import java.awt.Font;
 import java.awt.Color;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class OptionsView extends AbstractView
 {
-	private OptionsController controleur;	
+	private OptionsController controleur;
+	private OptionsController listener ;
 	
 	private JPanel pan = new JPanel();
 	private JPanel pan2 = new JPanel();
@@ -39,11 +45,11 @@ public class OptionsView extends AbstractView
 	private final JRadioButton rb_moyen = new JRadioButton("Moyen : ");
 	private final JRadioButton rb_difficile = new JRadioButton("Difficile :");
 	
-	private final Checkbox check1 = new Checkbox("Porte-avions");
-	private final Checkbox check2 = new Checkbox("Sous-marin nucléaire");
-	private final Checkbox check3 = new Checkbox("Cuirassés furtifs");
-	private final Checkbox check4 = new Checkbox("Cuirassés furtifs");
-	private final Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions");
+	private final Checkbox check1 = new Checkbox("Porte-avions" ,true);
+	private final Checkbox check2 = new Checkbox("Sous-marin nucléaire" ,true);
+	private final Checkbox check3 = new Checkbox("Cuirassés furtifs" ,true);
+	private final Checkbox check4 = new Checkbox("Cuirassés furtifs",true);
+	private final Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions", true);
 	
 	private final Bouton b_jouer = new Bouton("Jouer");
 	private final Bouton b_retour = new Bouton("Retour");
@@ -80,45 +86,36 @@ public class OptionsView extends AbstractView
 		texte3.setForeground(Color.white);
 		//texte3.setBounds(500,280, 500, 50);
 		
-		//check1.setBounds(50, 100, 400, 90);
 		check1.setBackground(Color.black); // new Color(0,0,0,125));
 		check1.setForeground(Color.white);
 		check1.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 18));
 		
-		//check2.setBounds(50,160, 400, 90);
 		check2.setBackground(Color.black);
 		check2.setForeground(Color.white);
 		check2.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 18));
 		
-		//check3.setBounds(50,250, 400, 90);
 		check3.setBackground(Color.black);
 		check3.setForeground(Color.white);
 		check3.setFont(new Font("DejaVu Serif Condensed", Font.BOLD | Font.ITALIC, 18));
 		
-		//check4.setBounds(50,340, 400, 90);
 		check4.setBackground(Color.black);
 		check4.setForeground(Color.white);
 		check4.setFont(new Font("Liberation Sans", Font.BOLD | Font.ITALIC, 18));
 
-		//check5.setBounds(50,400, 400, 80);
 		check5.setBackground(Color.black);
 		check5.setForeground(Color.white);
 		check5.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
 		
-		//spinner.setBounds(
 		spinner.setBackground(Color.black);
 		spinner.setForeground(Color.green);
 		spinner.setModel(new SpinnerNumberModel(10, 10, 20, 1));
 		
-		//rb_facile.setBounds(500, 300, 300, 85);
 		rb_facile.setBackground(Color.black);
 		rb_facile.setForeground(Color.white);
 		
-		//rb_moyen.setBounds(500, 380, 300, 50);
 		rb_moyen.setBackground(Color.black);
 		rb_moyen.setForeground(Color.white);
 		
-		//rb_difficile.setBounds(500,430,300,48);
 		rb_difficile.setBackground(Color.black);
 		rb_difficile.setForeground(Color.white);
 
@@ -152,8 +149,18 @@ public class OptionsView extends AbstractView
 		rb_difficile.setBounds(20,150,100,20);
 		texte3.setBounds(10,10,300,20);
 		
+		check1.setName("c1");
 		b_jouer.addActionListener(controleur);
 		b_retour.addActionListener(controleur);
+		check1.addItemListener(listener);
+		/*check1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				int state = arg0.getStateChange();
+			    if (state == ItemEvent.SELECTED)
+					System.out.println("Porte Avion selectionné ");
+			}
+			});*/
+		//check1.addItemListener(controleur);
 		
 		bg.add(rb_facile);
 		bg.add(rb_moyen);
@@ -173,19 +180,8 @@ public class OptionsView extends AbstractView
 		pan3.add(texte3);
 		
 		this.add(texte_options);
-		//this.add(texte);
-		//this.add(texte2);
-		//this.add(texte3);
-		//this.add(check1);
-		//this.add(check2);
-		//this.add(check3);
-		//this.add(check4);
-		//this.add(check5);
 		this.add(b_jouer);
 		this.add(b_retour);
-		//this.add(rb_facile);
-		//this.add(rb_moyen);
-		//this.add(rb_difficile);
 		this.add(pan);
 		this.add(pan2);
 		this.add(pan3);
@@ -199,5 +195,50 @@ public class OptionsView extends AbstractView
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;
+	}
+	
+	public JRadioButton getBoutonFacile()
+	{
+		return rb_facile;
+	}
+	
+	public JRadioButton getBoutonMoyen()
+	{
+		return rb_moyen;
+	}
+	
+	public JRadioButton getBoutonDifficile()
+	{
+		return rb_difficile;
+	}
+	
+	public Checkbox getBoutonPortesAvions()
+	{
+		return check1;
+	}
+	
+	public Checkbox getBoutonSousMarin()
+	{
+		return check2;
+	}
+	
+	public Checkbox getBoutonCuirassée()
+	{
+		return check3;
+	}
+	
+	public Checkbox getBoutonCuirassée2()
+	{
+		return check4;
+	}
+	
+	public Checkbox getBoutonZodiac()
+	{
+		return check5;
+	}
+	
+	public JSpinner getTailleChampDeBataille()
+	{
+		return spinner;
 	}
 }
