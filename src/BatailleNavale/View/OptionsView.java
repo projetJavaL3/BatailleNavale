@@ -6,6 +6,7 @@ import BatailleNavale.Controller.*;
 
 import java.util.Observer;
 import java.util.Observable;
+import java.util.EventListener;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -21,6 +22,9 @@ import java.awt.event.*;
 import java.awt.Font;
 import java.awt.Color;
 
+import java.util.EventListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
@@ -157,7 +161,7 @@ public class OptionsView extends AbstractView
 		rb_facile.addItemListener(controleur);
 		rb_moyen.addItemListener(controleur);
 		rb_difficile.addItemListener(controleur);
-	
+		spinner.addChangeListener(controleur);
 		
 		bg.add(rb_facile);
 		bg.add(rb_moyen);
@@ -183,7 +187,7 @@ public class OptionsView extends AbstractView
 		this.add(pan2);
 		this.add(pan3);
 	}
-
+	
 	public Bouton getBoutonJouer()
 	{
 		return b_jouer;
@@ -237,5 +241,11 @@ public class OptionsView extends AbstractView
 	public JSpinner getTailleChampDeBataille()
 	{
 		return spinner;
+	}
+	
+	public int getValeurSpinner()
+	{
+		int a = (int) spinner.getValue();
+		return a ;
 	}
 }
