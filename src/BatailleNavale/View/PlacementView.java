@@ -24,7 +24,7 @@ public class PlacementView extends AbstractView
 	{
 		this.setLayout(null);
 
-		this.grille = new Grille(10, new Humain("hdjke"), true);
+		this.grille = new Grille(10, modele.getJoueurCourant(), true);
 		this.grille.setBounds(67, 150, 316, 357);
 		this.grille.addController(controleur);
 

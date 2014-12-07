@@ -1,6 +1,7 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Controller.*;
 
@@ -17,6 +18,12 @@ import javax.swing.JButton;
 import java.awt.event.*;
 import java.applet.*;  
 import java.io.*;  
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class Grille extends JPanel implements MouseListener
 {
@@ -43,33 +50,108 @@ public class Grille extends JPanel implements MouseListener
 	{
 		removeAll();
 
+		int k = 0;
+		Bateau[] bateaux = joueur.getBateaux();
+		int[] indice_b = new int[bateaux.length];
+		int[] indice_x = new int[bateaux.length];
+		boolean[] orientation = new boolean[bateaux.length];
+		for(int i=0; i<indice_b.length; i++)
+		{
+			indice_b[i] = 0;
+			indice_x[i] = -1;
+		}
+
+		Bloc[] blocs = joueur.getChampDeBataille().getEmplacements();
+		for(int i=0; i<blocs.length; i++)
+		{
+			for(int j=0; j<bateaux.length; j++)
+			{
+				if(blocs[i].getBateau() == bateaux[j])
+				{
+					if(indice_x[j] == -1)
+						indice_x[j] = blocs[i].getPosition().getCoord_X();
+					else
+						orientation[j] = (indice_x[j] == blocs[i].getPosition().getCoord_X());
+				}
+			}
+		}
+
+
 		for(int i=0; i<taille; i++)
 		{
 			for(int j=0; j<taille; j++)
 			{
+				
 				cases[i][j] = new JButton();
 				cases[i][j].setBackground(new Color(112, 128, 144));
 				cases[i][j].setBorder(new LineBorder(new Color(200,200,200), 1, false));
 				cases[i][j].setFocusable(false);
-				cases[i][j].setEnabled(false);
+				cases[i][j].setEnabled(true);
 
 				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)))
 					cases[i][j].setBackground(new Color(250, 150, 0));
 
 				if(joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 					if(afficher_bateaux)
-						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() != EtatBloc.TOUCHE)
-							cases[i][j].setBackground(new Color(0, 0, 0));
-						else 
+					{
+						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
 							cases[i][j].setBackground(new Color(255, 0, 0));
+
+						Bateau b = joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getBateau();
+						for(int l=0; l<bateaux.length; l++)
+							if(bateaux[l] == b)
+								k = l;
+
+
+						String path = "images/" + getImageBateau(b) + (orientation[k]?"":"_r") + ".png";
+						Image img = new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
+
+						if(orientation[k])
+						{
+							BufferedImage bi = new BufferedImage(28, 28, BufferedImage.TYPE_INT_ARGB); 
+			                Graphics g = bi.createGraphics(); 
+			                g.drawImage(img, -((indice_b[k])*(28)), 0, 28*b.getTaille(), 20, null); 
+			                cases[i][j].setIcon(new ImageIcon(bi));
+			                
+						}
+						else
+						{
+							BufferedImage bi = new BufferedImage(33, 33, BufferedImage.TYPE_INT_ARGB); 
+			                Graphics g = bi.createGraphics(); 
+			                g.drawImage(img, 5, -((indice_b[k])*(33)), 20, 33*b.getTaille(), null); 
+			                cases[i][j].setIcon(new ImageIcon(bi));
+						}
+
+		                indice_b[k]++;
+					}
+
 					else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
 						cases[i][j].setBackground(new Color(255, 0, 0));
 
+				
 				this.add(cases[i][j]);	
 			}
 		}
+	}
 
-		repaint();
+
+
+	public String getImageBateau(Bateau bateau)
+	{
+		String b_nom = new String();
+
+		if(bateau.getNom().equals("Cuirasse"))
+			b_nom = "cuirasse";
+		else if(bateau.getNom().equals("Porte Avion"))
+			b_nom = "porte_avion";
+		else if(bateau.getNom().equals("Sous-Marin"))
+			b_nom = "sous_marin";
+		else if(bateau.getNom().equals("Zodiac"))
+			b_nom = "zodiac";
+
+		
+
+		return b_nom; 
 	}
 
 	public void addController(JeuController controleur)
