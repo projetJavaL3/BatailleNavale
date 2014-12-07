@@ -118,9 +118,9 @@ public class Fenetre extends JFrame
 		modele.setTypePartie(TypePartie.CLASSIQUE);
 
 		modele.ajouterJoueur(h1);
-		modele.ajouterJoueur(h2);
+//		modele.ajouterJoueur(h2);
 		modele.ajouterJoueur(h3);
-		modele.ajouterJoueur(h4);
+	//	modele.ajouterJoueur(h4);
 
 		h1.ajouterBateau(new Cuirasse());
 		h1.ajouterBateau(new SousMarin());

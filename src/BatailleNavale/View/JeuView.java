@@ -88,7 +88,7 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 
 		selection_adversaire.addItemListener(this);
 
-		this.revalidate();
+		this.repaint();
 	}
 
 	public Grille getGrilleEnnemi()

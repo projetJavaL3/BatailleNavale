@@ -14,7 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
 import javax.swing.JButton;
-
+import java.awt.Insets;
 import java.awt.event.*;
 import java.applet.*;  
 import java.io.*;  
@@ -24,10 +24,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
 
 public class Grille extends JPanel implements MouseListener
 {
- 
  	private int taille;
  	private JButton[][] cases;
  	private Joueur joueur;
@@ -42,7 +42,7 @@ public class Grille extends JPanel implements MouseListener
 		this.joueur = joueur;
 		this.afficher_bateaux = afficher_bateaux;
 		this.setBackground(new Color(0, 0, 0, 0));
-		this.setLayout(new GridLayout(taille, taille));
+		this.setLayout(new GridLayout(taille, taille, 0, 0));
 		initialiserCases();
 	}
  
@@ -84,9 +84,9 @@ public class Grille extends JPanel implements MouseListener
 				
 				cases[i][j] = new JButton();
 				cases[i][j].setBackground(new Color(112, 128, 144));
-				cases[i][j].setBorder(new LineBorder(new Color(200,200,200), 1, false));
+				cases[i][j].setBorder(new LineBorder(new Color(50, 50, 50, 100), 1, false));
 				cases[i][j].setFocusable(false);
-				cases[i][j].setEnabled(true);
+				cases[i][j].setEnabled(false);
 
 				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)))
 					cases[i][j].setBackground(new Color(250, 150, 0));
@@ -102,23 +102,22 @@ public class Grille extends JPanel implements MouseListener
 							if(bateaux[l] == b)
 								k = l;
 
-
-						String path = "images/" + getImageBateau(b) + (orientation[k]?"":"_r") + ".png";
-						Image img = new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
-
+						Image img = getImageBateau(b, orientation[k]);
+						
 						if(orientation[k])
 						{
-							BufferedImage bi = new BufferedImage(28, 28, BufferedImage.TYPE_INT_ARGB); 
+							BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB); 
 			                Graphics g = bi.createGraphics(); 
-			                g.drawImage(img, -((indice_b[k])*(28)), 0, 28*b.getTaille(), 20, null); 
+			                g.drawImage(img, -((indice_b[k])*(30)), 5, 30*b.getTaille(), 20, null); 
+			               	cases[i][j].setDisabledIcon(new ImageIcon(bi));
 			                cases[i][j].setIcon(new ImageIcon(bi));
-			                
 						}
 						else
 						{
-							BufferedImage bi = new BufferedImage(33, 33, BufferedImage.TYPE_INT_ARGB); 
+							BufferedImage bi = new BufferedImage(35, 35, BufferedImage.TYPE_INT_ARGB); 
 			                Graphics g = bi.createGraphics(); 
-			                g.drawImage(img, 5, -((indice_b[k])*(33)), 20, 33*b.getTaille(), null); 
+			                g.drawImage(img, 5, -((indice_b[k])*(35)), 20, 35*b.getTaille(), null); 
+			                cases[i][j].setDisabledIcon(new ImageIcon(bi));
 			                cases[i][j].setIcon(new ImageIcon(bi));
 						}
 
@@ -130,13 +129,13 @@ public class Grille extends JPanel implements MouseListener
 
 				
 				this.add(cases[i][j]);	
+
+				this.repaint();
 			}
 		}
 	}
 
-
-
-	public String getImageBateau(Bateau bateau)
+	public Image getImageBateau(Bateau bateau, boolean orientation)
 	{
 		String b_nom = new String();
 
@@ -149,9 +148,10 @@ public class Grille extends JPanel implements MouseListener
 		else if(bateau.getNom().equals("Zodiac"))
 			b_nom = "zodiac";
 
-		
+		String path = "images/" + b_nom + (orientation?"":"_r") + ".png";
+		Image img = new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
 
-		return b_nom; 
+		return img; 
 	}
 
 	public void addController(JeuController controleur)
