@@ -58,11 +58,11 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 		tirs = joueur_courant.getTirsSurJoueur();
 
 		grille_joueur = new Grille(10, joueur_courant, true);
-		grille_joueur.setBounds(67, 187, 316, 357);
+		grille_joueur.setBounds(67, 187, 320, 320);
 		
 		grille_ennemi = new Grille(10, ennemi, false);
 		grille_ennemi.addController(controleur);
-		grille_ennemi.setBounds(504, 187, 316, 357);
+		grille_ennemi.setBounds(504, 187, 320, 320);
 
 		lblMaFlotte = new JLabel(joueur_courant.getNom());
 		lblMaFlotte.setBounds(67, 160, 200, 15);

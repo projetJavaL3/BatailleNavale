@@ -30,9 +30,14 @@ public class Grille extends JPanel implements MouseListener
 {
  	private int taille;
  	private JButton[][] cases;
+ 	private int taille_case = 32;
  	private Joueur joueur;
  	private boolean afficher_bateaux;
  
+ 	private Image img;
+ 	private BufferedImage bi; 
+	private Graphics g;
+
  	private Color couleur;
 
  	public Grille(int taille, Joueur joueur, boolean afficher_bateaux)
@@ -81,52 +86,53 @@ public class Grille extends JPanel implements MouseListener
 		{
 			for(int j=0; j<taille; j++)
 			{
-				
+				this.bi = new BufferedImage(taille_case, taille_case, BufferedImage.TYPE_INT_ARGB);
+				this.g = bi.createGraphics(); 
+
 				cases[i][j] = new JButton();
 				cases[i][j].setBackground(new Color(112, 128, 144));
 				cases[i][j].setBorder(new LineBorder(new Color(50, 50, 50, 100), 1, false));
 				cases[i][j].setFocusable(false);
 				cases[i][j].setEnabled(false);
-
-				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)))
-					cases[i][j].setBackground(new Color(250, 150, 0));
+					
+				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)) && !joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
+				{	
+					img = new ImageIcon(getClass().getClassLoader().getResource("images/rate.png")).getImage();
+					g.drawImage(img, taille_case/4, taille_case/4, taille_case/2, taille_case/2, null);
+				}
 
 				if(joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 					if(afficher_bateaux)
 					{
-						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
-							cases[i][j].setBackground(new Color(255, 0, 0));
-
 						Bateau b = joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getBateau();
 						for(int l=0; l<bateaux.length; l++)
 							if(bateaux[l] == b)
 								k = l;
 
-						Image img = getImageBateau(b, orientation[k]);
+						img = getImageBateau(b, orientation[k]);
 						
 						if(orientation[k])
-						{
-							BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB); 
-			                Graphics g = bi.createGraphics(); 
-			                g.drawImage(img, -((indice_b[k])*(30)), 5, 30*b.getTaille(), 20, null); 
-			               	cases[i][j].setDisabledIcon(new ImageIcon(bi));
-			                cases[i][j].setIcon(new ImageIcon(bi));
-						}
+							g.drawImage(img, -(indice_b[k]*taille_case), 0, taille_case*b.getTaille(), taille_case, null);
 						else
-						{
-							BufferedImage bi = new BufferedImage(35, 35, BufferedImage.TYPE_INT_ARGB); 
-			                Graphics g = bi.createGraphics(); 
-			                g.drawImage(img, 5, -((indice_b[k])*(35)), 20, 35*b.getTaille(), null); 
-			                cases[i][j].setDisabledIcon(new ImageIcon(bi));
-			                cases[i][j].setIcon(new ImageIcon(bi));
-						}
+							g.drawImage(img, 0, -(indice_b[k]*taille_case), taille_case, taille_case*b.getTaille(), null);       
+						
+						indice_b[k]++;
 
-		                indice_b[k]++;
+						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
+						{
+							img = new ImageIcon(getClass().getClassLoader().getResource("images/feu.png")).getImage();
+							g.drawImage(img, 0, -5, taille_case, taille_case, null);
+						}
 					}
 
-					else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
-						cases[i][j].setBackground(new Color(255, 0, 0));
+				else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
+				{
+					img = new ImageIcon(getClass().getClassLoader().getResource("images/feu.png")).getImage();
+					g.drawImage(img, 0, 0, taille_case, taille_case, null);
+				}
 
+				cases[i][j].setDisabledIcon(new ImageIcon(bi));
+			    cases[i][j].setIcon(new ImageIcon(bi));
 				
 				this.add(cases[i][j]);	
 
@@ -148,7 +154,7 @@ public class Grille extends JPanel implements MouseListener
 		else if(bateau.getNom().equals("Zodiac"))
 			b_nom = "zodiac";
 
-		String path = "images/" + b_nom + (orientation?"":"_r") + ".png";
+		String path = "images/bateaux/" + b_nom + (orientation?"":"_r") + ".png";
 		Image img = new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
 
 		return img; 
