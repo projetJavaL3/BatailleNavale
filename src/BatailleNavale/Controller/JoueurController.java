@@ -18,7 +18,7 @@ public class JoueurController extends AbstractController implements ActionListen
     {
         if(arg0.getSource() == view.getBoutonAjouterJoueur()){
             view.ajouterJoueur();
-            System.out.println("C'est rentré dans action performed: nbjoueur = "+view.getNbJoueurs());
+            System.out.println("Ok");
         }
     }
 }
