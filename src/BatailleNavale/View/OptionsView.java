@@ -110,16 +110,31 @@ public class OptionsView extends AbstractView
 		
 		spinner.setBackground(Color.black);
 		spinner.setForeground(Color.green);
-		spinner.setModel(new SpinnerNumberModel(10, 10, 20, 1));
+		spinner.setModel(new SpinnerNumberModel(modele.getOptions().getTailleGrille(), 10, 15, 1));
 		
 		rb_facile.setBackground(Color.black);
 		rb_facile.setForeground(Color.white);
+
+		if (modele.getOptions().getNiveauIA() == 0)
+		{
+			rb_facile.setSelected(true);
+		}
 		
 		rb_moyen.setBackground(Color.black);
 		rb_moyen.setForeground(Color.white);
 		
+		if (modele.getOptions().getNiveauIA() == 1)
+		{
+			rb_moyen.setSelected(true);
+		}
+		
 		rb_difficile.setBackground(Color.black);
 		rb_difficile.setForeground(Color.white);
+		
+		if (modele.getOptions().getNiveauIA() == 2)
+		{
+			rb_difficile.setSelected(true);
+		}
 
 		b_retour.setBounds(10,560,100,50);
 		b_jouer.setBounds(790,560,100,50);

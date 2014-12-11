@@ -57,10 +57,10 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 		ennemi = adversaires[selection_adversaire.getSelectedIndex()];
 		tirs = joueur_courant.getTirsSurJoueur();
 
-		grille_joueur = new Grille(10, joueur_courant, true);
+		grille_joueur = new Grille(modele.getOptions().getTailleGrille(), joueur_courant, true);
 		grille_joueur.setBounds(67, 187, 320, 320);
 		
-		grille_ennemi = new Grille(10, ennemi, false);
+		grille_ennemi = new Grille(modele.getOptions().getTailleGrille(), ennemi, false);
 		grille_ennemi.addController(controleur);
 		grille_ennemi.setBounds(504, 187, 320, 320);
 

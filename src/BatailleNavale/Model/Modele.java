@@ -25,6 +25,11 @@ public class Modele extends Observable
 	 * Indice du joueur courant
 	 */
 	private int indice_joueur_courant;
+	
+	/**
+	 * Options de la partie
+	 */
+	private Options options;
 
 	/**
 	 * Constructeur par defaut du modele
@@ -33,6 +38,7 @@ public class Modele extends Observable
 	{
 		this.joueurs = new ArrayList<Joueur>();
 		this.type = TypePartie.CLASSIQUE;
+		this.options = new Options();
 		this.indice_joueur_courant = 0;
 	}	
 	
@@ -145,5 +151,10 @@ public class Modele extends Observable
 	public TypePartie getTypePartie()
 	{
 		return this.type;
+	}
+	
+	public Options getOptions()
+	{
+		return options;
 	}
 }
