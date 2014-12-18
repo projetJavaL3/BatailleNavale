@@ -1,6 +1,7 @@
 package BatailleNavale.View;
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Controller.*;
 
@@ -17,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import java.awt.Checkbox;
+
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.awt.Font;
@@ -30,179 +32,148 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import java.awt.GridLayout;
 
 public class OptionsView extends AbstractView
 {
 	private OptionsController controleur;
 	
-	private JPanel pan = new JPanel();
-	private JPanel pan2 = new JPanel();
-	private JPanel pan3 = new JPanel();
+	private boolean[] coches = new boolean[5];
+
+	private final Panneau pan = new Panneau();
+	private final Panneau pan2 = new Panneau();
+	private final Panneau pan3 = new Panneau();
 	
-	private final JLabel texte = new JLabel ("Sélectionner vos Bateaux : ");
-	private final JLabel texte2 = new JLabel ("Sélectionner la taille du Champs de Bataille : ");
-	private final JLabel texte3 = new JLabel ("Sélectionner le niveau de l'IA : ");
+	private final JLabel texte = new JLabel (" Sélectionner vos bateaux : ");
+	private final JLabel texte2 = new JLabel (" Sélectionner la taille des grilles : ");
+	private final JLabel texte3 = new JLabel (" Sélectionner le niveau de l'IA : ");
 	private final JLabel texte_options = new JLabel ("Options : ");
 	
 	private final JRadioButton rb_facile = new JRadioButton("Facile :");
 	private final JRadioButton rb_moyen = new JRadioButton("Moyen : ");
 	private final JRadioButton rb_difficile = new JRadioButton("Difficile :");
 	
-	private final Checkbox check1 = new Checkbox("Porte-avions" ,true);
-	private final Checkbox check2 = new Checkbox("Sous-marin nucléaire" ,true);
-	private final Checkbox check3 = new Checkbox("Cuirassés furtifs" ,true);
-	private final Checkbox check4 = new Checkbox("Cuirassés furtifs",true);
+	private final ButtonGroup bg = new ButtonGroup();
+	private final Checkbox check1 = new Checkbox("Porte-avions", true);
+	private final Checkbox check2 = new Checkbox("Sous-marin nucléaire", true);
+	private final Checkbox check3 = new Checkbox("Cuirassé furtif", true);
+	private final Checkbox check4 = new Checkbox("Cuirassé furtif", true);
 	private final Checkbox check5 = new Checkbox("Zodiac de troupes d’interventions", true);
 	
-	private final Bouton b_jouer = new Bouton("Jouer");
-	private final Bouton b_retour = new Bouton("Retour");
-
 	private final JSpinner spinner = new JSpinner();
 	
-	private final ButtonGroup bg = new ButtonGroup();
+	private final Bouton b_jouer = new Bouton("Jouer");
+	private final Bouton b_retour = new Bouton("Retour");	
 
-	public OptionsView(Fenetre fenetre, Modele modele)
+
+	public OptionsView()
 	{	
-		super(fenetre, modele);
-		this.controleur = new OptionsController(this, modele);
-		initPanel();
+		super();	
+		this.controleur = new OptionsController(this);
 	}
 	
 	public void initPanel()
 	{		
-		this.setLayout(null);
-		
-		//Texte Options
+		this.removeAll();
+
 		texte_options.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 30));
-		texte_options.setForeground(Color.white);
 		texte_options.setBounds(340, 20, 500, 50);
-		//Texte Selectionner vos Bateaux
+
 		texte.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
-		texte.setForeground(Color.white);
-		texte.setBounds(50,80, 500, 15);
-		//Texte Selectionner la taille du Champs de Bataille
 		texte2.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
-		texte2.setForeground(Color.white);
-		texte2.setBounds(500,80, 500, 50);
-		//Texte Sélectionner le niveau de l'IA
 		texte3.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
-		texte3.setForeground(Color.white);
-		
-		check1.setBackground(Color.black); // new Color(0,0,0,125));
-		check1.setForeground(Color.white);
-		check1.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 18));
-		
-		check2.setBackground(Color.black);
-		check2.setForeground(Color.white);
-		check2.setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 18));
-		
-		check3.setBackground(Color.black);
-		check3.setForeground(Color.white);
-		check3.setFont(new Font("DejaVu Serif Condensed", Font.BOLD | Font.ITALIC, 18));
-		
-		check4.setBackground(Color.black);
-		check4.setForeground(Color.white);
-		check4.setFont(new Font("Liberation Sans", Font.BOLD | Font.ITALIC, 18));
 
-		check5.setBackground(Color.black);
-		check5.setForeground(Color.white);
-		check5.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 18));
+		spinner.setModel(new SpinnerNumberModel(fenetre.getModele().getOptions().getTailleGrille(), 10, 20 , 1));
 		
-		spinner.setBackground(Color.black);
-		spinner.setForeground(Color.green);
-		spinner.setModel(new SpinnerNumberModel(modele.getOptions().getTailleGrille(), 10, 15, 1));
-		
-		rb_facile.setBackground(Color.black);
-		rb_facile.setForeground(Color.white);
-
-		if (modele.getOptions().getNiveauIA() == 0)
+		switch(fenetre.getModele().getOptions().getNiveauIA())
 		{
-			rb_facile.setSelected(true);
+			case 1:
+				rb_difficile.setSelected(true);
+				break;
+			case 2:
+				rb_moyen.setSelected(true);
+				break;
+			default:
+				rb_facile.setSelected(true);
+				break;
 		}
 		
-		rb_moyen.setBackground(Color.black);
-		rb_moyen.setForeground(Color.white);
-		
-		if (modele.getOptions().getNiveauIA() == 1)
-		{
-			rb_moyen.setSelected(true);
-		}
-		
-		rb_difficile.setBackground(Color.black);
-		rb_difficile.setForeground(Color.white);
-		
-		if (modele.getOptions().getNiveauIA() == 2)
-		{
-			rb_difficile.setSelected(true);
-		}
-
-		b_retour.setBounds(10,560,100,50);
-		b_jouer.setBounds(790,560,100,50);
-		
-		pan.setLayout(null);
-		pan.setBackground(Color.black);
+		pan.setLayout(new GridLayout(6, 1));
 		pan.setBounds(50, 110, 400, 410); 
 		
 		pan2.setLayout(null);
-		pan2.setBackground(Color.black);
-		pan2.setBounds(480,110,360,150);
+		pan2.setBounds(480, 110, 360, 150);
 		
 		pan3.setLayout(null);
-		pan3.setBackground(Color.black);
-		pan3.setBounds(480,300,360,220);
+		pan3.setBounds(480, 300, 360, 220);
 		
-		check1.setBounds(10, 20, 400, 90);
-		check2.setBounds(10,80, 400, 90);
-		check3.setBounds(10,150, 400, 90);
-		check4.setBounds(10,240, 400, 90);
-		check5.setBounds(10,310, 400, 80);
-		texte.setBounds(10,10,300,10);
-		
+		texte2.setBounds(10, 10, 400, 20);
 		spinner.setBounds(150, 50, 60, 40);
-		texte2.setBounds(10,10,400,20);
 		
-		rb_facile.setBounds(20,50,100,20);
-		rb_moyen.setBounds(20 , 100,100,20);
-		rb_difficile.setBounds(20,150,100,20);
 		texte3.setBounds(10,10,300,20);
+		rb_facile.setBounds(20,50,100,20);
+		rb_facile.setBackground(null);
+		rb_moyen.setBounds(20 , 100,100,20);
+		rb_moyen.setBackground(null);
+		rb_difficile.setBounds(20,150,100,20);
+		rb_difficile.setBackground(null);
 		
-		b_jouer.addActionListener(controleur);
-		b_retour.addActionListener(controleur);
-		check1.addItemListener(controleur);
-		check2.addItemListener(controleur);
-		check3.addItemListener(controleur);
-		check4.addItemListener(controleur);
-		check5.addItemListener(controleur);
-		rb_facile.addItemListener(controleur);
-		rb_moyen.addItemListener(controleur);
-		rb_difficile.addItemListener(controleur);
-		spinner.addChangeListener(controleur);
+		b_retour.setBounds(10,520,100,50);
+		b_jouer.setBounds(790,560,100,50);
 		
 		bg.add(rb_facile);
 		bg.add(rb_moyen);
 		bg.add(rb_difficile);
-		
+
+		check1.setFocusable(false);
+		check2.setFocusable(false);
+		check3.setFocusable(false);
+		check4.setFocusable(false);
+		check5.setFocusable(false);
+
+		getCoches();
+
+		check1.setState(coches[0]);
+		check2.setState(coches[1]);
+		check3.setState(coches[2]);
+		check4.setState(coches[3]);
+		check5.setState(coches[4]);
+
+		pan.add(texte);
 		pan.add(check1);
 		pan.add(check2);
 		pan.add(check3);
 		pan.add(check4);
 		pan.add(check5);
-		pan.add(texte);
-		pan2.add(spinner);
+
 		pan2.add(texte2);
+		pan2.add(spinner);
+		
+		pan3.add(texte3);
 		pan3.add(rb_facile);
 		pan3.add(rb_moyen);
 		pan3.add(rb_difficile);
-		pan3.add(texte3);
 		
 		this.add(texte_options);
-		this.add(b_jouer);
-		this.add(b_retour);
 		this.add(pan);
 		this.add(pan2);
 		this.add(pan3);
+		this.add(b_jouer);
+		this.add(b_retour);
 	}
 	
+	public void addListeners()
+	{
+		b_jouer.addActionListener(controleur);
+		b_retour.addActionListener(controleur);
+	}
+
+	public void removeListeners()
+	{
+		b_jouer.removeActionListener(controleur);
+		b_retour.removeActionListener(controleur);
+	}
+
 	public Bouton getBoutonJouer()
 	{
 		return b_jouer;
@@ -228,7 +199,7 @@ public class OptionsView extends AbstractView
 		return rb_difficile;
 	}
 	
-	public Checkbox getBoutonPortesAvions()
+	public Checkbox getBoutonPorteAvion()
 	{
 		return check1;
 	}
@@ -238,12 +209,12 @@ public class OptionsView extends AbstractView
 		return check2;
 	}
 	
-	public Checkbox getBoutonCuirassée()
+	public Checkbox getBoutonCuirasse()
 	{
 		return check3;
 	}
 	
-	public Checkbox getBoutonCuirassée2()
+	public Checkbox getBoutonCuirasse2()
 	{
 		return check4;
 	}
@@ -253,14 +224,33 @@ public class OptionsView extends AbstractView
 		return check5;
 	}
 	
-	public JSpinner getTailleChampDeBataille()
+	public JSpinner getSpinner()
 	{
 		return spinner;
 	}
 	
-	public int getValeurSpinner()
+	public void getCoches()
 	{
-		int a = (int) spinner.getValue();
-		return a ;
+		Bateau[] bateaux = fenetre.getModele().getOptions().getFlotte();
+		int cpt = 0;
+		for(int i=0; i<5; i++)
+			coches[i] = false;
+
+		for(int i=0; i<bateaux.length; i++)
+		{
+			if(bateaux[i] instanceof Cuirasse && cpt==1)
+				coches[3] = true;
+			if(bateaux[i] instanceof Zodiac)
+				coches[4] = true;
+			if(bateaux[i] instanceof PorteAvion)
+				coches[0] = true;
+			if(bateaux[i] instanceof SousMarin)
+				coches[1] = true;
+			if(bateaux[i] instanceof Cuirasse && cpt==0)
+			{
+				cpt++;
+				coches[2] = true;
+			}
+		}
 	}
 }

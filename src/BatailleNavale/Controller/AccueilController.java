@@ -9,25 +9,24 @@ public class AccueilController extends AbstractController implements ActionListe
 {
     private AccueilView view;
 
-	public AccueilController(AccueilView view, Modele modele)
+	public AccueilController(AccueilView view)
 	{
-        super(view.getFenetre(), modele);
-		this.view = view;
+       this.view = view;
 	}
 
     public void actionPerformed(ActionEvent arg0) 
     {
     	if(arg0.getSource() == view.getBoutonJouer())
     	{
-    		fenetre.changerVue(new TypeView(fenetre, modele));
+    		fenetre.changerVue(new ChoixModeView());
     	}
     	else if(arg0.getSource() == view.getBoutonOptions())
     	{
-    		fenetre.changerVue(new OptionsView(fenetre, modele));
+    		fenetre.changerVue(new OptionsView());
     	}
     	else if(arg0.getSource() == view.getBoutonCredits())
     	{
-    		fenetre.changerVue(new CreditsView(fenetre, modele));
+    		fenetre.changerVue(new CreditsView());
     	}
 	}  
 }

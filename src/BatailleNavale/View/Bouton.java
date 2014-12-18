@@ -110,7 +110,7 @@ public class Bouton extends JButton implements MouseListener
 
 	public void mouseReleased(MouseEvent event)
 	{
-		soundClicked.play();
+		//soundClicked.play();
 	}  
 
 	public void mousePressed(MouseEvent event){}
