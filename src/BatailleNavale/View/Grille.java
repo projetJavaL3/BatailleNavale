@@ -26,11 +26,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 
-public class Grille extends JPanel implements MouseListener
+public class Grille extends JPanel
 {
  	private int taille;
- 	private JButton[][] cases;
- 	private int taille_case = 32;
+ 	private Case[][] cases;
+ 	private int taille_case;
  	private Joueur joueur;
  	private boolean afficher_bateaux;
  
@@ -38,15 +38,14 @@ public class Grille extends JPanel implements MouseListener
  	private BufferedImage bi; 
 	private Graphics g;
 
- 	private Color couleur;
-
  	public Grille(int taille, Joueur joueur, boolean afficher_bateaux)
 	{
+		this.taille_case = 320/taille;
 		this.taille = taille;
-		this.cases = new JButton[taille][taille];
+		this.cases = new Case[taille][taille];
 		this.joueur = joueur;
 		this.afficher_bateaux = afficher_bateaux;
-		this.setBackground(new Color(0, 0, 0, 0));
+		this.setBackground(new Color(0, 0, 0));
 		this.setLayout(new GridLayout(taille, taille, 0, 0));
 		initialiserCases();
 	}
@@ -86,19 +85,11 @@ public class Grille extends JPanel implements MouseListener
 		{
 			for(int j=0; j<taille; j++)
 			{
-				this.bi = new BufferedImage(taille_case, taille_case, BufferedImage.TYPE_INT_ARGB);
-				this.g = bi.createGraphics(); 
-
-				cases[i][j] = new JButton();
-				cases[i][j].setBackground(new Color(112, 128, 144));
-				cases[i][j].setBorder(new LineBorder(new Color(50, 50, 50, 100), 1, false));
-				cases[i][j].setFocusable(false);
-				cases[i][j].setEnabled(false);
+				cases[i][j] = new Case(i+1, j+1, taille_case);
 					
 				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)) && !joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 				{	
-					img = new ImageIcon(getClass().getClassLoader().getResource("images/rate.png")).getImage();
-					g.drawImage(img, taille_case/4, taille_case/4, taille_case/2, taille_case/2, null);
+					cases[i][j].afficherRate();
 				}
 
 				if(joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
@@ -109,55 +100,26 @@ public class Grille extends JPanel implements MouseListener
 							if(bateaux[l] == b)
 								k = l;
 
-						img = getImageBateau(b, orientation[k]);
-						
-						if(orientation[k])
-							g.drawImage(img, -(indice_b[k]*taille_case), 0, taille_case*b.getTaille(), taille_case, null);
-						else
-							g.drawImage(img, 0, -(indice_b[k]*taille_case), taille_case, taille_case*b.getTaille(), null);       
-						
+						cases[i][j].afficherBateau(b, orientation[k], indice_b[k]);
+												
 						indice_b[k]++;
 
 						if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
 						{
-							img = new ImageIcon(getClass().getClassLoader().getResource("images/feu.png")).getImage();
-							g.drawImage(img, 0, -5, taille_case, taille_case, null);
+							cases[i][j].afficherFeu();
 						}
 					}
 
 				else if(joueur.getChampDeBataille().getBloc(new Position(i+1, j+1)).getEtatBloc() == EtatBloc.TOUCHE)
 				{
-					img = new ImageIcon(getClass().getClassLoader().getResource("images/feu.png")).getImage();
-					g.drawImage(img, 0, 0, taille_case, taille_case, null);
+					cases[i][j].afficherFeu();
 				}
-
-				cases[i][j].setDisabledIcon(new ImageIcon(bi));
-			    cases[i][j].setIcon(new ImageIcon(bi));
-				
+			   
 				this.add(cases[i][j]);	
 
 				this.repaint();
 			}
 		}
-	}
-
-	public Image getImageBateau(Bateau bateau, boolean orientation)
-	{
-		String b_nom = new String();
-
-		if(bateau.getNom().equals("Cuirasse"))
-			b_nom = "cuirasse";
-		else if(bateau.getNom().equals("Porte Avion"))
-			b_nom = "porte_avion";
-		else if(bateau.getNom().equals("Sous-Marin"))
-			b_nom = "sous_marin";
-		else if(bateau.getNom().equals("Zodiac"))
-			b_nom = "zodiac";
-
-		String path = "images/bateaux/" + b_nom + (orientation?"":"_r") + ".png";
-		Image img = new ImageIcon(getClass().getClassLoader().getResource(path)).getImage();
-
-		return img; 
 	}
 
 	public void addController(JeuController controleur)
@@ -166,9 +128,18 @@ public class Grille extends JPanel implements MouseListener
 		{
 			for(int j=0; j<taille; j++)
 			{
-				cases[i][j].addMouseListener(this);
-				cases[i][j].addActionListener(controleur);
-				cases[i][j].setEnabled(true);
+				cases[i][j].addMouseListener(controleur);
+			}			
+		}
+	}
+
+	public void removeController(JeuController controleur)
+	{
+		for (int i=0; i<taille; i++)
+		{
+			for(int j=0; j<taille; j++)
+			{
+				cases[i][j].removeMouseListener(controleur);
 			}			
 		}
 	}
@@ -180,36 +151,23 @@ public class Grille extends JPanel implements MouseListener
 			for(int j=0; j<taille; j++)
 			{
 				cases[i][j].addMouseListener(controleur);
-				cases[i][j].setEnabled(true);
 			}			
 		}
 	}
 
-	public JButton getCase(int i, int j)
+	public Case getCase(int i, int j)
 	{
 		return cases[i][j];
+	}
+
+
+	public void clearCase(int i, int j)
+	{
+		cases[i][j] = new Case(i+1, j+1, taille_case);
 	}
 
 	public int getTaille()
 	{
 		return taille;
 	}
-
-    public void mouseEntered(MouseEvent event)
-    {
-    	JButton bouton = (JButton) event.getSource();
-    	couleur = bouton.getBackground();
-		bouton.setBackground(new Color(220,220,220));
-	}
-
-	public void mouseExited(MouseEvent event)
-	{
-		JButton bouton = (JButton) event.getSource();
-		bouton.setEnabled(true);
-    	bouton.setBackground(couleur);
-	}
-
-	public void mouseReleased(MouseEvent event){}  
-	public void mousePressed(MouseEvent event){}
-	public void mouseClicked(MouseEvent event){}
 }
