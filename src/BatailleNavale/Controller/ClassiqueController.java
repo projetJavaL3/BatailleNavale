@@ -4,33 +4,19 @@ import BatailleNavale.Model.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.View.*;
 
+import java.awt.event.*;
+
 public class ClassiqueController extends JeuController
 {
 
-	public ClassiqueController(JeuView view, Modele modele)
+	public ClassiqueController(JeuView view)
 	{
-		super(view, modele);
+		super(view);
 	}
 
-	public void tirerSurEnnemi(int x, int y, int indice_adversaire)
+	public void mouseClicked(MouseEvent event)
 	{
-		Position pos = new Position(x+1, y+1);
-		Joueur joueur_courant = modele.getJoueurCourant();
-		Joueur ennemi = joueur_courant.getAdversairesEnVie()[indice_adversaire];
-		Tir t = new Tir(pos, ennemi);
-		
-		if(joueur_courant.tir(t))
-		{
-			fenetre.changerVue(new JeuView(fenetre, modele));
-			fenetre.afficherMessage(joueur_courant.getNom() + " vient de toucher " + ennemi.getNom() + " à la position " + pos, "Touché");	
-			if(modele.partieTermine())
-				fenetre.afficherMessage("Partie terminé !", "#findugame");	
-
-		}
-		else
-		{
-			fenetre.afficherMessage("Raté", "Oups");	
-			modele.joueurSuivant();
-		}
+		Case gcase = (Case) event.getSource();
+		tirerSurEnnemi(gcase.getI(), gcase.getJ(), fenetre.getModele().getJoueurCourant().getAdversairesEnVie()[view.getIndiceAdversaire()], false);
 	}
 }

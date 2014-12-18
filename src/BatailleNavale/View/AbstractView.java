@@ -15,32 +15,32 @@ import javax.swing.border.LineBorder;
 
 public abstract class AbstractView extends JPanel
 {
-	protected Modele modele;
-	protected Fenetre fenetre;
-	protected Image img;
+	protected static Fenetre fenetre;
+	protected static Image image;
 
-	public AbstractView(Fenetre fenetre, Modele modele)
+	public AbstractView()
 	{
-		this(fenetre, modele, "images/fond.jpg");
+		this("images/fond_accueil.jpg");
 	}
 	
-	public AbstractView(Fenetre fenetre, Modele modele, String image_de_fond)
+	public AbstractView(String image_de_fond)
 	{		
-		this.fenetre = fenetre;
-		this.modele = modele;
-		this.img = new ImageIcon(getClass().getClassLoader().getResource(image_de_fond)).getImage();
+		image = new ImageIcon(getClass().getClassLoader().getResource(image_de_fond)).getImage();
 		this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
+		this.setLayout(null);
 	}
 
 	public void paintComponent(Graphics g) 
 	{
-		g.drawImage(img, 0, 0, fenetre.getWidth(), fenetre.getHeight(), null);
+		g.drawImage(image, 0, 0, fenetre.getWidth(), fenetre.getHeight(), null);
 	}
 
-	public Fenetre getFenetre()
+	public static void setFenetre(Fenetre fen)
 	{
-		return this.fenetre;
+		fenetre = fen;
 	}
 
-	protected abstract void initPanel();	
+	public abstract void initPanel();	
+	public abstract void addListeners();
+	public abstract void removeListeners();
 }

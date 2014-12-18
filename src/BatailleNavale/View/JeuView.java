@@ -11,6 +11,8 @@ import java.util.Observable;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import java.awt.Graphics;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -31,23 +33,39 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 	private JComboBox<Joueur> selection_adversaire = new JComboBox<Joueur>();
 	private Grille grille_joueur;
 	private Grille grille_ennemi;
-	private JLabel lblMaFlotte, lblFlotteEnnemi, lblScore, lblAction;
+	private JLabel lblMaFlotte, lblFlotteEnnemi, lblAction;
 
-	public JeuView(Fenetre fenetre, Modele modele)
+	public JeuView()
 	{	
-		super(fenetre, modele);
-		controleur = new ClassiqueController(this, modele);
-		modele.addObserver(this);
-		initPanel();
+		super();
+
+		switch(fenetre.getModele().getTypePartie())
+		{
+			case CLASSIQUE:
+				controleur = new ClassiqueController(this);
+				break;
+
+			case RADAR:
+				controleur = new RadarController(this);
+				break;
+
+			case ARTILLERIE:
+				controleur = new ArtillerieController(this);
+				break;
+
+			case ALERTE:
+				controleur = new AlerteController(this);
+				break;
+		}
+		
+		fenetre.getModele().addObserver(this);
 	}
 	
 	public void initPanel()
 	{	
 		this.removeAll();
-
-		this.setLayout(null);
-
-		joueur_courant = modele.getJoueurCourant();
+		
+		joueur_courant = fenetre.getModele().getJoueurCourant();
 		adversaires = joueur_courant.getAdversairesEnVie();
 
 		selection_adversaire = new JComboBox<Joueur>(adversaires);
@@ -57,21 +75,17 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 		ennemi = adversaires[selection_adversaire.getSelectedIndex()];
 		tirs = joueur_courant.getTirsSurJoueur();
 
-		grille_joueur = new Grille(modele.getOptions().getTailleGrille(), joueur_courant, true);
+		grille_joueur = new Grille(fenetre.getModele().getOptions().getTailleGrille(), joueur_courant, (joueur_courant instanceof Humain));
 		grille_joueur.setBounds(67, 187, 320, 320);
 		
-		grille_ennemi = new Grille(modele.getOptions().getTailleGrille(), ennemi, false);
-		grille_ennemi.addController(controleur);
+		grille_ennemi = new Grille(fenetre.getModele().getOptions().getTailleGrille(), ennemi, false);
 		grille_ennemi.setBounds(504, 187, 320, 320);
 
-		lblMaFlotte = new JLabel(joueur_courant.getNom());
+		lblMaFlotte = new JLabel(joueur_courant.getNom() + " " + ((joueur_courant instanceof Ordinateur)?"[Ordinateur]":""));
 		lblMaFlotte.setBounds(67, 160, 200, 15);
 		
-		lblFlotteEnnemi  = new JLabel("Flotte ennemi:");
-		lblFlotteEnnemi.setBounds(504, 160, 142, 15);
-		
-		lblScore = new JLabel("Score: XXXpts");
-		lblScore.setBounds(67, 556, 184, 15);
+		lblFlotteEnnemi  = new JLabel(ennemi.getNom() + " " + ((ennemi instanceof Ordinateur)?"[Ordinateur]":""));
+		lblFlotteEnnemi.setBounds(504, 160, 200, 15);
 		
 		lblAction = new JLabel("Selectionner un adversaire et une position sur son champs de bataille: ");
 		lblAction.setBounds(67, 87, 614, 24);
@@ -79,16 +93,34 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 		this.add(lblAction);
 		this.add(lblMaFlotte);
 		this.add(lblFlotteEnnemi);
-		this.add(lblScore);
 
-		this.add(selection_adversaire);
+		if(adversaires.length>1)
+			this.add(selection_adversaire);
 
 		this.add(grille_joueur);
 		this.add(grille_ennemi);
 
-		selection_adversaire.addItemListener(this);
 
-		this.repaint();
+		if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
+			controleur.actionOrdinateur();
+	}
+
+	public void addListeners()
+	{
+		if(joueur_courant instanceof Humain)
+			grille_ennemi.addController(controleur);
+		selection_adversaire.addItemListener(this);
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+		this.addKeyListener(controleur);
+	}
+
+	public void removeListeners()
+	{
+		if(joueur_courant instanceof Humain)
+			grille_ennemi.removeController(controleur);
+		this.removeKeyListener(controleur);
+		selection_adversaire.removeItemListener(this);
 	}
 
 	public Grille getGrilleEnnemi()
@@ -114,9 +146,9 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 	}     
 
 	public void update(Observable obs, Object o)
-	{
+	{				
 		initPanel();
-		lblMaFlotte.setText("*" + modele.getJoueurCourant().getNom() + "*");
 		this.revalidate();
+		this.repaint();
 	}
 }
