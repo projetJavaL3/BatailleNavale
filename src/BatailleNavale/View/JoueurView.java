@@ -15,29 +15,32 @@ import javax.swing.plaf.IconUIResource;
 public class JoueurView extends AbstractView {
 
     private JoueurController controleur;
-    private int nb_joueurs = 2;
-    private JLabel label_joueur;
-    private JLabel label_type;
-    private ArrayList<JLabel> label_j;
-    private ArrayList<JComboBox> combo_j;
-    private JPanel panel_entete, panel_valider;
-    private ArrayList<JPanel> panel_j;
-    private Bouton valider, ajouter_joueur;
 
-    public JoueurView(Fenetre fenetre, Modele modele) {
-        super(fenetre, modele);
-        controleur = new JoueurController(this, modele);
-        initPanel();
+    private int nb_joueurs = 2;
+
+    private ArrayList<JPanel> panel_j;
+    private ArrayList<JLabel> label_j;
+    private ArrayList<JComboBox<String>> combo_j;
+    private JPanel panel_entete = new JPanel();
+    private JPanel panel_valider = new JPanel();
+    private Label label_joueur = new Label("Joueur", 20);
+    private Label label_type = new Label("Type", 20);
+    private Bouton valider = new Bouton("Valider");
+    private Bouton ajouter_joueur = new Bouton("Ajouter joueur");;
+
+    public JoueurView()
+    {
+        super();
+        controleur = new JoueurController(this);
     }
 
-    public void initPanel() {
-        
-        this.setBounds(0, 0, 900, 640);
+    public void initPanel() 
+    {
+        removeAll();
+
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        
         //Panneau entête
-        label_joueur = new Label("Joueur",20);
-        label_type = new Label("Type",20);
-        panel_entete = new JPanel();
         panel_entete.add(label_joueur);
         panel_entete.add(label_type);
         panel_entete.setOpaque(false);
@@ -45,12 +48,13 @@ public class JoueurView extends AbstractView {
 
         //Création et ajout au paneau principal des panneaux des joueurs
         label_j = new ArrayList<JLabel>();
-        combo_j = new ArrayList<JComboBox>();
+        combo_j = new ArrayList<JComboBox<String>>();
         panel_j = new ArrayList<JPanel>();
 
-        for (int i = 0; i < nb_joueurs; i++) {
+        for (int i = 0; i < nb_joueurs; i++)
+        {
             label_j.add(new Label("Joueur "+(i + 1) + "",16));
-            combo_j.add(new JComboBox());
+            combo_j.add(new JComboBox<String>());
             combo_j.get(i).addItem("Humain");
             combo_j.get(i).addItem("IA");
             panel_j.add(new JPanel());
@@ -61,29 +65,53 @@ public class JoueurView extends AbstractView {
         }
 
         //Panneau valider     
-        ajouter_joueur = new Bouton("Ajouter joueur");
-        ajouter_joueur.addActionListener(controleur);
-        valider = new Bouton("Valider");
         ajouter_joueur.setBounds(175,10,200,60);
         valider.setBounds(525,10,200,60);
-        panel_valider = new JPanel();
+        panel_valider.setLayout(null);
         panel_valider.add(valider);
         panel_valider.add(ajouter_joueur);
         panel_valider.setBounds(0,480,900,160);
         panel_valider.setOpaque(false);
-        panel_valider.setLayout(null);
         this.add(panel_valider);
     }
 
-    public Bouton getBoutonAjouterJoueur() {
+    public void addListeners()
+    {
+        ajouter_joueur.addActionListener(controleur);
+        valider.addActionListener(controleur);
+    }
+
+    public void removeListeners()
+    {
+        ajouter_joueur.removeActionListener(controleur);
+        valider.removeActionListener(controleur);
+    }
+
+    public int getNbJoueurs()
+    {
+        return nb_joueurs;
+    }
+
+    public String getTypeJoueur(int i)
+    {
+        return (String) combo_j.get(i).getSelectedItem();
+    }
+
+    public Bouton getBoutonAjouterJoueur()
+    {
         return ajouter_joueur;
     }
-    
 
-    public void ajouterJoueur() {       
+    public Bouton getBoutonValider()
+    {
+        return valider;
+    }
+
+    public void ajouterJoueur()
+    {       
         this.remove(panel_valider);
         label_j.add(new Label("Joueur "+(nb_joueurs+1),16));
-        combo_j.add(new JComboBox());
+        combo_j.add(new JComboBox<String>());
         combo_j.get(nb_joueurs).addItem("Humain");
         combo_j.get(nb_joueurs).addItem("IA");
         panel_j.add(new JPanel());
@@ -96,9 +124,4 @@ public class JoueurView extends AbstractView {
         this.repaint();
         nb_joueurs++;
     }
-
-    public int getNbJoueurs() {
-        return nb_joueurs;
-    }
-
 }

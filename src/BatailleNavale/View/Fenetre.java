@@ -13,7 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-
+import javax.swing.JDialog;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import java.awt.Dimension;
 
 public class Fenetre extends JFrame 
@@ -21,7 +28,7 @@ public class Fenetre extends JFrame
 	private MenuController controleur;
 	private Modele modele;
 	private AbstractView container;
-	private JOptionPane boite_dialogue = new JOptionPane();
+	private JOptionPane jop = new JOptionPane();
 	private JMenuBar menubar = new JMenuBar();
 	private JMenu menu_fichier = new JMenu("Fichier");
 	private	JMenu menu_edition = new JMenu("Edition");
@@ -29,55 +36,62 @@ public class Fenetre extends JFrame
 	private	JMenuItem item_fichier_menuPrincipal = new JMenuItem("Menu principal");
 	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
 	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
-
 	private	JMenuItem item_aide = new JMenuItem("A propos de Bataille Navale");
  	
 	public Fenetre(Modele modele)
 	{
 		super("Bataille Navale");
 		this.modele = modele;
+
+		AbstractController.setFenetre(this);
+		AbstractView.setFenetre(this);
+	
 		this.setSize(new Dimension(900, 640));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.initMenu();
-		this.changerVue(new AccueilView(this, modele));
+		this.changerVue(new AccueilView());
 		this.setVisible(true);		
 	}
 
 	public void changerVue(AbstractView view)
 	{
 		this.container = view;
-		this.setContentPane(container);
-		this.getContentPane().revalidate();
+		update();
+		this.container.addListeners();
 	}
 
-	public void afficherMessage(String message, String entete)
+	public void update()
 	{
-		boite_dialogue.showMessageDialog(null, message, entete, JOptionPane.INFORMATION_MESSAGE);
+		this.container.initPanel();
+		this.setContentPane(container);
+		this.getContentPane().revalidate();
+		this.getContentPane().repaint();
 	}
 
 	public int afficherChoixMessage(String message, String entete)
 	{
-		return boite_dialogue.showConfirmDialog(null, message, entete, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		return jop.showConfirmDialog(null, message, entete, JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
 	}
 
-	public AbstractView getContainer()
+	public Modele getModele()
 	{
-		return this.container;
+		return this.modele;
 	}
 
-	/**
-	 * Initialise notre Menu
-	 */
+	public void setModele(Modele modele)
+	{
+		this.modele = modele;
+	}
+
 	public void initMenu()
 	{		
-		this.controleur = new MenuController(this, modele);
+		this.controleur = new MenuController();
 		
 		menu_fichier.add(item_fichier_menuPrincipal);
 		menu_fichier.add(item_fichier_quitter);
 		
-
 		menu_edition.add(item_edition_annuler);
 		menu_aide.add(item_aide);
 		
@@ -109,48 +123,6 @@ public class Fenetre extends JFrame
 	public static void main(String[] args)
 	{
 		Modele modele = new Modele();
-
-		Humain h1 = new Humain("Yanis");
-		Humain h2 = new Humain("Maxime");
-		Humain h3 = new Humain("Brady");
-		Humain h4 = new Humain("Théo");
-
-		modele.setTypePartie(TypePartie.CLASSIQUE);
-
-		modele.ajouterJoueur(h1);
-//		modele.ajouterJoueur(h2);
-		modele.ajouterJoueur(h3);
-	//	modele.ajouterJoueur(h4);
-
-		h1.ajouterBateau(new Cuirasse());
-		h1.ajouterBateau(new SousMarin());
-		h1.ajouterBateau(new Zodiac());
-		h1.ajouterBateau(new Zodiac());
-		h1.ajouterBateau(new PorteAvion());
-
-		h2.ajouterBateau(new Cuirasse());
-		h2.ajouterBateau(new SousMarin());
-		h2.ajouterBateau(new Zodiac());
-		h2.ajouterBateau(new Zodiac());
-		h2.ajouterBateau(new PorteAvion());
-
-		h3.ajouterBateau(new Cuirasse());
-		h3.ajouterBateau(new SousMarin());
-		h3.ajouterBateau(new Zodiac());
-		h3.ajouterBateau(new Zodiac());
-		h3.ajouterBateau(new PorteAvion());
-
-		h4.ajouterBateau(new Cuirasse());
-		h4.ajouterBateau(new SousMarin());
-		h4.ajouterBateau(new Zodiac());
-		h4.ajouterBateau(new Zodiac());
-		h4.ajouterBateau(new PorteAvion());
-
-		h1.placementAleatoireFlotte();
-		h2.placementAleatoireFlotte();
-		h3.placementAleatoireFlotte();
-		h4.placementAleatoireFlotte();
-
 		Fenetre fenetre = new Fenetre(modele);
 	}
 }
