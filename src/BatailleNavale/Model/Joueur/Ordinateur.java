@@ -1,9 +1,9 @@
-
 package BatailleNavale.Model.Joueur;
 
 import BatailleNavale.Model.*;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Classe <code> Ordinateur </code> 
@@ -25,6 +25,12 @@ public class Ordinateur extends Joueur
         this.niveau = niveau;
 	}
         
+    public Ordinateur(String nom, int taille_grille, int niveau)
+    {
+        super(nom, taille_grille);
+        this.niveau = niveau;
+    } 
+
     /**
      * Calcul d'un <code>Tir</code> aléatoire
      */
@@ -51,17 +57,17 @@ public class Ordinateur extends Joueur
             {
                 for(int k=0; k<adversaires.get(i).getChampDeBataille().getLongueur(); k++)
                 {
-                    Tir tir_ajout = new Tir(new Position(k,j), adversaires.get(i));
-                   
+                    Tir tir_ajout = new Tir(new Position(k+1,j+1), adversaires.get(i));
+                    boolean dedans = false;
                     for(int l=0; l<tirs_joues.size(); l++)
-                    {
-                        if(!tirs_joues.get(l).equals(tir_ajout))
-                            tirs_non_joues.add(tir_ajout);
-                    }
+                        if(tirs_joues.get(l).equals(tir_ajout))
+                            dedans = true;
+                    if(!dedans)
+                        tirs_non_joues.add(tir_ajout);
                 }
             }
         }
         
-        return tirs_joues.toArray(new Tir[tirs_non_joues.size()]);
+        return tirs_non_joues.toArray(new Tir[tirs_non_joues.size()]);
     }  
 }

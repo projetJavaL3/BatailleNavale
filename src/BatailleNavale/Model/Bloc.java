@@ -1,12 +1,13 @@
 package BatailleNavale.Model;
 
 import BatailleNavale.Model.Flotte.*;
+import java.io.Serializable;
 
 /** 
  * Classe <code> Bloc </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Bloc 
+public class Bloc implements Serializable
 {
 	/**
 	 * Etat dans lequel le Bloc se trouve

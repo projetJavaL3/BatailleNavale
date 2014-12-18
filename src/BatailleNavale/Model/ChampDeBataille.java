@@ -5,11 +5,13 @@ import BatailleNavale.Model.Flotte.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import java.io.Serializable;
+
 /** 
  * Classe <code> ChampsDeBataille </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class ChampDeBataille 
+public class ChampDeBataille implements Serializable
 {
 	/**
 	 * Longueur du Champ de Bataille
@@ -106,7 +108,7 @@ public class ChampDeBataille
 	 */
 	public boolean positionValide(Position p)
 	{
-		return (p.getCoord_X() > 0 && p.getCoord_X() <= longueur && p.getCoord_Y() > 0  && p.getCoord_Y() <= hauteur);
+		return ((p.getCoord_X() > 0) && (p.getCoord_X() <= longueur) && (p.getCoord_Y() > 0)  && (p.getCoord_Y() <= hauteur));
 	}
 	
 	/**

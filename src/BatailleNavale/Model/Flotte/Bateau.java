@@ -1,10 +1,12 @@
 package BatailleNavale.Model.Flotte;
 
+import java.io.Serializable;
+
 /** 
  * Classe <code> Bateau </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public abstract class Bateau 
+public abstract class Bateau implements Serializable, Cloneable
 {
 	/**
 	 * Nom du Bateau
@@ -28,7 +30,7 @@ public abstract class Bateau
 	 * @param nom nom du bateau
 	 * @param taille taille du bateau
 	 */
-	public Bateau (String nom, int taille)
+	public Bateau(String nom, int taille)
 	{
 		this.nom = nom;
 		this.taille = taille;

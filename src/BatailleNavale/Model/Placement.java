@@ -1,10 +1,12 @@
 package BatailleNavale.Model;
 
+import java.io.Serializable;
+
 /** 
  * Classe <code> Placement </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Placement 
+public class Placement implements Serializable
 {
 	/**
 	 * Position du placement

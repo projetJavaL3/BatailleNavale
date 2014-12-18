@@ -3,6 +3,8 @@ package BatailleNavale.Model.Joueur;
 import BatailleNavale.Model.*;
 import BatailleNavale.Model.Flotte.*;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
@@ -11,7 +13,7 @@ import java.util.Iterator;
  * Classe <code> Joueur </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Joueur
+public class Joueur implements Serializable
 {
 	/**
 	 * Champ de bataille du joueur.
@@ -48,6 +50,12 @@ public class Joueur
 		this.bateaux_places = new ArrayList<Bateau>();
 		this.adversaires = new ArrayList<Joueur>();
 		this.nom = nom;
+	}
+
+	public Joueur(String nom, int taille_grille)
+	{
+		this(nom);
+		this.champ_de_bataille = new ChampDeBataille(taille_grille, taille_grille);
 	}
 	
 	/**
@@ -136,6 +144,17 @@ public class Joueur
 	{
 		return flotte.toArray(new Bateau[flotte.size()]);
 	}
+
+	public Bateau[] getBateauxNonPlaces()
+	{
+		ArrayList<Bateau> bateaux_non_places = new ArrayList<Bateau>(flotte);
+		
+		for(int i=0; i<bateaux_places.size(); i++)
+			bateaux_non_places.remove(bateaux_places.get(i));
+		
+
+		return bateaux_non_places.toArray(new Bateau[bateaux_non_places.size()]);
+	}
 	
 	/**
 	 * Liste des bateaux encore en jeu.
@@ -157,7 +176,7 @@ public class Joueur
 	 */
 	public boolean bateauxPlaces()
 	{
-		return flotte.size() == bateaux_places.size();
+		return flotte.equals(bateaux_places);
 	}
 
     /**
@@ -287,6 +306,23 @@ public class Joueur
 			if(tirs[i].getPosition().equals(p))
 				return true;
 		return false;
+	}
+
+	public int plusPetiteDistance(Tir t)
+	{
+		int petite = 9999;
+		Bloc[] blocs = this.champ_de_bataille.getEmplacements();
+		for(int i=0; i<blocs.length; i++)
+		{
+			if(blocs[i].getEtatBloc() == EtatBloc.PAS_TOUCHE)
+			{
+				int temp = t.getPosition().distance(blocs[i].getPosition());
+				if(petite > temp)
+					petite = temp;
+			}
+		}
+
+		return petite;
 	}
 
 	/**

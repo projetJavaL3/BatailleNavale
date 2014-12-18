@@ -6,12 +6,13 @@ import BatailleNavale.Model.Joueur.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
+import java.io.Serializable;
 
 /** 
  * Classe <code> Modele </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Modele extends Observable
+public class Modele extends Observable implements Serializable
 {
 	/**
 	 * Liste de Joueur.
@@ -95,6 +96,26 @@ public class Modele extends Observable
 	}
 
 	/**
+	 * @return le joueur suivant
+	 */
+	public Joueur getJoueurSuivant()
+	{
+		int i = this.indice_joueur_courant;
+		int cpt = 0;
+		do
+		{
+			i++;
+			i %= joueurs.size();
+			
+			if(cpt++>joueurs.size())
+				break;
+
+		} while(joueurs.get(i).aPerdu());
+
+		return this.joueurs.get(i);
+	}
+
+	/**
 	 * on passe au joueur suivant
 	 */
 	public void joueurSuivant()
@@ -143,6 +164,7 @@ public class Modele extends Observable
 	public void setTypePartie(TypePartie type)
 	{		
 		this.type = type;
+		this.joueurs = new ArrayList<Joueur>();
 	}
 	
 	/**
@@ -156,5 +178,10 @@ public class Modele extends Observable
 	public Options getOptions()
 	{
 		return options;
+	}
+
+	public int getIndice()
+	{
+		return this.indice_joueur_courant;
 	}
 }

@@ -10,4 +10,9 @@ public class Humain extends Joueur
 	{
 		super(nom);
 	}
+
+	public Humain(String nom, int taille_grille)
+	{
+		super(nom, taille_grille);
+	}
 }

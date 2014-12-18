@@ -2,13 +2,14 @@ package BatailleNavale.Model;
 
 import BatailleNavale.Model.Joueur.*;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /** 
  * Classe <code> Tir </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
  */
-public class Tir 
+public class Tir implements Serializable
 {
 	/**
 	 * Position du Tir
