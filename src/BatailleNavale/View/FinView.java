@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 
 public class FinView extends AbstractView
 {	
-	private FinController controler;
+	private FinController controleur;
 	
 	private JLabel texte, texte1;
 
@@ -35,7 +35,7 @@ public class FinView extends AbstractView
 	public FinView()
 	{
 		super();
-		this.controler = new FinController(this);
+		this.controleur = new FinController(this);
 	}
 	
 	public void initPanel()
@@ -62,14 +62,14 @@ public class FinView extends AbstractView
 
 	public void addListeners()
 	{
-		b_menuprincipal.addActionListener(controler);
-		b_boutonquitter.addActionListener(controler);
+		b_menuprincipal.addActionListener(controleur);
+		b_boutonquitter.addActionListener(controleur);
 	}
 
 	public void removeListeners()
 	{
-		b_menuprincipal.removeActionListener(controler);
-		b_boutonquitter.removeActionListener(controler);
+		b_menuprincipal.removeActionListener(controleur);
+		b_boutonquitter.removeActionListener(controleur);
 	}
 	
 	public Bouton getMenuPrincipal()

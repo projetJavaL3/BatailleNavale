@@ -73,7 +73,7 @@ public class ModeReseauController extends AbstractController implements ActionLi
                         
                         in = new ObjectInputStream(socket.getInputStream());
 
-                        fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
+                        fenetre.getModele().setTypePartie(TypePartie.ALERTE);
 
                         Humain h1 = new Humain("Joueur 1", fenetre.getModele().getOptions().getTailleGrille());
                         Humain h2 = new Humain("Joueur 2", fenetre.getModele().getOptions().getTailleGrille());

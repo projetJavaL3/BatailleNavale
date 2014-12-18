@@ -13,7 +13,7 @@ public class PlacementView extends AbstractView
 
 	private Grille grille;
 	private Label label;
-	private Bouton bouton_orientation = new Bouton("Changer orientation");
+	private final Bouton bouton_orientation = new Bouton("Changer orientation");
 
 	public PlacementView()
 	{

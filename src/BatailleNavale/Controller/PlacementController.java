@@ -47,7 +47,7 @@ public class PlacementController extends AbstractController implements ActionLis
     {
         if(arg0.getSource() == view.getBoutonOrientation())
         {
-            orientation = !orientation;
+            orientation = !(orientation);
         }
     }
 
