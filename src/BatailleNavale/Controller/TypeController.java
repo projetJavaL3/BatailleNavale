@@ -11,9 +11,8 @@ public class TypeController extends AbstractController implements ActionListener
 
     private TypeView view;
 
-    public TypeController(TypeView view, Modele modele)
+    public TypeController(TypeView view)
     {
-        super(view.getFenetre(), modele);
         this.view = view;
     }
 
@@ -21,29 +20,27 @@ public class TypeController extends AbstractController implements ActionListener
     {
     	if(arg0.getSource() == view.getBoutonClassique())
     	{
-    		// action à faire lorsque l'on clique sur le bouton classique
-            fenetre.afficherMessage("Vous allez commencer une partie classique !", "Début de partie");
-            fenetre.changerVue(new JeuView(fenetre, modele));
+            fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
+    		fenetre.changerVue(new JoueurView());
     	}
     	else if(arg0.getSource() == view.getBoutonRadar())
     	{
-    		// action à faire lorsque l'on clique sur le bouton radar
-            fenetre.afficherMessage("Vous allez commencer une partie radar !", "Début de partie");
+    		fenetre.getModele().setTypePartie(TypePartie.RADAR);
+            fenetre.changerVue(new JoueurView());
     	}
     	else if(arg0.getSource() == view.getBoutonArtillerie())
     	{
-    		// action à faire lorsque l'on clique sur le bouton artillerie
-            fenetre.afficherMessage("Vous allez commencer une partie artillerie !", "Début de partie");
+    		fenetre.getModele().setTypePartie(TypePartie.ARTILLERIE);
+            fenetre.changerVue(new JoueurView());
     	}
         else if(arg0.getSource() == view.getBoutonAlerte())
         {
-            // action à faire lorsque l'on clique sur le bouton alerte
-            fenetre.afficherMessage("Vous allez commencer une partie alerte !", "Début de partie");
+            fenetre.getModele().setTypePartie(TypePartie.ALERTE);
+            fenetre.changerVue(new JoueurView());
         }
-	else if(arg0.getSource() == view.getBoutonRetour())
-	{	
-		// action à faire lorsque l'on clique sur le bouton retour
-		fenetre.changerVue(new AccueilView(fenetre, modele));
-	}
+    	else if(arg0.getSource() == view.getBoutonRetour())
+    	{	
+    		fenetre.changerVue(new ChoixModeView());
+    	}
 	}
 }
