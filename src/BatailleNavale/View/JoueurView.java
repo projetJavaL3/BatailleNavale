@@ -26,7 +26,8 @@ public class JoueurView extends AbstractView {
     private Label label_joueur = new Label("Joueur", 20);
     private Label label_type = new Label("Type", 20);
     private Bouton valider = new Bouton("Valider");
-    private Bouton ajouter_joueur = new Bouton("Ajouter joueur");;
+    private Bouton ajouter_joueur = new Bouton("Ajouter joueur");
+    private Bouton supprimer_joueur = new Bouton("Supprimer joueur");
 
     public JoueurView()
     {
@@ -65,11 +66,13 @@ public class JoueurView extends AbstractView {
         }
 
         //Panneau valider     
-        ajouter_joueur.setBounds(175,10,200,60);
-        valider.setBounds(525,10,200,60);
+        ajouter_joueur.setBounds(75,10,200,60);
+        supprimer_joueur.setBounds(325,10,200,60);
+        valider.setBounds(575,10,200,60);
         panel_valider.setLayout(null);
         panel_valider.add(valider);
         panel_valider.add(ajouter_joueur);
+        panel_valider.add(supprimer_joueur);
         panel_valider.setBounds(0,480,900,160);
         panel_valider.setOpaque(false);
         this.add(panel_valider);
@@ -78,12 +81,14 @@ public class JoueurView extends AbstractView {
     public void addListeners()
     {
         ajouter_joueur.addActionListener(controleur);
+        supprimer_joueur.addActionListener(controleur);
         valider.addActionListener(controleur);
     }
 
     public void removeListeners()
     {
         ajouter_joueur.removeActionListener(controleur);
+        supprimer_joueur.removeActionListener(controleur);
         valider.removeActionListener(controleur);
     }
 
@@ -100,6 +105,11 @@ public class JoueurView extends AbstractView {
     public Bouton getBoutonAjouterJoueur()
     {
         return ajouter_joueur;
+    }
+    
+    public Bouton getBoutonSupprimerJoueur()
+    {
+        return supprimer_joueur;
     }
 
     public Bouton getBoutonValider()
@@ -123,5 +133,13 @@ public class JoueurView extends AbstractView {
         this.add(panel_valider);
         this.repaint();
         nb_joueurs++;
+    }
+    
+    public void supprimerJoueur(){
+        this.remove(panel_j.get(nb_joueurs-1));
+        panel_j.remove(panel_j.get(nb_joueurs-1));
+        this.revalidate();
+        this.repaint();
+        nb_joueurs--;
     }
 }
