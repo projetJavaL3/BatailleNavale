@@ -52,9 +52,8 @@ public class JoueurController extends AbstractController implements ActionListen
                 else
                     j = new Ordinateur("Joueur " + (i+1), fenetre.getModele().getOptions().getTailleGrille(), fenetre.getModele().getOptions().getNiveauIA());
 
-                ajouterBateaux(j);
-
                 fenetre.getModele().ajouterJoueur(j);
+                fenetre.getModele().ajouterBateaux(j);
             }
 
             fenetre.changerVue(new PlacementView());
