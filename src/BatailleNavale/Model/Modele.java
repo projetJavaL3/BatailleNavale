@@ -87,6 +87,23 @@ public class Modele extends Observable implements Serializable
 		return this.joueurs.remove(joueur);
 	}
 
+	public void ajouterBateaux(Joueur j)
+	{
+		for(int i=0; i<options.getFlotte().length; i++)
+        {
+            Bateau bateau = options.getFlotte()[i];
+                   
+            if(bateau instanceof Cuirasse)
+                j.ajouterBateau(new Cuirasse());
+            else if(bateau instanceof SousMarin)
+                j.ajouterBateau(new SousMarin());
+            else if(bateau instanceof Zodiac)
+                j.ajouterBateau(new Zodiac());
+             else
+                j.ajouterBateau(new PorteAvion());
+        }
+	}
+
 	/**
 	 * @return le joueur courant
 	 */
