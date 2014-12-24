@@ -6,7 +6,7 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
-public abstract class JeuController extends AbstractController implements MouseListener, KeyListener
+public abstract class JeuController extends AbstractController implements MouseListener, KeyListener, ItemListener
 {
 	protected JeuView view;
 
@@ -35,7 +35,10 @@ public abstract class JeuController extends AbstractController implements MouseL
 				fenetre.changerVue(new FinView());
 			}
 			else
+			{
+				envoyerMessage("Votre adversaire vous a touché !");
 				fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));	
+			}
 		}
 		else
 		{
@@ -110,6 +113,13 @@ public abstract class JeuController extends AbstractController implements MouseL
     public void keyPressed(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
 
+    public void itemStateChanged(ItemEvent e)
+	{
+		int num = view.getSelection().getSelectedIndex();
+		view.setIndiceAdversaire(num);
+		fenetre.changerVue(view);
+	}     
+
     public class ActionOrdi extends Thread
 	{
 		public void run() 
@@ -152,6 +162,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 					while (System.currentTimeMillis() < fin){}
 					grille.getCase(i,posY-1).deselectionner();
 				}
+
 			} while(true);
 		}
 	}

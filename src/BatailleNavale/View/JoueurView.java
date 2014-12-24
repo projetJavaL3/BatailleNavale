@@ -1,19 +1,19 @@
 package BatailleNavale.View;
 
-import BatailleNavale.Controller.JoueurController;
+import BatailleNavale.Controller.*;
 import BatailleNavale.Model.*;
-import java.awt.LayoutManager;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import java.util.Observer;
 import java.util.Observable;
 
+import java.awt.LayoutManager;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.plaf.IconUIResource;
 
-public class JoueurView extends AbstractView {
-
+public class JoueurView extends AbstractView
+{
     private JoueurController controleur;
 
     private int nb_joueurs = 2;
@@ -135,7 +135,8 @@ public class JoueurView extends AbstractView {
         nb_joueurs++;
     }
     
-    public void supprimerJoueur(){
+    public void supprimerJoueur()
+    {
         this.remove(panel_j.get(nb_joueurs-1));
         panel_j.remove(panel_j.get(nb_joueurs-1));
         this.revalidate();

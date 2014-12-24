@@ -35,6 +35,10 @@ public abstract class AbstractController
 	        do
 	        {
 	            objetRecu = in.readObject();
+	            
+	            if(objetRecu instanceof String)
+	            	fenetre.changerVue(new MessageView((String) objetRecu, fenetre.getContainer(), true));
+
 	        } while(!(objetRecu instanceof Modele));
 	                    
 	        fenetre.setModele((Modele) objetRecu);
@@ -50,6 +54,19 @@ public abstract class AbstractController
 		try
 		{
 			out.writeObject(fenetre.getModele());
+		   	out.flush();	
+	   	}
+		catch(Exception e)
+		{
+			fenetre.changerVue(new MessageView("Connexion rompu !", new AccueilView(), true));
+		}				
+	}
+
+	public static void envoyerMessage(String message)
+	{
+		try
+		{
+			out.writeObject(message);
 		   	out.flush();	
 	   	}
 		catch(Exception e)

@@ -28,6 +28,7 @@ public abstract class AbstractView extends JPanel
 		image = new ImageIcon(getClass().getClassLoader().getResource(image_de_fond)).getImage();
 		this.setBorder(new LineBorder(new Color(20,20,20), 10, false));
 		this.setLayout(null);
+		this.setFocusable(true);
 	}
 
 	public void paintComponent(Graphics g) 

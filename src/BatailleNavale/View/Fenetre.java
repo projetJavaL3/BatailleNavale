@@ -121,6 +121,11 @@ public class Fenetre extends JFrame
 		return this.item_aide;
 	}
 
+	public AbstractView getContainer()
+	{
+		return container;
+	}
+
 	public static void main(String[] args)
 	{
 		Modele modele = new Modele();

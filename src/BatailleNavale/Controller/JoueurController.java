@@ -6,8 +6,6 @@ import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.View.*;
 
 import java.awt.event.*;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 public class JoueurController extends AbstractController implements ActionListener
 {
@@ -22,21 +20,17 @@ public class JoueurController extends AbstractController implements ActionListen
     {
         if(arg0.getSource() == view.getBoutonAjouterJoueur())
         {
-            if(view.getNbJoueurs()>=4){
-                JOptionPane.showMessageDialog(view, "Nombre maximun de joueurs atteint.");
-            }
-            else{
+            if(view.getNbJoueurs()>=4)
+                fenetre.changerVue(new MessageView("<html>Nombre maximun de joueurs atteint.</html>", view, true));
+            else
                 view.ajouterJoueur();
-            }
         }
         else if(arg0.getSource() == view.getBoutonSupprimerJoueur())
         {
-            if(view.getNbJoueurs()<=2){
-                JOptionPane.showMessageDialog(view, "Il faut au minimun deux joueurs.");
-            }
-            else{
+            if(view.getNbJoueurs()<=2)
+                fenetre.changerVue(new MessageView("<html>Il faut au minimun deux joueurs.</html>", view, true));
+            else
                 view.supprimerJoueur();
-            }
         }
         else if(arg0.getSource() == view.getBoutonValider())
         {

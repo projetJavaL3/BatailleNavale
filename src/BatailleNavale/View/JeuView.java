@@ -20,7 +20,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class JeuView extends AbstractView implements ItemListener, Observer
+public class JeuView extends AbstractView implements Observer
 {		
 	private JeuController controleur;
 
@@ -103,23 +103,27 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 
 	public void addListeners()
 	{
-		grille_ennemi.addController(controleur);
-		selection_adversaire.addItemListener(this);
-		this.setFocusable(true);
 		this.requestFocusInWindow();
+		grille_ennemi.addController(controleur);
+		selection_adversaire.addItemListener(controleur);
 		this.addKeyListener(controleur);
 	}
 
 	public void removeListeners()
 	{
 		grille_ennemi.removeController(controleur);
+		selection_adversaire.removeItemListener(controleur);
 		this.removeKeyListener(controleur);
-		selection_adversaire.removeItemListener(this);
 	}
 
 	public Grille getGrilleEnnemi()
 	{
 		return this.grille_ennemi;
+	}
+
+	public JComboBox getSelection()
+	{
+		return this.selection_adversaire;
 	}
 
 	public int getIndiceAdversaire()
@@ -131,13 +135,6 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 	{
 		this.indice = indice;
 	}
-
-	public void itemStateChanged(ItemEvent e)
-	{
-		int num = selection_adversaire.getSelectedIndex();
-		setIndiceAdversaire(num);
-		this.initPanel();
-	}     
 
 	public void update(Observable obs, Object o)
 	{				
