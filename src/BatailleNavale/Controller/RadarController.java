@@ -16,6 +16,7 @@ public class RadarController extends JeuController
 	public void mouseClicked(MouseEvent event)
 	{
 		Case gcase = (Case) event.getSource();
-		tirerSurEnnemi(gcase.getI(), gcase.getJ(), fenetre.getModele().getJoueurCourant().getAdversairesEnVie()[view.getIndiceAdversaire()], true);
+		if(fenetre.getModele().getJoueurCourant() instanceof Humain)
+			tirerSurEnnemi(gcase.getI(), gcase.getJ(), fenetre.getModele().getJoueurCourant().getAdversairesEnVie()[view.getIndiceAdversaire()], true);
 	}
 }

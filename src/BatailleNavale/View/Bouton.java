@@ -108,11 +108,7 @@ public class Bouton extends JButton implements MouseListener
 		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 14));
 	}
 
-	public void mouseReleased(MouseEvent event)
-	{
-		//soundClicked.play();
-	}  
-
+	public void mouseReleased(MouseEvent event){}  
 	public void mousePressed(MouseEvent event){}
 	public void mouseClicked(MouseEvent event){}
 }

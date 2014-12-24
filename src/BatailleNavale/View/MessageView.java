@@ -29,7 +29,7 @@ public class MessageView extends AbstractView
 	private Bouton bouton = new Bouton("OK");
 	private JLabel label;
 	private boolean isGo, isPopup;
-	private AbstractView go;
+	private AbstractView vueSuivante;
 
 	public MessageView(String message)
 	{	
@@ -40,12 +40,12 @@ public class MessageView extends AbstractView
 		this.controleur = new MessageController(this);
 	}
 
-	public MessageView(String message, AbstractView go, boolean isPopup)
+	public MessageView(String message, AbstractView vueSuivante, boolean isPopup)
 	{
 		this(message);
 		this.isGo = true;
 		this.isPopup = isPopup;
-		this.go = go;
+		this.vueSuivante = vueSuivante;
 	}
 	
 	public void initPanel()
@@ -96,7 +96,7 @@ public class MessageView extends AbstractView
 				try
 				{
 					Thread.sleep(1000);
-					controleur.go();
+					controleur.vueSuivante();
 				} catch(Exception e) {}
 			}
 		};
@@ -104,9 +104,9 @@ public class MessageView extends AbstractView
 		pop.start();		
 	}
 
-	public AbstractView getGo()
+	public AbstractView getVueSuivante()
 	{
-		return this.go;
+		return this.vueSuivante;
 	}
 
 	public Bouton getBouton()

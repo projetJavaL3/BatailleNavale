@@ -20,6 +20,28 @@ public class OptionsController extends AbstractController implements ActionListe
 		this.view = view;
 	}
 
+    public void actionPerformed(ActionEvent arg0) 
+    {
+        if(arg0.getSource() == view.getBoutonJouer())
+        {
+            if(modifierOptions())
+                    fenetre.changerVue(new ChoixModeView());
+                else
+                    fenetre.changerVue(new MessageView("Impossible de valider les options.", view, true));
+        }
+        else if(arg0.getSource() == view.getBoutonRetour())
+        {
+            choix = fenetre.afficherChoixMessage("Sauvegarder les modifications ?", "Attention");
+            if(choix == JOptionPane.YES_OPTION)
+                if(modifierOptions())
+                    fenetre.changerVue(new AccueilView());
+                else
+                   fenetre.changerVue(new MessageView("Impossible de valider les options.", view, true));
+            else if(choix == JOptionPane.NO_OPTION)
+                fenetre.changerVue(new AccueilView());
+        }
+    } 
+    
 	public boolean modifierOptions()
 	{
         int check = 1;
@@ -53,27 +75,5 @@ public class OptionsController extends AbstractController implements ActionListe
         {
             return false;
         }        
-	}
-
-	public void actionPerformed(ActionEvent arg0) 
- 	{
-    	if(arg0.getSource() == view.getBoutonJouer())
-    	{
-            if(modifierOptions())
-                    fenetre.changerVue(new ChoixModeView());
-                else
-                    fenetre.changerVue(new MessageView("Impossible de valider les options.", view, true));
-    	}
-    	else if(arg0.getSource() == view.getBoutonRetour())
-    	{
-    		choix = fenetre.afficherChoixMessage("Sauvegarder les modifications ?", "Attention");
-            if(choix == JOptionPane.YES_OPTION)
-            	if(modifierOptions())
-                    fenetre.changerVue(new AccueilView());
-                else
-                   fenetre.changerVue(new MessageView("Impossible de valider les options.", view, true));
-            else if(choix == JOptionPane.NO_OPTION)
-                fenetre.changerVue(new AccueilView());
-    	}
-	}  
+	} 
 }

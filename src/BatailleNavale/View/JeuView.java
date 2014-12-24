@@ -57,12 +57,12 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 				controleur = new AlerteController(this);
 				break;
 		}
-		
-		fenetre.getModele().addObserver(this);
 	}
 	
 	public void initPanel()
 	{	
+		controleur.control();
+
 		this.removeAll();
 		
 		joueur_courant = fenetre.getModele().getJoueurCourant();
@@ -99,16 +99,11 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 
 		this.add(grille_joueur);
 		this.add(grille_ennemi);
-
-
-		if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
-			controleur.actionOrdinateur();
 	}
 
 	public void addListeners()
 	{
-		if(joueur_courant instanceof Humain)
-			grille_ennemi.addController(controleur);
+		grille_ennemi.addController(controleur);
 		selection_adversaire.addItemListener(this);
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -117,8 +112,7 @@ public class JeuView extends AbstractView implements ItemListener, Observer
 
 	public void removeListeners()
 	{
-		if(joueur_courant instanceof Humain)
-			grille_ennemi.removeController(controleur);
+		grille_ennemi.removeController(controleur);
 		this.removeKeyListener(controleur);
 		selection_adversaire.removeItemListener(this);
 	}

@@ -15,11 +15,14 @@ public class AlerteController extends JeuController
 
 	public void mouseClicked(MouseEvent event)
 	{
-		Case gcase = (Case) event.getSource();
-		gcase.setBackground(couleur);
- 		view.getGrilleEnnemi().removeController(this);
- 		loop(gcase.getJ());
- 		key_pret = true;
+		if(fenetre.getModele().getJoueurCourant() instanceof Humain)
+		{
+			Case gcase = (Case) event.getSource();
+			gcase.deselectionner();
+	 		view.getGrilleEnnemi().removeController(this);
+	 		lancerAnimation(gcase.getJ());
+	 		key_pret = true;
+	 	}
 	}
 
 	public void keyTyped(KeyEvent e)

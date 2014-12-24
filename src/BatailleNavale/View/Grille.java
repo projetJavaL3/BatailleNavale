@@ -122,37 +122,25 @@ public class Grille extends JPanel
 		}
 	}
 
-	public void addController(JeuController controleur)
+	public void addController(AbstractController controleur)
 	{
 		for (int i=0; i<taille; i++)
-		{
 			for(int j=0; j<taille; j++)
-			{
-				cases[i][j].addMouseListener(controleur);
-			}			
-		}
+				if(controleur instanceof PlacementController)
+					cases[i][j].addMouseListener((PlacementController) controleur);
+				else if(controleur instanceof JeuController)
+					cases[i][j].addMouseListener((JeuController) controleur);
+
 	}
 
-	public void removeController(JeuController controleur)
+	public void removeController(AbstractController controleur)
 	{
 		for (int i=0; i<taille; i++)
-		{
 			for(int j=0; j<taille; j++)
-			{
-				cases[i][j].removeMouseListener(controleur);
-			}			
-		}
-	}
-
-	public void addController(PlacementController controleur)
-	{
-		for (int i=0; i<taille; i++)
-		{
-			for(int j=0; j<taille; j++)
-			{
-				cases[i][j].addMouseListener(controleur);
-			}			
-		}
+				if(controleur instanceof PlacementController)
+					cases[i][j].removeMouseListener((PlacementController) controleur);
+				else if(controleur instanceof JeuController)
+					cases[i][j].removeMouseListener((JeuController) controleur);
 	}
 
 	public Case getCase(int i, int j)

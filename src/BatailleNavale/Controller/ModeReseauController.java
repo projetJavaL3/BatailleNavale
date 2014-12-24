@@ -30,68 +30,7 @@ public class ModeReseauController extends AbstractController implements ActionLi
     {
         if(arg0.getSource() == view.getBoutonCreer())
         {
-            InetAddress ia = null;
-            
-            try
-            {                            
-                Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
-
-                while (interfaces.hasMoreElements())
-                {
-                    NetworkInterface ni;
-                    Enumeration adresses;
-
-                    ni = (NetworkInterface) interfaces.nextElement();
-
-                    if(ni.getDisplayName().equals("wlan0"))
-                   {
-                        adresses = ni.getInetAddresses();
-                        while (adresses.hasMoreElements())
-                        {
-                            ia = (InetAddress) adresses.nextElement();
-                        }
-                    }
-                }
-
-            } catch(Exception e){}
-
-            serverName = ia.toString().replace("/", "");
-
-            fenetre.changerVue(new MessageView("<html>Attente d'un joueur en cours...<br/>Adresse I.P. de la partie: " + serverName + "<html>"));
-
-            Thread connexion = new Thread() {
-                public void run() 
-                {
-                    try
-                    {
-                        ServerSocket s = new ServerSocket(serverPort);
-                        
-                        socket = s.accept();
-                        
-                        out = new ObjectOutputStream(socket.getOutputStream());
-                        out.flush();
-                        
-                        in = new ObjectInputStream(socket.getInputStream());
-
-                        fenetre.getModele().setTypePartie(TypePartie.ALERTE);
-
-                        Humain h1 = new Humain("Joueur 1", fenetre.getModele().getOptions().getTailleGrille());
-                        Humain h2 = new Humain("Joueur 2", fenetre.getModele().getOptions().getTailleGrille());
-
-                        fenetre.getModele().ajouterJoueur(h1);
-                        fenetre.getModele().ajouterJoueur(h2);
-
-                        ajouterBateaux(h1); 
-                        ajouterBateaux(h2);
-
-                        fenetre.changerVue(new MessageView("Connexion réussie !", new PlacementView(), true));
-                    } 
-                    catch(Exception e){}
-                }
-            };
-
-            connexion.start();
-
+           connexionClient();
         }
         else if(arg0.getSource() == view.getBoutonRejoindre())
         {
@@ -101,5 +40,64 @@ public class ModeReseauController extends AbstractController implements ActionLi
         {
             fenetre.changerVue(new ChoixModeView());
         }
+    }
+
+    public void connexionClient()
+    {
+        serverName = adresseIP().replace("/", "");
+
+        fenetre.changerVue(new MessageView("<html>Attente d'un joueur en cours...<br/>Adresse I.P. de la partie: " + serverName + "<html>"));
+
+        Thread connexion = new Thread() {
+            public void run() 
+            {
+                try
+                {
+                    ServerSocket s = new ServerSocket(serverPort);
+                    
+                    socket = s.accept();
+                    
+                    out = new ObjectOutputStream(socket.getOutputStream());
+                    out.flush();
+                    
+                    in = new ObjectInputStream(socket.getInputStream());
+
+                    fenetre.changerVue(new MessageView("Connexion réussie !", new TypeView(), true));
+                } 
+                catch(Exception e){}
+            }
+        };
+
+        connexion.start();
+    }
+
+    public String adresseIP()
+    {
+        InetAddress ia = null;
+            
+        try
+        {                            
+            Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
+
+            while (interfaces.hasMoreElements())
+            {
+                NetworkInterface ni;
+                Enumeration adresses;
+
+                ni = (NetworkInterface) interfaces.nextElement();
+
+                if(ni.getDisplayName().equals("wlan0"))
+               {
+                    adresses = ni.getInetAddresses();
+                    while (adresses.hasMoreElements())
+                    {
+                        ia = (InetAddress) adresses.nextElement();
+                    }
+                }
+            }
+
+        } catch(Exception e){}
+
+        return ia.toString();
     }
 }

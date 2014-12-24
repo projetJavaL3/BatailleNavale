@@ -5,20 +5,16 @@ import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.View.*;
 
 import java.awt.event.*;
-import javax.swing.JButton;
-import java.awt.Color;
 
 public abstract class JeuController extends AbstractController implements MouseListener, KeyListener
 {
 	protected JeuView view;
 
 	protected int posX, posY;
-	protected boolean ordi_pret = true;
 	protected boolean key_pret = false;
 
-	protected Color couleur = new Color(112, 128, 144);
-
-	protected Thread animation;
+	protected Animation animation;
+	protected ActionOrdi ao;
 	
 	public JeuController(JeuView view)
 	{
@@ -35,12 +31,11 @@ public abstract class JeuController extends AbstractController implements MouseL
 		{
 			if(fenetre.getModele().partieTermine())
 			{
+				envoyerModele();
 				fenetre.changerVue(new FinView());
 			}
 			else
-			{
-				fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", view, true));	
-			}
+				fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));	
 		}
 		else
 		{
@@ -68,75 +63,43 @@ public abstract class JeuController extends AbstractController implements MouseL
 			}
 			else
 			{
-				fenetre.changerVue(new MessageView("<html>Raté ! <br/>"+(afficher_infos?"Bateau le plus proche: "+distance:"")+ "<br/>Joueur suivant !</html> ", view, (joueur_courant instanceof Ordinateur) || (fenetre.getModele().getJoueurSuivant() instanceof Ordinateur)));
 				fenetre.getModele().joueurSuivant();
+				fenetre.changerVue(new MessageView("<html>Raté ! <br/>"+(afficher_infos?"Bateau le plus proche: "+distance:"")+ "<br/>Joueur suivant !</html> ", new JeuView(), (joueur_courant instanceof Ordinateur) || (fenetre.getModele().getJoueurSuivant() instanceof Ordinateur)));		
 			}
 		}
 	}
 
-	public void actionOrdinateur()
+	public void control()
 	{
-		Thread tirOrdinateur = new Thread() 
+		if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
 		{
-			public void run() 
-			{
-				ordi_pret = false;
+			ao = new ActionOrdi();
+			ao.start();
+		}
 
-				try{ Thread.sleep(1000); } catch(Exception e){}
-
-				if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
-				{
-					Ordinateur joueur_courant = (Ordinateur) fenetre.getModele().getJoueurCourant();
-					
-					Tir t = joueur_courant.tirAleatoire();
-
-					tirerSurEnnemi(t.getPosition().getCoord_X(), t.getPosition().getCoord_Y(), t.getJoueur(), false);
-				}
-
-				ordi_pret = true;
-			}
-		};
-
-		if(ordi_pret)
-			tirOrdinateur.start();
+		if(fenetre.getModele().partieTermine())
+		{
+			fenetre.changerVue(new FinView());
+		}
 	}
 
-	public void loop(int x)
+	public void lancerAnimation(int x)
 	{
  		posY = x;
-		animation = new Thread() {
-			public void run()
-			{
-				Grille grille = view.getGrilleEnnemi();
-				do
-				{
-					for(int i=0; i<fenetre.getModele().getOptions().getTailleGrille(); i++)
-					{
-						posX = i+1;
-						grille.getCase(i,posY-1).setBackground(new Color(255,0,0));
-						
-						 long debut = System.currentTimeMillis();
-						 long fin = debut + 200;
-						 while (System.currentTimeMillis() < fin){}
-						grille.getCase(i,posY-1).setBackground(couleur);
-					}
-				} while(true);
-			}
-		};
-
+		animation = new Animation();
 		animation.start();
 	}
 
 	public void mouseEntered(MouseEvent event)
     {
-    	JButton bouton = (JButton) event.getSource();
-		bouton.setBackground(new Color(220,220,220));
+    	if(fenetre.getModele().getJoueurCourant() instanceof Humain)
+    		((Case) event.getSource()).selectionner();
 	}
 
 	public void mouseExited(MouseEvent event)
 	{
-		JButton bouton = (JButton) event.getSource();
-    	bouton.setBackground(couleur);
+		if(fenetre.getModele().getJoueurCourant() instanceof Humain)
+			((Case) event.getSource()).deselectionner();
 	}
 
 	public void mouseClicked(MouseEvent event){}
@@ -146,4 +109,50 @@ public abstract class JeuController extends AbstractController implements MouseL
 	public void keyTyped(KeyEvent e){}
     public void keyPressed(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
+
+    public class ActionOrdi extends Thread
+	{
+		public void run() 
+		{
+			long debut = System.currentTimeMillis();
+			long fin = debut + 1500;
+			while (System.currentTimeMillis() < fin){}
+
+			Grille grille = view.getGrilleEnnemi();
+			Ordinateur joueur_courant = (Ordinateur) fenetre.getModele().getJoueurCourant();
+			Tir temp = null;
+
+			for(int i=0; i<3; i++)
+			{
+				temp = joueur_courant.tirAleatoire();
+				grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).afficherCible();
+				debut = System.currentTimeMillis();
+				fin = debut + 500;
+				while (System.currentTimeMillis() < fin){}
+				grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
+			}
+
+			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), false);
+		}
+	}
+
+	public class Animation extends Thread
+	{
+		public void run()
+		{
+			Grille grille = view.getGrilleEnnemi();
+			do
+			{
+				for(int i=0; i<fenetre.getModele().getOptions().getTailleGrille(); i++)
+				{
+					posX = i+1;
+					grille.getCase(i,posY-1).selectionner();
+					long debut = System.currentTimeMillis();
+					long fin = debut + 200;
+					while (System.currentTimeMillis() < fin){}
+					grille.getCase(i,posY-1).deselectionner();
+				}
+			} while(true);
+		}
+	}
 }

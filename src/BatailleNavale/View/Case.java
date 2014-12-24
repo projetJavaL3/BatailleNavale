@@ -72,11 +72,35 @@ public class Case extends JButton
 		afficherImage();
 	}
 
+	public void afficherCible()
+	{
+		img = new ImageIcon(getClass().getClassLoader().getResource("images/cible.png")).getImage();
+		g.drawImage(img, 0, 0, taille_case, taille_case, null);
+		afficherImage();
+	}
+
 	public void afficherRate()
 	{
 		img = new ImageIcon(getClass().getClassLoader().getResource("images/rate.png")).getImage();
 		g.drawImage(img, taille_case/4, taille_case/4, taille_case/2, taille_case/2, null);
 		afficherImage();
+	}
+
+	public void selectionner()
+	{
+		this.setBackground(new Color(220,220,220));
+	}
+
+	public void deselectionner()
+	{
+		this.setBackground(new Color(112, 128, 144));
+	}
+	
+	public void clean()
+	{
+		this.setBackground(new Color(112, 128, 144));
+		this.setDisabledIcon(null);
+		this.setIcon(null);
 	}
 
 	public Image getImageBateau(Bateau bateau, boolean orientation)

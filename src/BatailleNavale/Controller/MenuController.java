@@ -19,9 +19,14 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if(arg0.getSource() == fenetre.getItemQuitter())
         {
-            choix = fenetre.afficherChoixMessage("Êtes-vous sur de vouloir quitter ?", "Attention");
-            if(choix == JOptionPane.YES_OPTION)
-                System.exit(0);
+            quitter();
         }
 	}  
+
+    public void quitter()
+    {
+        choix = fenetre.afficherChoixMessage("Êtes-vous sur de vouloir quitter ?", "Attention");
+        if(choix == JOptionPane.YES_OPTION)
+            System.exit(0);
+    }
 }

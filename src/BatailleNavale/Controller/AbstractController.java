@@ -22,23 +22,6 @@ public abstract class AbstractController
 		fenetre = fen;
 	}
 
-	public static void ajouterBateaux(Joueur j)
-	{
-		for(int i=0; i<fenetre.getModele().getOptions().getFlotte().length; i++)
-        {
-            Bateau bateau = fenetre.getModele().getOptions().getFlotte()[i];
-                   
-            if(bateau instanceof Cuirasse)
-                j.ajouterBateau(new Cuirasse());
-            else if(bateau instanceof SousMarin)
-                j.ajouterBateau(new SousMarin());
-            else if(bateau instanceof Zodiac)
-                j.ajouterBateau(new Zodiac());
-             else
-                j.ajouterBateau(new PorteAvion());
-        }
-	}
-
 	public static boolean estConnecte()
 	{
 		return (socket!=null && socket.isConnected());

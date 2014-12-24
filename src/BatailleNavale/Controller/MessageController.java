@@ -18,12 +18,12 @@ public class MessageController extends AbstractController implements ActionListe
     {
         if(arg0.getSource() == view.getBouton())
         {
-            go();
+            vueSuivante();
         }
 	}  
 
-    public void go()
+    public void vueSuivante()
     {
-        fenetre.changerVue(view.getGo());
+        fenetre.changerVue(view.getVueSuivante());
     }
 }
