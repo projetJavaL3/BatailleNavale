@@ -61,9 +61,9 @@ public class JeuView extends AbstractView implements Observer
 	
 	public void initPanel()
 	{	
-		controleur.control();
-
 		this.removeAll();
+
+		controleur.control();
 		
 		joueur_courant = fenetre.getModele().getJoueurCourant();
 		adversaires = joueur_courant.getAdversairesEnVie();

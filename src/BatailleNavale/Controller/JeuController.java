@@ -31,12 +31,16 @@ public abstract class JeuController extends AbstractController implements MouseL
 		{
 			if(fenetre.getModele().partieTermine())
 			{
-				envoyerModele();
+				if(estConnecte())
+					envoyerModele();
+				
 				fenetre.changerVue(new FinView());
 			}
 			else
 			{
-				envoyerMessage("Votre adversaire vous a touché !");
+				if(estConnecte())
+					envoyerMessage("Votre adversaire vous a touché !");
+
 				fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));	
 			}
 		}

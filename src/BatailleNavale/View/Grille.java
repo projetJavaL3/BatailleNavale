@@ -47,6 +47,11 @@ public class Grille extends JPanel
 		this.afficher_bateaux = afficher_bateaux;
 		this.setBackground(new Color(0, 0, 0));
 		this.setLayout(new GridLayout(taille, taille, 0, 0));
+		
+		for(int i=0; i<taille; i++)
+			for(int j=0; j<taille; j++)
+				cases[i][j] = new Case(i+1, j+1, taille_case);
+
 		initialiserCases();
 	}
  
@@ -80,13 +85,12 @@ public class Grille extends JPanel
 			}
 		}
 
-
 		for(int i=0; i<taille; i++)
 		{
 			for(int j=0; j<taille; j++)
 			{
-				cases[i][j] = new Case(i+1, j+1, taille_case);
-					
+				cases[i][j].clean();
+							
 				if(joueur.dansTirsSurJoueur(new Position(i+1, j+1)) && !joueur.getChampDeBataille().existeBloc(new Position(i+1, j+1)))
 				{	
 					cases[i][j].afficherRate();
@@ -116,10 +120,11 @@ public class Grille extends JPanel
 				}
 			   
 				this.add(cases[i][j]);	
-
-				this.repaint();
 			}
 		}
+
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void addController(AbstractController controleur)
@@ -147,7 +152,6 @@ public class Grille extends JPanel
 	{
 		return cases[i][j];
 	}
-
 
 	public void clearCase(int i, int j)
 	{

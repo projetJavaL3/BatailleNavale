@@ -13,7 +13,11 @@ public class PlacementView extends AbstractView
 
 	private Grille grille;
 	private Label label;
+	private Panneau pan_bateau = new Panneau();
 	private final Bouton bouton_orientation = new Bouton("Changer orientation");
+	private final Bouton bouton_auto = new Bouton("Placement auto");
+	private final Bouton bouton_valider = new Bouton("Valider");
+	private final Bouton bouton_annuler = new Bouton("Annuler");
 
 	public PlacementView()
 	{
@@ -32,23 +36,44 @@ public class PlacementView extends AbstractView
 		this.grille.addController(controleur);
 		this.grille.setBounds(67, 150, 320, 320);
 
-		this.bouton_orientation.setBounds(100, 500, 250, 70);
+		this.bouton_orientation.setBounds(200, 500, 250, 70);
+		this.bouton_annuler.setBounds(650,250,125,70);
+		this.bouton_valider.setBounds(650,350,125,70);
+		this.bouton_auto.setBounds(500,500,250,70);
+		this.pan_bateau.setBounds(450, 250, 150, 70);
 
 		this.add(label);
 		this.add(grille);
+		this.add(pan_bateau);
 		this.add(bouton_orientation);
+		this.add(bouton_auto);
+		this.add(bouton_valider);
+		this.add(bouton_annuler);
 
 		controleur.control();
+	}
+
+	public void afficherNomBateau(String nom)
+	{
+		pan_bateau.removeAll();
+		pan_bateau.add(new JLabel(nom), "Center");
+		pan_bateau.revalidate();
 	}
 
 	public void addListeners()
 	{
 		this.bouton_orientation.addActionListener(controleur);
+		this.bouton_auto.addActionListener(controleur);
+		this.bouton_valider.addActionListener(controleur);
+		this.bouton_annuler.addActionListener(controleur);
 	}
 
 	public void removeListeners()
 	{
-		this.bouton_orientation.removeActionListener(controleur);		
+		this.bouton_orientation.removeActionListener(controleur);
+		this.bouton_auto.removeActionListener(controleur);	
+		this.bouton_valider.removeActionListener(controleur);	
+		this.bouton_annuler.removeActionListener(controleur);	
 	}
 
 	public Grille getGrille()
@@ -59,5 +84,20 @@ public class PlacementView extends AbstractView
 	public Bouton getBoutonOrientation()
 	{
 		return this.bouton_orientation;
+	}
+
+	public Bouton getBoutonAuto()
+	{
+		return this.bouton_auto;
+	}
+
+	public Bouton getBoutonValider()
+	{
+		return this.bouton_valider;
+	}
+
+	public Bouton getBoutonAnnuler()
+	{
+		return this.bouton_annuler;
 	}
 }

@@ -59,7 +59,6 @@ public class Fenetre extends JFrame
 	{
 		this.container = view;
 		update();
-		this.container.removeListeners();
 		this.container.addListeners();
 	}
 
