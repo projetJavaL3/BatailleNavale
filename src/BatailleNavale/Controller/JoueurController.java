@@ -7,15 +7,29 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
+/**
+ * Classe <code> JoueurController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class JoueurController extends AbstractController implements ActionListener
 {
+    /**
+     *  La vue a controler
+     */
     private JoueurView view;
 
+    /**
+     * Construit un <code>JoueurController</code> a partir d'une JoueurView
+     * @param view vue a controler
+     */
     public JoueurController(JoueurView view)
     {
         this.view = view;
     }
     
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0) 
     {
         if(arg0.getSource() == view.getBoutonAjouterJoueur())

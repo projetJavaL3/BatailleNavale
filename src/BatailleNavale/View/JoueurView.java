@@ -12,8 +12,15 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.plaf.IconUIResource;
 
+/** 
+ * Classe <code> JoueurView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class JoueurView extends AbstractView
 {
+    /**
+     *  Controleur de la vue
+     */
     private JoueurController controleur;
 
     private int nb_joueurs = 2;
@@ -29,12 +36,18 @@ public class JoueurView extends AbstractView
     private Bouton ajouter_joueur = new Bouton("Ajouter joueur");
     private Bouton supprimer_joueur = new Bouton("Supprimer joueur");
 
+    /**
+     * Construit une <code>JoueurView</code> 
+     */
     public JoueurView()
     {
         super();
         controleur = new JoueurController(this);
     }
 
+    /**
+     *  Initialise les composants de la vue
+     */
     public void initPanel() 
     {
         removeAll();
@@ -78,6 +91,9 @@ public class JoueurView extends AbstractView
         this.add(panel_valider);
     }
 
+    /**
+     *  Ajoute les Listeners a la vue
+     */
     public void addListeners()
     {
         ajouter_joueur.addActionListener(controleur);
@@ -85,6 +101,9 @@ public class JoueurView extends AbstractView
         valider.addActionListener(controleur);
     }
 
+    /** 
+     *  Supprime les Listeners a la vue
+     */
     public void removeListeners()
     {
         ajouter_joueur.removeActionListener(controleur);
@@ -92,31 +111,49 @@ public class JoueurView extends AbstractView
         valider.removeActionListener(controleur);
     }
 
+    /**
+     *  @return le nombre de joueurs
+     */
     public int getNbJoueurs()
     {
         return nb_joueurs;
     }
 
+    /**
+     *  @return le type du joueur i
+     */
     public String getTypeJoueur(int i)
     {
         return (String) combo_j.get(i).getSelectedItem();
     }
 
+    /**
+     *  @return boutonAjouterJoueur
+     */
     public Bouton getBoutonAjouterJoueur()
     {
         return ajouter_joueur;
     }
-    
+
+    /**
+     *  @return boutonSupprimerJoueur
+     */
     public Bouton getBoutonSupprimerJoueur()
     {
         return supprimer_joueur;
     }
 
+    /**
+     *  @return boutonValider
+     */
     public Bouton getBoutonValider()
     {
         return valider;
     }
 
+    /**
+     *  Ajoute un joueur a la vue
+     */
     public void ajouterJoueur()
     {       
         this.remove(panel_valider);
@@ -134,7 +171,10 @@ public class JoueurView extends AbstractView
         this.repaint();
         nb_joueurs++;
     }
-    
+
+    /**
+     *  Supprime un joueur de la vue
+     */
     public void supprimerJoueur()
     {
         this.remove(panel_j.get(nb_joueurs-1));

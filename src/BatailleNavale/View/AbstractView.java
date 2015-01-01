@@ -12,17 +12,34 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
-
+/** 
+ * Classe <code> AbstractView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public abstract class AbstractView extends JPanel
 {
+	/**
+	 *	Fenetre de la vue
+	 */
 	protected static Fenetre fenetre;
+
+	/**
+	 *	Image de fond de la vue
+	 */
 	protected static Image image;
 
+	/**
+     * Construit une <code>AbstractView</code> 
+     */
 	public AbstractView()
 	{
 		this("images/fond_accueil.jpg");
 	}
 	
+	/**
+     * Construit une <code>AbstractView</code> a partir d'un String
+     * @param image_de_fond chemin vers l'image de fond de la vue
+     */
 	public AbstractView(String image_de_fond)
 	{		
 		image = new ImageIcon(getClass().getClassLoader().getResource(image_de_fond)).getImage();
@@ -31,17 +48,34 @@ public abstract class AbstractView extends JPanel
 		this.setFocusable(true);
 	}
 
+	/**
+	 *	Dessine l'image de fond 
+	 */
 	public void paintComponent(Graphics g) 
 	{
 		g.drawImage(image, 0, 0, fenetre.getWidth(), fenetre.getHeight(), null);
 	}
 
+	/**
+	 *	Change la fenetre 
+	 */
 	public static void setFenetre(Fenetre fen)
 	{
 		fenetre = fen;
 	}
 
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public abstract void initPanel();	
+
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public abstract void addListeners();
+
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public abstract void removeListeners();
 }

@@ -13,18 +13,39 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.net.*;
 
+/**
+ * Classe <code> AdresseController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class AdresseController extends AbstractController implements ActionListener
 {
+    /**
+     *  La vue a controler
+     */
     private AdresseView view;
 
+    /**
+     *  Le numero de port a utiliser pour la connexion
+     */
     private final int serverPort = 9999;
+
+    /**
+     *  L'IP du serveur pour la connexion
+     */
     private  String serverName;
     
+    /**
+     * Construit un <code>AdresseController</code> a partir d'une AdresseView
+     * @param view vue a controler
+     */
     public AdresseController(AdresseView view)
     {
         this.view = view;
     }
 
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0) 
     {
         if(arg0.getSource() == view.getBoutonValider())
@@ -37,6 +58,9 @@ public class AdresseController extends AbstractController implements ActionListe
         }
     }
 
+    /**
+     *  Methode qui effectue la connexion au socket serveur
+     */
     public void connexionServeur()
     {
         int ip1 = (int) view.getSpinner1().getValue();

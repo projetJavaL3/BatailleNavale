@@ -11,8 +11,15 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 
+/** 
+ * Classe <code> CreditsView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class CreditsView extends AbstractView
 {
+	/**
+	 *	Controleur de la vue
+	 */
 	private CreditsController controleur;
 	
 	private final JLabel titre = new JLabel ("Crédits : ");
@@ -29,13 +36,19 @@ public class CreditsView extends AbstractView
 	private final Panneau panneauYanis = new Panneau();
 	
 	private final Bouton b_retour = new Bouton("Retour");
-		
+	
+	/**
+     * Construit une <code>CreditsView</code> 
+     */
 	public CreditsView()
 	{	
 		super();	
 		this.controleur = new CreditsController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{	
 		this.removeAll();
@@ -86,7 +99,10 @@ public class CreditsView extends AbstractView
 		this.add(panneauMaxime);
 		this.add(panneauYanis);
 	}
-	
+
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */	
 	public void addListeners()
 	{
 		b_Brady.addActionListener(controleur);
@@ -96,6 +112,9 @@ public class CreditsView extends AbstractView
 		b_retour.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		b_Brady.removeActionListener(controleur);
@@ -105,46 +124,73 @@ public class CreditsView extends AbstractView
 		b_retour.removeActionListener(controleur);
 	}
 
+	/**
+	 *	@return boutonBrady
+	 */
 	public Bouton getBoutonBrady()
 	{
 		return b_Brady;
 	}
-	
+
+	/**
+	 *	@return panneauBrady
+	 */
 	public Panneau getPanneauBrady()
 	{
 		return panneauBrady;
 	}
-	
+
+	/**
+	 *	@return boutonTheo
+	 */
 	public Bouton getBoutonTheo()
 	{
 		return b_Theo;
 	}
-	
+
+	/**
+	 *	@return panneauTheo
+	 */
 	public Panneau getPanneauTheo()
 	{
 		return panneauTheo;
 	}
 
+	/**
+	 *	@return boutonMaxime
+	 */
 	public Bouton getBoutonMaxime()
 	{
 		return b_Maxime;
 	}
-	
+
+	/**
+	 *	@return panneauMaxime
+	 */
 	public Panneau getPanneauMaxime()
 	{
 		return panneauMaxime;
 	}
-	
+
+	/**
+	 *	@return boutonYanis
+	 */
 	public Bouton getBoutonYanis()
 	{
 		return b_Yanis;
 	}
-	
+
+	/**
+	 *	@return panneauYanis
+	 */
 	public Panneau getPanneauYanis()
 	{
 		return panneauYanis;
 	}
-	
+
+	/**
+	 *	@return boutonRetour
+	 */
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;

@@ -10,16 +10,34 @@ import javax.swing.JOptionPane;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * Classe <code> OptionsController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class OptionsController extends AbstractController implements ActionListener
 {
-	private int choix;
-	private OptionsView view;
+    /**
+     *  La vue a controler
+     */
+    private OptionsView view;
 
+    /**
+     *  Choix de l'utilisateur
+     */
+	private int choix;
+
+    /**
+     * Construit un <code>OptionsController</code> a partir d'une OptionsView
+     * @param view vue a controler
+     */
 	public OptionsController(OptionsView view)
 	{
 		this.view = view;
 	}
 
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0) 
     {
         if(arg0.getSource() == view.getBoutonJouer())
@@ -42,6 +60,9 @@ public class OptionsController extends AbstractController implements ActionListe
         }
     } 
     
+    /**
+     *  On modifie les options dans le modele
+     */
 	public boolean modifierOptions()
 	{
         int check = 1;

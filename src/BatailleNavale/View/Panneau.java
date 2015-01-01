@@ -7,8 +7,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.BorderLayout;
 
+/** 
+ * Classe <code> Panneau </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class Panneau extends JPanel
 {
+    /**
+     *  Construit une <code>Panneau</code> 
+     */
 	public Panneau()
 	{
 		super();

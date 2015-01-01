@@ -4,11 +4,19 @@ import BatailleNavale.Model.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Controller.*;
 
+import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.event.*;
 
+/** 
+ * Classe <code> PlacementView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class PlacementView extends AbstractView 
 {
+	/**
+	 *	Controleur de la vue
+	 */
 	private PlacementController controleur;
 
 	private Grille grille;
@@ -19,12 +27,18 @@ public class PlacementView extends AbstractView
 	private final Bouton bouton_valider = new Bouton("Valider");
 	private final Bouton bouton_annuler = new Bouton("Annuler");
 
+    /**
+     *  Construit une <code>PlacementView</code> 
+     */
 	public PlacementView()
 	{
 		super();
 		this.controleur = new PlacementController(this);
 	}
 
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{
 		this.removeAll();
@@ -56,10 +70,14 @@ public class PlacementView extends AbstractView
 	public void afficherNomBateau(String nom)
 	{
 		pan_bateau.removeAll();
+		pan_bateau.setLayout(new FlowLayout());
 		pan_bateau.add(new JLabel(nom), "Center");
 		pan_bateau.revalidate();
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		this.bouton_orientation.addActionListener(controleur);
@@ -68,6 +86,9 @@ public class PlacementView extends AbstractView
 		this.bouton_annuler.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		this.bouton_orientation.removeActionListener(controleur);
@@ -76,26 +97,41 @@ public class PlacementView extends AbstractView
 		this.bouton_annuler.removeActionListener(controleur);	
 	}
 
+	/**
+	 *	@return grille
+	 */
 	public Grille getGrille()
 	{
 		return this.grille;
 	}
 
+	/**
+	 *	@return boutonOrientation
+	 */
 	public Bouton getBoutonOrientation()
 	{
 		return this.bouton_orientation;
 	}
 
+	/**
+	 *	@return boutonAuto
+	 */
 	public Bouton getBoutonAuto()
 	{
 		return this.bouton_auto;
 	}
 
+	/**
+	 *	@return boutonValider
+	 */
 	public Bouton getBoutonValider()
 	{
 		return this.bouton_valider;
 	}
 
+	/**
+	 *	@return boutonAnnuler
+	 */
 	public Bouton getBoutonAnnuler()
 	{
 		return this.bouton_annuler;

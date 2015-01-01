@@ -5,8 +5,15 @@ import BatailleNavale.Controller.*;
 
 import javax.swing.JLabel;
 
+/** 
+ * Classe <code> ChoixModeView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class ChoixModeView extends AbstractView
 {		
+	/**
+	 *	Controleur de la vue
+	 */
 	private ChoixModeController controleur;
 
 	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
@@ -14,12 +21,18 @@ public class ChoixModeView extends AbstractView
 	private final Bouton b_reseau = new Bouton("Jouer en réseau");
 	private final Bouton b_retour = new Bouton("Retour");
 
+	/**
+     * Construit une <code>ChoixModeView</code> 
+     */
 	public ChoixModeView()
 	{	
 		super();
 		this.controleur = new ChoixModeController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{	
 		this.removeAll();
@@ -36,6 +49,9 @@ public class ChoixModeView extends AbstractView
 		this.add(b_retour);	
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		this.b_local.addActionListener(controleur);
@@ -43,6 +59,9 @@ public class ChoixModeView extends AbstractView
 		this.b_retour.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		this.b_local.removeActionListener(controleur);
@@ -50,16 +69,25 @@ public class ChoixModeView extends AbstractView
 		this.b_retour.removeActionListener(controleur);		
 	}
 
+	/**
+	 *	@return boutonLocal
+	 */
 	public Bouton getBoutonLocal()
 	{
 		return b_local;
 	}
 
+	/**
+	 *	@return boutonReseau
+	 */
 	public Bouton getBoutonReseau()
 	{
 		return b_reseau;
 	}
 
+	/**
+	 *	@return boutonRetour
+	 */
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;

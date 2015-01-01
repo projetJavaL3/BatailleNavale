@@ -23,21 +23,34 @@ import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
+/** 
+ * Classe <code> FinView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class FinView extends AbstractView
 {	
+	/**
+	 *	Controleur de la vue
+	 */
 	private FinController controleur;
 	
 	private JLabel texte, texte1;
 
 	private final Bouton b_menuprincipal = new Bouton("Menu Principal");
 	private final Bouton b_boutonquitter = new Bouton("Quitter le jeu");
-	
+
+	/**
+     * Construit une <code>FinView</code> 
+     */
 	public FinView()
 	{
 		super();
 		this.controleur = new FinController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{
 		this.removeAll();
@@ -60,23 +73,35 @@ public class FinView extends AbstractView
 		this.add(b_boutonquitter);
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		b_menuprincipal.addActionListener(controleur);
 		b_boutonquitter.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		b_menuprincipal.removeActionListener(controleur);
 		b_boutonquitter.removeActionListener(controleur);
 	}
-	
+
+	/**
+	 *	@return boutonMenuPrincipal
+	 */
 	public Bouton getMenuPrincipal()
 	{
 		return b_menuprincipal;
 	}
 	
+	/**
+	 *	@return boutonQuitter
+	 */
 	public Bouton getBoutonQuitter()
 	{
 		return b_boutonquitter;

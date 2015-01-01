@@ -12,9 +12,15 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 
-
+/** 
+ * Classe <code> AccueilView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class AccueilView extends AbstractView
 {
+	/**
+	 *	Controleur de la vue
+	 */
 	private AccueilController controleur;
 
 	private final JLabel titre = new JLabel("Bataille");
@@ -23,12 +29,18 @@ public class AccueilView extends AbstractView
 	private final Bouton b_options = new Bouton("Options");
 	private final Bouton b_credits = new Bouton("Crédits");
 
+	/**
+     * Construit une <code>AccueilView</code> 
+     */
 	public AccueilView()
 	{
 		super("images/fond_accueil.jpg");
 		this.controleur = new AccueilController(this);
 	}
 
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{
 		this.removeAll();
@@ -52,6 +64,9 @@ public class AccueilView extends AbstractView
 		this.add(b_credits);
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		b_jouer.addActionListener(controleur);
@@ -59,6 +74,9 @@ public class AccueilView extends AbstractView
 		b_credits.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		b_jouer.removeActionListener(controleur);
@@ -66,16 +84,25 @@ public class AccueilView extends AbstractView
 		b_credits.removeActionListener(controleur);
 	}
 
+	/**
+	 *	@return boutonJouer
+	 */
 	public Bouton getBoutonJouer()
 	{
 		return b_jouer;
 	}
 
+	/**
+	 *	@return boutonCredits
+	 */
 	public Bouton getBoutonCredits()
 	{
 		return b_credits;
 	}
 
+	/**
+	 *	@return boutonOptions
+	 */
 	public Bouton getBoutonOptions()
 	{
 		return b_options;

@@ -6,21 +6,58 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
+/**
+ * Classe <code> JeuController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public abstract class JeuController extends AbstractController implements MouseListener, KeyListener, ItemListener
 {
+	/**
+	 *	La vue a controler 
+	 */
 	protected JeuView view;
 
-	protected int posX, posY;
+	/**
+	 *	La position X de l'animation
+	 */
+	protected int posX;
+
+	/**
+	 *	La position Y de l'animation
+	 */
+	protected int posY;
+
+	/**
+	 *	Condition pour verifier les evenements clavier
+	 */
 	protected boolean key_pret = false;
 
+	/**
+	 * Animation en boucle sur la grille
+	 */
 	protected Animation animation;
+
+	/**
+	 *	Animation pour l'action de l'ordi
+	 */
 	protected ActionOrdi ao;
 	
+	/**
+     * Construit un <code>JeuController</code> a partir d'une JeuView
+     * @param view vue a controler
+     */
 	public JeuController(JeuView view)
 	{
 		this.view = view;
 	}
 	
+	/**
+	 *	Methode qui tire sur un ennemi a la position (x, y)
+	 *	@param x position x
+	 *	@param y position y
+	 *	@param joueur_ennemi joueur cible du tir
+	 *	@param afficher_infos true si on affiche la distance du bateau le plus proche false sinon
+	 */
 	public void tirerSurEnnemi(int x, int y, Joueur joueur_ennemi, boolean afficher_infos)
 	{
 		Position pos = new Position(x, y);
@@ -76,6 +113,9 @@ public abstract class JeuController extends AbstractController implements MouseL
 		}
 	}
 
+	/**
+	 *	Controle de la vue 
+	 */
 	public void control()
 	{
 		if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
@@ -90,6 +130,9 @@ public abstract class JeuController extends AbstractController implements MouseL
 		}
 	}
 
+	/**
+	 *	Lancement de l'animation 
+	 */
 	public void lancerAnimation(int x)
 	{
  		posY = x;
@@ -97,12 +140,18 @@ public abstract class JeuController extends AbstractController implements MouseL
 		animation.start();
 	}
 
+	/**
+	 *	Action a executer lors du survol d'une case
+	 */
 	public void mouseEntered(MouseEvent event)
     {
     	if(fenetre.getModele().getJoueurCourant() instanceof Humain)
     		((Case) event.getSource()).selectionner();
 	}
 
+	/**
+	 *	Action a executer lors de la fin du survol d'une case
+	 */
 	public void mouseExited(MouseEvent event)
 	{
 		if(fenetre.getModele().getJoueurCourant() instanceof Humain)
@@ -117,6 +166,9 @@ public abstract class JeuController extends AbstractController implements MouseL
     public void keyPressed(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
 
+    /**
+     *	Action a executer lors du changement de la selection d'adversaire
+     */
     public void itemStateChanged(ItemEvent e)
 	{
 		int num = view.getSelection().getSelectedIndex();
@@ -124,6 +176,9 @@ public abstract class JeuController extends AbstractController implements MouseL
 		fenetre.changerVue(view);
 	}     
 
+	/**
+	 *	Action de lors d'un coup joue par l'ordinateur
+	 */
     public class ActionOrdi extends Thread
 	{
 		public void run() 
@@ -150,6 +205,9 @@ public abstract class JeuController extends AbstractController implements MouseL
 		}
 	}
 
+	/**
+	 *	Animation pour les modes de jeu comme (Artillerie ou Alerte)
+	 */
 	public class Animation extends Thread
 	{
 		public void run()

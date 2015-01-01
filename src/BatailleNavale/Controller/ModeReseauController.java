@@ -14,18 +14,39 @@ import java.util.Arrays;
 import java.net.*;
 import java.util.*;
 
+/**
+ * Classe <code> ModeReseauController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class ModeReseauController extends AbstractController implements ActionListener
 {
+    /**
+     *  La vue a controler
+     */
     private ModeReseauView view;
 
+    /**
+     *  Le numero de port a utiliser pour la connexion
+     */
     private final int serverPort = 9999;
+
+    /**
+     *  L'IP du serveur pour la connexion
+     */
     private String serverName = "127.0.0.1";
     
+    /**
+     * Construit un <code>ModeController</code> a partir d'une ModeReseauView
+     * @param view vue a controler
+     */
     public ModeReseauController(ModeReseauView view)
     {
         this.view = view;
     }
 
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0) 
     {
         if(arg0.getSource() == view.getBoutonCreer())
@@ -42,6 +63,9 @@ public class ModeReseauController extends AbstractController implements ActionLi
         }
     }
 
+    /**
+     *  On creer un socket serveur et on attend la connexion d'un client
+     */
     public void connexionClient()
     {
         serverName = adresseIP().replace("/", "");
@@ -71,6 +95,10 @@ public class ModeReseauController extends AbstractController implements ActionLi
         connexion.start();
     }
 
+    /**
+     *  Adresse IP du Serveur
+     *  @return adresse IP wlan0 du serveur
+     */
     public String adresseIP()
     {
         InetAddress ia = null;

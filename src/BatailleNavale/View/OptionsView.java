@@ -34,8 +34,15 @@ import java.awt.event.WindowEvent;
 
 import java.awt.GridLayout;
 
+/** 
+ * Classe <code> OptionsView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class OptionsView extends AbstractView
 {
+	/**
+	 *	Controleur de la vue
+	 */
 	private OptionsController controleur;
 	
 	private boolean[] coches = new boolean[5];
@@ -65,13 +72,18 @@ public class OptionsView extends AbstractView
 	private final Bouton b_jouer = new Bouton("Jouer");
 	private final Bouton b_retour = new Bouton("Retour");	
 
-
+    /**
+     *  Construit une <code>OptionsView</code> 
+     */
 	public OptionsView()
 	{	
 		super();	
 		this.controleur = new OptionsController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */	
 	public void initPanel()
 	{		
 		this.removeAll();
@@ -162,73 +174,115 @@ public class OptionsView extends AbstractView
 		this.add(b_retour);
 	}
 	
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		b_jouer.addActionListener(controleur);
 		b_retour.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		b_jouer.removeActionListener(controleur);
 		b_retour.removeActionListener(controleur);
 	}
 
+	/**
+	 *	@return boutonJouer
+	 */
 	public Bouton getBoutonJouer()
 	{
 		return b_jouer;
 	}
 
+	/**
+	 *	@return boutonRetour
+	 */
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;
 	}
 	
+	/**
+	 *	@return jrbFacile
+	 */
 	public JRadioButton getBoutonFacile()
 	{
 		return rb_facile;
 	}
-	
+
+	/**
+	 *	@return jrbMoyen
+	 */
 	public JRadioButton getBoutonMoyen()
 	{
 		return rb_moyen;
 	}
-	
+
+	/**
+	 *	@return jrbDifficile
+	 */
 	public JRadioButton getBoutonDifficile()
 	{
 		return rb_difficile;
 	}
-	
+
+	/**
+	 *	@return checkPorteAvion
+	 */
 	public Checkbox getBoutonPorteAvion()
 	{
 		return check1;
 	}
-	
+
+	/**
+	 *	@return checkSousMarin
+	 */
 	public Checkbox getBoutonSousMarin()
 	{
 		return check2;
 	}
-	
+
+	/**
+	 *	@return checkCuirasse
+	 */
 	public Checkbox getBoutonCuirasse()
 	{
 		return check3;
 	}
-	
+
+	/**
+	 *	@return checkCuirasse2
+	 */
 	public Checkbox getBoutonCuirasse2()
 	{
 		return check4;
 	}
 	
+	/**
+	 *	@return checkZodiac
+	 */
 	public Checkbox getBoutonZodiac()
 	{
 		return check5;
 	}
-	
+
+	/**
+	 *	@return spinnner
+	 */
 	public JSpinner getSpinner()
 	{
 		return spinner;
 	}
 	
+	/**
+	 *	Determine quels bateaux sont coches 
+	 */
 	public void getCoches()
 	{
 		Bateau[] bateaux = fenetre.getModele().getOptions().getFlotte();

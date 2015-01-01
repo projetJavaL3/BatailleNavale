@@ -10,6 +10,10 @@ import java.awt.image.BufferedImage;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
+/** 
+ * Classe <code> Case </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class Case extends JButton
 {
 	private final int i;
@@ -21,6 +25,12 @@ public class Case extends JButton
  	private BufferedImage bi;
  	private Graphics g;
 
+	/**
+     * Construit une <code>Case</code> a partir d'une position et d'une taille
+     *	@param i position i
+     *	@param j position j
+     *	@param taille_case taille de la case
+     */
 	public Case(int i, int j, int taille_case)
 	{
 		super();
@@ -37,22 +47,34 @@ public class Case extends JButton
 		this.g = bi.createGraphics(); 
 	}
 
+	/**
+	 *	@return I
+	 */
 	public int getI()
 	{
 		return this.i;
 	}
 
+	/**
+	 *	@return J
+	 */
 	public int getJ()
 	{
 		return this.j;
 	}
 
+	/**
+	 *	Affiche l'image dans la case
+	 */
 	private void afficherImage()
 	{
 		this.setDisabledIcon(new ImageIcon(bi));
 		this.setIcon(new ImageIcon(bi));
 	}
 
+	/**
+	 *	Affiche un bateau dans la case
+	 */
 	public void afficherBateau(Bateau b, boolean orientation, int partie)
 	{
 		img = getImageBateau(b, orientation);
@@ -65,6 +87,9 @@ public class Case extends JButton
 		afficherImage();  
 	}
 
+	/**
+	 *	Affiche du feu dans la case
+	 */
 	public void afficherFeu()
 	{
 		img = new ImageIcon(getClass().getClassLoader().getResource("images/feu.png")).getImage();
@@ -72,6 +97,9 @@ public class Case extends JButton
 		afficherImage();
 	}
 
+	/**
+	 *	Affiche une cible dans la case
+	 */
 	public void afficherCible()
 	{
 		img = new ImageIcon(getClass().getClassLoader().getResource("images/cible.png")).getImage();
@@ -79,6 +107,9 @@ public class Case extends JButton
 		afficherImage();
 	}
 
+	/**
+	 *	Affiche que le tir est rate dans la case
+	 */
 	public void afficherRate()
 	{
 		img = new ImageIcon(getClass().getClassLoader().getResource("images/rate.png")).getImage();
@@ -86,16 +117,25 @@ public class Case extends JButton
 		afficherImage();
 	}
 
+	/**
+	 *	Selectionne la case
+	 */
 	public void selectionner()
 	{
 		this.setBackground(new Color(220,220,220));
 	}
 
+	/**
+	 *	Deselectionne la case
+	 */
 	public void deselectionner()
 	{
 		this.setBackground(new Color(112, 128, 144));
 	}
 	
+	/**
+	 *	Remet la case normalement
+	 */
 	public void clean()
 	{
 		this.setBackground(new Color(112, 128, 144));
@@ -103,6 +143,9 @@ public class Case extends JButton
 		this.setIcon(null);
 	}
 
+	/**
+	 *	Cherche l'image associe a un bateau et a son orientation
+	 */
 	public Image getImageBateau(Bateau bateau, boolean orientation)
 	{
 		String b_nom = "", path;

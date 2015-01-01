@@ -5,8 +5,15 @@ import BatailleNavale.Controller.*;
 
 import javax.swing.JLabel;
 
+/** 
+ * Classe <code> TypeView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class TypeView extends AbstractView
 {		
+	/**
+	 *	Controleur de la vue
+	 */
 	private TypeController controleur;
 
 	private final Bouton b_classique = new Bouton("Classique");
@@ -16,12 +23,18 @@ public class TypeView extends AbstractView
 	private final Bouton b_retour = new Bouton("Retour");
 	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
 
+    /**
+     *  Construit une <code>TypeView</code>
+     */
 	public TypeView()
 	{	
 		super();
 		this.controleur = new TypeController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */	
 	public void initPanel()
 	{	
 		this.removeAll();
@@ -42,6 +55,9 @@ public class TypeView extends AbstractView
 		this.add(b_retour);	
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		b_classique.addActionListener(controleur);
@@ -51,6 +67,9 @@ public class TypeView extends AbstractView
 		b_retour.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		b_classique.removeActionListener(controleur);
@@ -60,26 +79,41 @@ public class TypeView extends AbstractView
 		b_retour.removeActionListener(controleur);
 	}
 
+	/**
+	 *	@return boutonClassique
+	 */
 	public Bouton getBoutonClassique()
 	{
 		return b_classique;
 	}
 
+	/**
+	 *	@return boutonRadar
+	 */
 	public Bouton getBoutonRadar()
 	{
 		return b_radar;
 	}
-	
+
+	/**
+	 *	@return boutonArtillerie
+	 */
 	public Bouton getBoutonArtillerie()
 	{
 		return b_artillerie;
 	}
 
+	/**
+	 *	@return boutonAlerte
+	 */
 	public Bouton getBoutonAlerte()
 	{
 		return b_alerte;
 	}
-	
+
+	/**
+	 *	@return boutonRetour
+	 */
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;

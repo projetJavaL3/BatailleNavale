@@ -20,8 +20,15 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
+/** 
+ * Classe <code> MessageView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class MessageView extends AbstractView 
 {	
+	/**
+	 *	Controleur de la vue
+	 */
 	private MessageController controleur;
 
 	private Panneau panneau = new Panneau();
@@ -31,6 +38,10 @@ public class MessageView extends AbstractView
 	private boolean isGo, isPopup;
 	private AbstractView vueSuivante;
 
+    /**
+     *  Construit une <code>MessageView</code> a partir d'un String
+     *  @param message texte du message
+     */
 	public MessageView(String message)
 	{	
 		super();
@@ -40,6 +51,12 @@ public class MessageView extends AbstractView
 		this.controleur = new MessageController(this);
 	}
 
+    /**
+     *  Construit une <code>MessageView</code> a partir d'un String, d'une Vue et d'un booleen
+     *  @param message texte du message
+     *	@param vueSuivante vue suivante apres l'affichage du message
+     *	@param isPopup precise si le message est un popup ou non
+     */
 	public MessageView(String message, AbstractView vueSuivante, boolean isPopup)
 	{
 		this(message);
@@ -47,7 +64,10 @@ public class MessageView extends AbstractView
 		this.isPopup = isPopup;
 		this.vueSuivante = vueSuivante;
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{	
 		this.removeAll();
@@ -78,16 +98,25 @@ public class MessageView extends AbstractView
 			this.panneau.add(icone);
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		this.bouton.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		this.bouton.removeActionListener(controleur);
 	}
 
+	/**
+	 *	Ferme automatiquement le popup
+	 */
 	public void fermer()
 	{
 		Thread pop = new Thread() {
@@ -104,11 +133,17 @@ public class MessageView extends AbstractView
 		pop.start();		
 	}
 
+	/**
+	 *	@return vueSuivante
+	 */
 	public AbstractView getVueSuivante()
 	{
 		return this.vueSuivante;
 	}
 
+	/**
+	 *	@return bouton
+	 */
 	public Bouton getBouton()
 	{
 		return this.bouton;

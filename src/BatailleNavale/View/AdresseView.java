@@ -34,8 +34,15 @@ import java.awt.event.WindowEvent;
 
 import java.awt.GridLayout;
 
+/** 
+ * Classe <code> AdresseView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class AdresseView extends AbstractView
 {
+	/**
+	 *	Controleur de la vue
+	 */
 	private AdresseController controleur;
 
 	private final Panneau pan = new Panneau();
@@ -50,13 +57,18 @@ public class AdresseView extends AbstractView
 	private final Bouton b_valider = new Bouton("Valider");
 	private final Bouton b_retour = new Bouton("Retour");	
 
-
+	/**
+     * Construit une <code>AdresseView</code> 
+     */
 	public AdresseView()
 	{	
 		super();
 		this.controleur = new AdresseController(this);
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{		
 		this.removeAll();
@@ -85,43 +97,67 @@ public class AdresseView extends AbstractView
 		this.add(b_retour);
 	}
 	
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		this.b_valider.addActionListener(controleur);
 		this.b_retour.addActionListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		this.b_valider.removeActionListener(controleur);
 		this.b_retour.removeActionListener(controleur);
 	}
 
+	/**
+	 *	@return boutonValider
+	 */
 	public Bouton getBoutonValider()
 	{
 		return b_valider;
 	}
 
+	/**
+	 *	@return boutonRetour
+	 */
 	public Bouton getBoutonRetour()
 	{
 		return b_retour;
 	}
-	
+
+	/**
+	 *	@return spinnner1
+	 */
 	public JSpinner getSpinner1()
 	{
 		return spinner1;
 	}
-	
+
+	/**
+	 *	@return spinnner2
+	 */	
 	public JSpinner getSpinner2()
 	{
 		return spinner2;
 	}
 
+	/**
+	 *	@return spinnner3
+	 */
 	public JSpinner getSpinner3()
 	{
 		return spinner3;
 	}
-	
+
+	/**
+	 *	@return spinnner4
+	 */
 	public JSpinner getSpinner4()
 	{
 		return spinner4;

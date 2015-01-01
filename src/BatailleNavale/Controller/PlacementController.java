@@ -11,27 +11,44 @@ import javax.swing.JButton;
 
 import java.awt.event.*;
 
+/**
+ * Classe <code> PlacementController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class PlacementController extends AbstractController implements ActionListener, MouseListener
 {
+    /**
+     *  La vue a controler
+     */
     private PlacementView view;
 
+    /**
+     *  Orientation du bateau a placer
+     */
     private static boolean orientation = true;
 
+    /**
+     *  Bateau a placer
+     */
     private Bateau bateau;
-    private Joueur joueur;
 
-    private Color couleur;
-
+    /**
+     * Construit un <code>PlacementController</code> a partir d'une PlacementView
+     * @param view vue a controler
+     */
 	public PlacementController(PlacementView view)
 	{
         this.view = view;
 	}
 
+    /**
+     *  Controle de la vue 
+     */
     public void control()
     {
         if(!fenetre.getModele().getJoueurCourant().bateauxPlaces())
         {
-            view.afficherNomBateau("<html>* Placement du " + fenetre.getModele().getJoueurCourant().getBateauxNonPlaces()[0].getNom()+" *</html>");
+            view.afficherNomBateau("<html><br/>Placement du <br/>" + fenetre.getModele().getJoueurCourant().getBateauxNonPlaces()[0].getNom()+"</html>");
 
             if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
             {
@@ -47,13 +64,16 @@ public class PlacementController extends AbstractController implements ActionLis
         } 
         else
         {
-            view.afficherNomBateau("<html>* Tous vos bateaux<br/> sont placés ! *</html>");
+            view.afficherNomBateau("<html><br/>Tous vos bateaux<br/> sont placés !</html>");
 
             view.getBoutonOrientation().setVisible(false);
             view.getBoutonValider().setVisible(true);
         }
     }
 
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0)
     {
         if(arg0.getSource() == view.getBoutonOrientation())

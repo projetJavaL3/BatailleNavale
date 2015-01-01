@@ -26,6 +26,10 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 
+/** 
+ * Classe <code> Grille </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class Grille extends JPanel
 {
  	private int taille;
@@ -38,6 +42,12 @@ public class Grille extends JPanel
  	private BufferedImage bi; 
 	private Graphics g;
 
+	/**
+     *	Construit une <code>Grille</code> a partir une taille, d'un joueur et d'un booleen
+     *	@param taille taille de la grille
+     *	@param joueur joueur associe a la grille
+     *	@param afficher_bateaux booleen pour afficher ou non les bateaux sur la grille
+     */
  	public Grille(int taille, Joueur joueur, boolean afficher_bateaux)
 	{
 		this.taille_case = 320/taille;
@@ -55,6 +65,9 @@ public class Grille extends JPanel
 		initialiserCases();
 	}
  
+ 	/**
+ 	 *	Initialise les cases de la grille
+ 	 */
 	public void initialiserCases()
 	{
 		removeAll();
@@ -127,6 +140,9 @@ public class Grille extends JPanel
 		this.repaint();
 	}
 
+	/**
+	 *	Ajoute un controleur a la grille
+	 */
 	public void addController(AbstractController controleur)
 	{
 		for (int i=0; i<taille; i++)
@@ -138,6 +154,9 @@ public class Grille extends JPanel
 
 	}
 
+	/**
+	 *	Supprimer un controleur a la grille
+	 */
 	public void removeController(AbstractController controleur)
 	{
 		for (int i=0; i<taille; i++)
@@ -148,16 +167,25 @@ public class Grille extends JPanel
 					cases[i][j].removeMouseListener((JeuController) controleur);
 	}
 
+	/**
+	 *	@return la case a la position (i,j)
+	 */
 	public Case getCase(int i, int j)
 	{
 		return cases[i][j];
 	}
 
+	/**
+	 * 	Remet a zero la case a la position (i,j)
+	 */
 	public void clearCase(int i, int j)
 	{
 		cases[i][j] = new Case(i+1, j+1, taille_case);
 	}
 
+	/**
+	 *	@return la taille de la grille
+	 */
 	public int getTaille()
 	{
 		return taille;

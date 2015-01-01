@@ -20,8 +20,15 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
+/** 
+ * Classe <code> JeuView </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class JeuView extends AbstractView implements Observer
 {		
+	/**
+	 *	Controleur de la vue
+	 */
 	private JeuController controleur;
 
 	private Joueur joueur_courant, ennemi;
@@ -35,6 +42,9 @@ public class JeuView extends AbstractView implements Observer
 	private Grille grille_ennemi;
 	private JLabel lblMaFlotte, lblFlotteEnnemi, lblAction;
 
+	/**
+     * Construit une <code>JeuView</code> 
+     */
 	public JeuView()
 	{	
 		super();
@@ -58,7 +68,10 @@ public class JeuView extends AbstractView implements Observer
 				break;
 		}
 	}
-	
+
+	/**
+	 *	Initialise les composants de la vue
+	 */
 	public void initPanel()
 	{	
 		this.removeAll();
@@ -101,6 +114,9 @@ public class JeuView extends AbstractView implements Observer
 		this.add(grille_ennemi);
 	}
 
+	/**
+	 *	Ajoute les Listeners a la vue
+	 */
 	public void addListeners()
 	{
 		this.requestFocusInWindow();
@@ -109,6 +125,9 @@ public class JeuView extends AbstractView implements Observer
 		this.addKeyListener(controleur);
 	}
 
+	/** 
+	 *	Supprime les Listeners a la vue
+	 */
 	public void removeListeners()
 	{
 		grille_ennemi.removeController(controleur);
@@ -116,26 +135,41 @@ public class JeuView extends AbstractView implements Observer
 		this.removeKeyListener(controleur);
 	}
 
+	/**
+	 *	@return grilleEnnemi
+	 */
 	public Grille getGrilleEnnemi()
 	{
 		return this.grille_ennemi;
 	}
 
+	/**
+	 *	@return selectionAdversaire
+	 */
 	public JComboBox getSelection()
 	{
 		return this.selection_adversaire;
 	}
 
+	/**
+	 *	@return indiceAdversaire
+	 */
 	public int getIndiceAdversaire()
 	{
 		return this.indice;
 	}
 
+	/**
+	 *	Modifie l'indice de l'adversaire selectionne
+	 */
 	public void setIndiceAdversaire(int indice)
 	{
 		this.indice = indice;
 	}
 
+	/**
+	 *	Mets a jour la vue
+	 */
 	public void update(Observable obs, Object o)
 	{				
 		initPanel();

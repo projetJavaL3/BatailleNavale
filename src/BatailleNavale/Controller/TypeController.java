@@ -6,16 +6,29 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
+/**
+ * Classe <code> TypeController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class TypeController extends AbstractController implements ActionListener
 {
-
+    /**
+     *  La vue a controler
+     */
     private TypeView view;
 
+    /**
+     * Construit un <code>TypeController</code> a partir d'une TypeView
+     * @param view vue a controler
+     */
     public TypeController(TypeView view)
     {
         this.view = view;
     }
 
+    /**
+     *  Les differentes actions a executer selon les boutons utilises
+     */
     public void actionPerformed(ActionEvent arg0) 
     {
     	if(arg0.getSource() == view.getBoutonClassique())

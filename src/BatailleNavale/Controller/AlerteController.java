@@ -6,13 +6,24 @@ import BatailleNavale.View.*;
 
 import java.awt.event.*;
 
+/**
+ * Classe <code> AlerteController </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class AlerteController extends JeuController
 {
+	/**
+     * Construit un <code>AlerteController</code> a partir d'une JeuView
+     * @param view vue a controler
+     */
 	public AlerteController(JeuView view)
 	{
 		super(view);
 	}
 
+	/**
+	 *	Action a executer lors du click sur une case
+	 */
 	public void mouseClicked(MouseEvent event)
 	{
 		if(fenetre.getModele().getJoueurCourant() instanceof Humain)
@@ -25,6 +36,9 @@ public class AlerteController extends JeuController
 	 	}
 	}
 
+	/**
+	 *	Action a exectuer lors de l'appuie sur une touche
+	 */
 	public void keyTyped(KeyEvent e)
 	{
 		if(key_pret)

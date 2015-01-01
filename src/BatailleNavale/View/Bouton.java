@@ -16,14 +16,19 @@ import java.awt.event.*;
 import java.applet.*;  
 import java.io.*;  
 
+/** 
+ * Classe <code> Bouton </code> 
+ * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
+ */
 public class Bouton extends JButton implements MouseListener
 {
- 
 	private int inset = 5;
 	private Color buttonColor = new Color(10, 10, 10);
 
-	private AudioClip soundBouton, soundClicked;  
- 	
+ 	/**
+     * Construit un <code>Bouton</code> a oartir d'une chaine de caracteres
+     *	@param nom texte du bouton
+     */
 	public Bouton(String nom)
 	{
 		super(nom);
@@ -32,17 +37,6 @@ public class Bouton extends JButton implements MouseListener
 		setBorder(null);
 		setFocusPainted(false);
 		addMouseListener(this);
-   
-   		// Chargement des sons
-    	try
-    	{
-			soundBouton  = Applet.newAudioClip(getClass().getClassLoader().getResource("sons/bouton.wav"));
-			soundClicked = Applet.newAudioClip(getClass().getClassLoader().getResource("sons/bouton_clicked.wav"));
-    	}  
-    	catch(Exception e)
-    	{
-    		e.printStackTrace();
-    	}   
 	}
  
  	protected void paintComponent(Graphics g)
@@ -97,7 +91,6 @@ public class Bouton extends JButton implements MouseListener
 
     public void mouseEntered(MouseEvent event)
     {
-    	soundBouton.play();
     	this.setLocation(getX()+10, getY());
 		setFont(new Font("DejaVu Sans Condensed", Font.BOLD | Font.ITALIC, 22));
     }
