@@ -42,7 +42,13 @@ public class MessageController extends AbstractController implements ActionListe
     public void vueSuivante()
     {
         AbstractView vue_suivante = view.getVueSuivante();
-        vue_suivante.removeListeners();
+
+        try
+        {
+            vue_suivante.removeListeners();
+        }
+        catch(Exception e){}
+
         fenetre.changerVue(vue_suivante);
     }
 }
