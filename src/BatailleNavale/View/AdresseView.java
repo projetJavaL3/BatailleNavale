@@ -82,7 +82,7 @@ public class AdresseView extends AbstractView
 		spinner4.setModel(new SpinnerNumberModel(0, 0, 255 , 1));
 		
 		pan.setLayout(new GridLayout(1, 4));
-		pan.setBounds(350, 250, 300, 80);
+		pan.setBounds(300, 250, 300, 80); //350
 		pan.add(spinner1);
 		pan.add(spinner2);
 		pan.add(spinner3);

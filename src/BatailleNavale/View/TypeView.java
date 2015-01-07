@@ -5,6 +5,9 @@ import BatailleNavale.Controller.*;
 
 import javax.swing.JLabel;
 
+import java.awt.Color;
+import java.awt.Font;
+
 /** 
  * Classe <code> TypeView </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
@@ -39,13 +42,15 @@ public class TypeView extends AbstractView
 	{	
 		this.removeAll();
 
-		type_label.setBounds(100,80,250,40);
+		type_label.setBounds(150, 50, 700, 50);
+		type_label.setForeground(Color.BLACK);
+		type_label.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 40));
 
 		b_classique.setBounds(280, 130, 330, 65);
 		b_radar.setBounds(280, 230, 330, 65);
 		b_artillerie.setBounds(280, 330, 330, 65);
 		b_alerte.setBounds(280, 430, 330, 65);
-		b_retour.setBounds(10,520,100,50);
+		b_retour.setBounds(10, 550, 100, 50);
 
 		this.add(type_label);
 		this.add(b_classique);

@@ -132,7 +132,7 @@ public class OptionsView extends AbstractView
 		rb_difficile.setBackground(null);
 		
 		b_retour.setBounds(10, 550, 100, 50);
-		b_jouer.setBounds(790,560,100,50);
+		b_jouer.setBounds(780,550,100,50);
 		
 		bg.add(rb_facile);
 		bg.add(rb_moyen);
