@@ -24,7 +24,7 @@ public class MenuController extends AbstractController implements ActionListener
     {
     	if(arg0.getSource() == fenetre.getItemMenuPrincipal())
         {
-            fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
+            socket = null;
             fenetre.changerVue(new AccueilView());
         }
         else if(arg0.getSource() == fenetre.getItemQuitter())
@@ -41,21 +41,25 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if (arg0.getSource() == fenetre.getItemClassique())
         {
+            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
             fenetre.changerVue(new JoueurView());
         }
         else if (arg0.getSource() == fenetre.getItemRadar())
         {
-           fenetre.getModele().setTypePartie(TypePartie.RADAR);
-           fenetre.changerVue(new JoueurView()); 
+            socket = null;
+            fenetre.getModele().setTypePartie(TypePartie.RADAR);
+            fenetre.changerVue(new JoueurView()); 
         }
         else if (arg0.getSource() == fenetre.getItemArtillerie())
         {
+            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.ARTILLERIE);
             fenetre.changerVue(new JoueurView());
         }
         else if (arg0.getSource() == fenetre.getItemAlerte())
         {
+            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.ALERTE);
             fenetre.changerVue(new JoueurView());
         }
@@ -66,8 +70,7 @@ public class MenuController extends AbstractController implements ActionListener
         else if (arg0.getSource() == fenetre.getItemRejoindrePartie())
         {
             fenetre.changerVue(new AdresseView());
-        }
-        
+        }  
     }  
 
     /**
