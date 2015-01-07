@@ -24,7 +24,7 @@ public class Ordinateur extends Joueur
     private boolean sens = true;
     private boolean avant = true;
     private Tir dernierBonTir;
-
+    private int cpt = 0;
     /**
      *  Constructeur par defaut de l'ordinateur
      */
@@ -89,10 +89,11 @@ public class Ordinateur extends Joueur
         {
             if(t.getBateau().getPointDeVie()>1)
             {
-                if(bateauTrouve)
-                    cherche_direction = false;
                 bateauTrouve = true;
                 dernierBonTir = t;
+                cherche_direction = true;
+                if(t.getBateau().getPointDeVie()<t.getBateau().getTaille())
+                    cherche_direction = false;
             }
             else
             {

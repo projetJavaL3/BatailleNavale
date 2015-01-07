@@ -202,7 +202,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 		public void run() 
 		{
 			long debut = System.currentTimeMillis();
-			long fin = debut + 2000;
+			long fin = debut + 800;
 			while (System.currentTimeMillis() < fin){}
 
 			Grille grille = view.getGrilleEnnemi();

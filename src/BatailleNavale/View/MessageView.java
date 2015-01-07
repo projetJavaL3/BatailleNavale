@@ -124,7 +124,7 @@ public class MessageView extends AbstractView
 			{
 				try
 				{
-					Thread.sleep(750);
+					Thread.sleep(650);
 					controleur.vueSuivante();
 				} catch(Exception e) {}
 			}
