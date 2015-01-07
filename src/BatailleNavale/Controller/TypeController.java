@@ -34,18 +34,22 @@ public class TypeController extends AbstractController implements ActionListener
     	if(arg0.getSource() == view.getBoutonClassique())
     	{
             fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
+            fenetre.changerVue(new JoueurView());
     	}
     	else if(arg0.getSource() == view.getBoutonRadar())
     	{
     		fenetre.getModele().setTypePartie(TypePartie.RADAR);
+            fenetre.changerVue(new JoueurView());
     	}
     	else if(arg0.getSource() == view.getBoutonArtillerie())
     	{
     		fenetre.getModele().setTypePartie(TypePartie.ARTILLERIE);
+            fenetre.changerVue(new JoueurView());
     	}
         else if(arg0.getSource() == view.getBoutonAlerte())
         {
             fenetre.getModele().setTypePartie(TypePartie.ALERTE);
+            fenetre.changerVue(new JoueurView());
         }
     	else if(arg0.getSource() == view.getBoutonRetour())
     	{	
@@ -65,9 +69,5 @@ public class TypeController extends AbstractController implements ActionListener
 
             fenetre.changerVue(new PlacementView());
         } 
-        else
-        {
-            fenetre.changerVue(new JoueurView());
-        }
 	}
 }

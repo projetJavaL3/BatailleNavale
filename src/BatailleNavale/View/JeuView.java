@@ -67,6 +67,8 @@ public class JeuView extends AbstractView implements Observer
 				controleur = new AlerteController(this);
 				break;
 		}
+
+		fenetre.getModele().addObserver(this);
 	}
 
 	/**
@@ -172,8 +174,6 @@ public class JeuView extends AbstractView implements Observer
 	 */
 	public void update(Observable obs, Object o)
 	{				
-		initPanel();
-		this.revalidate();
-		this.repaint();
+		
 	}
 }
