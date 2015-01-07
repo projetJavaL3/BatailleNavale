@@ -87,6 +87,14 @@ public class Tir implements Serializable
 	{
 		return this.joueur.getChampDeBataille().getBloc(position).getBateau();
 	}
+        
+        public boolean tirReussi(){
+            ChampDeBataille cible = getJoueur().getChampDeBataille();
+            if(cible.existeBloc(position)){
+                return true;
+            }
+            return false;
+        }
 
 	public boolean equals(Object o)
 	{

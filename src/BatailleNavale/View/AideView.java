@@ -11,7 +11,7 @@ public class AideView extends AbstractView
 {
 	public AideView(Fenetre fenetre, Modele modele)
 	{	
-		super(fenetre, modele);
+		super();
 		initPanel();
 	}
 	
@@ -20,4 +20,14 @@ public class AideView extends AbstractView
 		JTextField text1 = new JTextField("Si vos avez besoin d'aide, demande a Yanis Boukari. \nEt si ya vraiment un probleme debrouille toi!!!" );
 		this.add(text1);
 	}
+
+    @Override
+    public void addListeners() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListeners() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

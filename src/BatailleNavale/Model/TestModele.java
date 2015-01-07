@@ -1,3 +1,7 @@
+package BatailleNavale.Model;
+import BatailleNavale.Model.Joueur.*;
+import BatailleNavale.Model.Flotte.*;
+
 public class TestModele
 {
 	public static void main(String[] args)
