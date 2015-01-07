@@ -31,7 +31,11 @@ public abstract class JeuController extends AbstractController implements MouseL
 	/**
 	 *	Condition pour verifier les evenements clavier
 	 */
-	protected boolean key_pret = false;
+	protected static boolean key_pret = false;
+
+	protected static boolean animation_en_cours = false;
+
+	protected static boolean action_en_cours = false;
 
 	/**
 	 * Animation en boucle sur la grille
@@ -128,6 +132,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 		if(fenetre.getModele().getJoueurCourant() instanceof Ordinateur)
 		{
 			ao = new ActionOrdi();
+			action_en_cours = true;
 			ao.start();
 		}
 
@@ -144,13 +149,13 @@ public abstract class JeuController extends AbstractController implements MouseL
 	{
  		posY = x;
 		animation = new Animation();
+ 		animation_en_cours = true;
 		animation.start();
 	}
 
 	public static void stopOrdi()
 	{
-		if(ao!=null)
-			ao.stop();
+		action_en_cours = false;
 	}
 
 	/**
@@ -211,7 +216,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 			{
 				lancerAnimation(temp.getPosition().getCoord_Y());
 				while(posX!=temp.getPosition().getCoord_X()){}
-				animation.stop();
+				animation_en_cours = false;
 			}
 			else
 			{
@@ -229,6 +234,9 @@ public abstract class JeuController extends AbstractController implements MouseL
 					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
 				}
 			}
+
+			if(!action_en_cours)
+				return;
 
 			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), afficher_infos);
 		}
@@ -254,7 +262,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 					grille.getCase(i,posY-1).deselectionner();
 				}
 
-			} while(true);
+			} while(animation_en_cours);
 		}
 	}
 }

@@ -51,7 +51,7 @@ public class PlacementController extends AbstractController implements ActionLis
             if(!fenetre.getModele().getJoueurs()[i].bateauxPlaces())
                 ok = false;
 
-        if(ok)
+        if(ok && (fenetre.getModele().getJoueurCourant() instanceof Ordinateur))
             fenetre.changerVue(new JeuView());
         
         if(!fenetre.getModele().getJoueurCourant().bateauxPlaces())

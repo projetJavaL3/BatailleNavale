@@ -45,7 +45,7 @@ public class ArtillerieController extends JeuController
 	{
 		if(key_pret)
 		{
-			animation.stop();
+			animation_en_cours = false;
 			tirerSurEnnemi(posX, posY, fenetre.getModele().getJoueurCourant().getAdversairesEnVie()[view.getIndiceAdversaire()], false);   
 			view.getGrilleEnnemi().addController(this);
 			key_pret = false;
