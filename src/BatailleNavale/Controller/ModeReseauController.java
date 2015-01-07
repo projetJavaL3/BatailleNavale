@@ -28,12 +28,12 @@ public class ModeReseauController extends AbstractController implements ActionLi
     /**
      *  Le numero de port a utiliser pour la connexion
      */
-    private final int serverPort = 9999;
+    private static final int serverPort = 9999;
 
     /**
      *  L'IP du serveur pour la connexion
      */
-    private String serverName = "127.0.0.1";
+    private static String serverName = "127.0.0.1";
     
     /**
      * Construit un <code>ModeController</code> a partir d'une ModeReseauView
@@ -66,7 +66,7 @@ public class ModeReseauController extends AbstractController implements ActionLi
     /**
      *  On creer un socket serveur et on attend la connexion d'un client
      */
-    public void connexionClient()
+    public static void connexionClient()
     {
         serverName = adresseIP().replace("/", "");
 
@@ -99,7 +99,7 @@ public class ModeReseauController extends AbstractController implements ActionLi
      *  Adresse IP du Serveur
      *  @return adresse IP wlan0 du serveur
      */
-    public String adresseIP()
+    public static String adresseIP()
     {
         InetAddress ia = null;
             

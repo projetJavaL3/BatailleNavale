@@ -181,6 +181,7 @@ public class Modele extends Observable implements Serializable
 	public void setTypePartie(TypePartie type)
 	{		
 		this.type = type;
+		this.indice_joueur_courant = 0;
 		this.joueurs = new ArrayList<Joueur>();
 	}
 	

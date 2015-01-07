@@ -15,7 +15,7 @@ public class MenuController extends AbstractController implements ActionListener
     /**
      *  Choix de l'utilisateur
      */
-    private int choix;
+    private static int choix;
 
     /**
      *  Les differentes actions a executer selon les boutons utilises
@@ -37,7 +37,6 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if (arg0.getSource() == fenetre.getItemCredits())
         {
-            System.out.println("Success!!");
             fenetre.changerVue(new CreditsView());
         }
         else if (arg0.getSource() == fenetre.getItemClassique())
@@ -62,8 +61,7 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if (arg0.getSource() == fenetre.getItemCreerPartie())
         {
-            //Je suis pas sûr pour ça
-            //ModeReseauController.connexionClient();
+            ModeReseauController.connexionClient();
         }
         else if (arg0.getSource() == fenetre.getItemRejoindrePartie())
         {
@@ -75,7 +73,7 @@ public class MenuController extends AbstractController implements ActionListener
     /**
      *  On demande a l'utilisateur s'il veut quitter l'application
      */
-    public void quitter()
+    public static void quitter()
     {
         choix = fenetre.afficherChoixMessage("Êtes-vous sur de vouloir quitter ?", "Attention");
         if(choix == JOptionPane.YES_OPTION)

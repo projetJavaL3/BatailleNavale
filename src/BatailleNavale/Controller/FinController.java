@@ -46,17 +46,7 @@ public class FinController extends AbstractController implements ActionListener
 	   	}
 	   	else if(arg0.getSource() == view.getBoutonQuitter())
 	   	{
-	   		quitter();
+	   		MenuController.quitter();
 	  	}
 	}	
-
-	/**
-	 *	On demande a l'utilisateur s'il desire quitter le programme
-	 */
-	public void quitter()
-	{
-		choix = fenetre.afficherChoixMessage("Etes-vous sur de vouloir quitter le jeu ?", "Attention");
-	    if(choix == JOptionPane.YES_OPTION)
-	        System.exit(0);
-	}
 }
