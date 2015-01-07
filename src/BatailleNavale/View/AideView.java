@@ -41,7 +41,7 @@ public class AideView extends AbstractView
 	 */
 	private AideController controleur;
 
-	private final JLabel titre = new JLabel("A Propose de la Bataille Navale ");
+	private final JLabel titre = new JLabel("A Propos de la Bataille Navale ");
 
 	private final Bouton b_classique = new Bouton("Mode Classique");
 	private final Bouton b_radar = new Bouton("Mode Radar");
@@ -77,19 +77,19 @@ public class AideView extends AbstractView
 		p_classique.setBounds(280, 110, 500, 95);
 		p_classique.add(new JLabel("<html>Mode Classique : <br/>"+
 					"Chaque joueur essaye de deviner la position des navires ennemis et<br/>"+ 
-					"tenter des les couler<html>")) ;
+					"tenter de les couler.<html>")) ;
 		p_classique.setVisible(false);
 
 		
 		p_radar.setBounds(280 ,240, 500, 95);
 		p_radar.add(new JLabel("<html>Mode Radar : <br/>" +
 				"Similaire au mode Classique, mais après chaque tir manqué,<br/>"+ 
-				"une indication de la distance jusqu’à la cible la plus proche est donnée<html>"));
+				"une indication de la distance jusqu’à la cible la plus proche est donnée.<html>"));
 		p_radar.setVisible(false);
 
 		p_artillerie.setBounds(280, 370, 500, 95);
 		p_artillerie.add(new JLabel("<html>Mode Artillerie : <br/>"+
-					"Similaire au mode Classique à l’exception du mode de sélection des coordonnées.Le joueur sélectionne d’abord la coordonnée verticale de la cible.Les numéros de la coordonnée horizontale de la cible apparaissent alors l’un après l’autre (en boucle). Le joueur doit alors valider la deuxième coordonnée au bon moment<html>"));
+					"Similaire au mode Classique à l’exception du mode de sélection des coordonnées.Le joueur sélectionne d’abord la coordonnée verticale de la cible.Les numéros de la coordonnée horizontale de la cible apparaissent alors l’un après l’autre (en boucle). Le joueur doit alors valider la deuxième coordonnée au bon moment.<html>"));
 		p_artillerie.setVisible(false);
 
 		p_alerte.setBounds(280, 500, 500, 95);
