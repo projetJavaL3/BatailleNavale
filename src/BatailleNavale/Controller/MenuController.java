@@ -73,6 +73,10 @@ public class MenuController extends AbstractController implements ActionListener
         {
             fenetre.changerVue(new AdresseView());
         }  
+	else if (arg0.getSource() == fenetre.getItemAide())
+        {
+            fenetre.changerVue(new AideView());
+        }  
     }  
 
     /**
