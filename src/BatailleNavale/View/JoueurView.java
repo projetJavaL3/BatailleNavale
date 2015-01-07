@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.plaf.IconUIResource;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Component;
+
 /** 
  * Classe <code> JoueurView </code> 
  * @author Maxime Kermarquer - Brady Abderemane - Theo Chelim - Yanis Boukari
@@ -30,8 +34,8 @@ public class JoueurView extends AbstractView
     private ArrayList<JComboBox<String>> combo_j;
     private JPanel panel_entete = new JPanel();
     private JPanel panel_valider = new JPanel();
-    private Label label_joueur = new Label("Joueur", 20);
-    private Label label_type = new Label("Type", 20);
+    private Label label_joueur = new Label("Joueur", 40);
+    private Label label_type = new Label("Type",40);
     private Bouton valider = new Bouton("Valider");
     private Bouton ajouter_joueur = new Bouton("Ajouter joueur");
     private Bouton supprimer_joueur = new Bouton("Supprimer joueur");
@@ -53,6 +57,12 @@ public class JoueurView extends AbstractView
         removeAll();
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+	
+	label_joueur.setForeground(Color.BLACK);
+	label_joueur.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 40));
+	
+	label_type.setForeground(Color.BLACK);
+	label_type.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 40));
         
         //Panneau entête
         panel_entete.add(label_joueur);
@@ -79,9 +89,9 @@ public class JoueurView extends AbstractView
         }
 
         //Panneau valider     
-        ajouter_joueur.setBounds(75,10,200,60);
-        supprimer_joueur.setBounds(325,10,200,60);
-        valider.setBounds(575,10,200,60);
+        ajouter_joueur.setBounds(40,10,200,60);
+        supprimer_joueur.setBounds(290,10,300,60);
+        valider.setBounds(640,10,200,60);
         panel_valider.setLayout(null);
         panel_valider.add(valider);
         panel_valider.add(ajouter_joueur);

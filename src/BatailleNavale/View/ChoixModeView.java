@@ -19,7 +19,7 @@ public class ChoixModeView extends AbstractView
 	 */
 	private ChoixModeController controleur;
 
-	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
+	private final JLabel type_label = new JLabel("Sélectionner le type de partie");
 	private final Bouton b_local = new Bouton("Jouer en local");
 	private final Bouton b_reseau = new Bouton("Jouer en réseau");
 	private final Bouton b_retour = new Bouton("Retour");
