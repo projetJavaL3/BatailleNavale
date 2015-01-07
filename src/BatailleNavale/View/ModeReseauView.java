@@ -19,7 +19,7 @@ public class ModeReseauView extends AbstractView
 	 */
 	private ModeReseauController controleur;
 
-	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
+	private final JLabel type_label = new JLabel("Sélectionner le type de partie");
 	private final Bouton b_creer = new Bouton("Créer une partie");
 	private final Bouton b_rejoindre = new Bouton("Rejoindre une partie");
 	private final Bouton b_retour = new Bouton("Retour");

@@ -22,7 +22,7 @@ public class CreditsView extends AbstractView
 	 */
 	private CreditsController controleur;
 	
-	private final JLabel titre = new JLabel ("Crédits : ");
+	private final JLabel titre = new JLabel ("Crédits  ");
 		
 	private final Bouton b_Brady = new Bouton("Brady");
 	private final Bouton b_Theo = new Bouton("Théo");

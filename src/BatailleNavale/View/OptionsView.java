@@ -54,7 +54,7 @@ public class OptionsView extends AbstractView
 	private final JLabel texte = new JLabel (" Sélectionner vos bateaux : ");
 	private final JLabel texte2 = new JLabel (" Sélectionner la taille des grilles : ");
 	private final JLabel texte3 = new JLabel (" Sélectionner le niveau de l'IA : ");
-	private final JLabel texte_options = new JLabel ("Options : ");
+	private final JLabel texte_options = new JLabel ("Options  ");
 	
 	private final JRadioButton rb_facile = new JRadioButton("Facile :");
 	private final JRadioButton rb_moyen = new JRadioButton("Moyen : ");

@@ -24,7 +24,7 @@ public class TypeView extends AbstractView
 	private final Bouton b_artillerie = new Bouton("Artillerie");
 	private final Bouton b_alerte = new Bouton("Alerte");
 	private final Bouton b_retour = new Bouton("Retour");
-	private final JLabel type_label = new JLabel("Sélectionner le type de partie:");
+	private final JLabel type_label = new JLabel("Sélectionner le type de partie");
 
     /**
      *  Construit une <code>TypeView</code>
