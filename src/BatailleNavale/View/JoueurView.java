@@ -70,7 +70,7 @@ public class JoueurView extends AbstractView
             label_j.add(new Label("Joueur "+(i + 1) + "",16));
             combo_j.add(new JComboBox<String>());
             combo_j.get(i).addItem("Humain");
-            combo_j.get(i).addItem("IA");
+            combo_j.get(i).addItem("Ordinateur");
             panel_j.add(new JPanel());
             panel_j.get(i).add(label_j.get(i));
             panel_j.get(i).add(combo_j.get(i));

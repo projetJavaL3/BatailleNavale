@@ -47,11 +47,22 @@ public class Fenetre extends JFrame
 	private JOptionPane jop = new JOptionPane();
 	private JMenuBar menubar = new JMenuBar();
 	private JMenu menu_fichier = new JMenu("Fichier");
-	private	JMenu menu_edition = new JMenu("Edition");
+        private JMenu menu_jouer = new JMenu("Jouer");
+	//private JMenu menu_edition = new JMenu("Edition");
+        private JMenu menu_jouer_local = new JMenu("En local");
+        private JMenu menu_jouer_reseau = new JMenu("En réseau");
 	private	JMenu menu_aide = new JMenu("Aide");
 	private	JMenuItem item_fichier_menuPrincipal = new JMenuItem("Menu principal");
+        private JMenuItem item_fichier_options = new JMenuItem("Options");
+        private JMenuItem item_fichier_credits = new JMenuItem("Credits");
 	private	JMenuItem item_fichier_quitter = new JMenuItem("Quitter");
-	private	JMenuItem item_edition_annuler = new JMenuItem("Annuler");
+	//private JMenuItem item_edition_annuler = new JMenuItem("Annuler");
+        private JMenuItem item_jouer_local_classique = new JMenuItem("Classique");
+        private JMenuItem item_jouer_local_radar = new JMenuItem("Radar");
+        private JMenuItem item_jouer_local_artillerie = new JMenuItem("Artillerie");
+        private JMenuItem item_jouer_local_alerte = new JMenuItem("Alerte");
+        private JMenuItem item_jouer_reseau_creer_partie = new JMenuItem("Creer une partie");
+        private JMenuItem item_jouer_reseau_rejoindre_partie = new JMenuItem("Rejoindre une partie");
 	private	JMenuItem item_aide = new JMenuItem("A propos de Bataille Navale");
  	
  	/**
@@ -130,18 +141,38 @@ public class Fenetre extends JFrame
 		this.controleur = new MenuController();
 		
 		menu_fichier.add(item_fichier_menuPrincipal);
+                menu_fichier.add(item_fichier_options);
+                menu_fichier.add(item_fichier_credits);
 		menu_fichier.add(item_fichier_quitter);
 		
-		menu_edition.add(item_edition_annuler);
+		//menu_edition.add(item_edition_annuler);
+                menu_jouer.add(menu_jouer_local);
+                menu_jouer.add(menu_jouer_reseau);
+                menu_jouer_local.add(item_jouer_local_classique);
+                menu_jouer_local.add(item_jouer_local_radar);
+                menu_jouer_local.add(item_jouer_local_artillerie);
+                menu_jouer_local.add(item_jouer_local_alerte);
+                menu_jouer_reseau.add(item_jouer_reseau_creer_partie);
+                menu_jouer_reseau.add(item_jouer_reseau_rejoindre_partie);
+                
+                
 		menu_aide.add(item_aide);
 		
 		menubar.add(menu_fichier);
-		menubar.add(menu_edition);
+		menubar.add(menu_jouer);
 		menubar.add(menu_aide);
 				
 		this.setJMenuBar(menubar);
 
 		item_fichier_menuPrincipal.addActionListener(controleur);
+                item_fichier_options.addActionListener(controleur);
+                item_fichier_credits.addActionListener(controleur);
+                item_jouer_local_classique.addActionListener(controleur);
+                item_jouer_local_radar.addActionListener(controleur);
+                item_jouer_local_artillerie.addActionListener(controleur);
+                item_jouer_local_alerte.addActionListener(controleur);
+                item_jouer_reseau_creer_partie.addActionListener(controleur);
+                item_jouer_reseau_rejoindre_partie.addActionListener(controleur);
 		item_fichier_quitter.addActionListener(controleur);
 		item_aide.addActionListener(controleur);
 	}
@@ -153,6 +184,25 @@ public class Fenetre extends JFrame
 	{
 		return this.item_fichier_menuPrincipal;
 	}
+        
+        /**
+         * 
+         * @return item_fichier_options
+         */
+        public JMenuItem getItemOptions()
+        {
+            return this.item_fichier_options;
+        }
+        
+        /**
+         * 
+         * @return item_fichier_credits
+         */
+        public JMenuItem getItemCredits()
+        {
+            return this.item_fichier_credits;
+        }
+        
 
 	/**
 	 *	@return itemQuitter
@@ -161,6 +211,60 @@ public class Fenetre extends JFrame
 	{
 		return this.item_fichier_quitter;
 	}
+        
+        /**
+         * 
+         * @return item_jouer_local_classique
+         */
+        public JMenuItem getItemClassique()
+        {
+            return this.item_jouer_local_classique;
+        }
+        
+        /**
+         * 
+         * @return item_jouer_local_radar
+         */
+        public JMenuItem getItemRadar()
+        {
+            return this.item_jouer_local_radar;
+        }
+        
+        /**
+         * 
+         * @return item_jouer_local_artillerie
+         */
+        public JMenuItem getItemArtillerie()
+        {
+            return this.item_jouer_local_artillerie;
+        }
+        
+        /**
+         * 
+         * @return item_jouer_local_alerte
+         */
+        public JMenuItem getItemAlerte()
+        {
+            return this.item_jouer_local_alerte;
+        }
+        
+        /**
+         * 
+         * @return item_jouer_reseau_creer_partie
+         */
+        public JMenuItem getItemCreerPartie()
+        {
+            return this.item_jouer_reseau_creer_partie;
+        }
+        
+        /**
+         * 
+         * @return item_jouer_reseau_rejoindre_partie
+         */
+        public JMenuItem getItemRejoindrePartie()
+        {
+            return this.item_jouer_reseau_rejoindre_partie;
+        }
 
 	/**
 	 *	@return itemAide
