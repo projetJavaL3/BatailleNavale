@@ -1,6 +1,7 @@
 package BatailleNavale.Controller;
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.View.*;
 
@@ -76,9 +77,15 @@ public abstract class JeuController extends AbstractController implements MouseL
 			else
 			{
 				if(estConnecte())
-					envoyerMessage("Votre adversaire vous a touché !");
+					if(t.getBateau().getEtatBateau() == EtatBateau.TOUCHE)
+						envoyerMessage("Votre adversaire vous a touché !");
+					else
+						envoyerMessage("Votre adversaire vous a coulé un bateau !");
 
-				fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));	
+				if(t.getBateau().getEtatBateau() == EtatBateau.TOUCHE)
+					fenetre.changerVue(new MessageView("<html>Touché !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));	
+				else
+					fenetre.changerVue(new MessageView("<html>Coulé !<br/> Encore à vous de jouer !</html> ", new JeuView(), true));
 			}
 		}
 		else
@@ -189,19 +196,32 @@ public abstract class JeuController extends AbstractController implements MouseL
 
 			Grille grille = view.getGrilleEnnemi();
 			Ordinateur joueur_courant = (Ordinateur) fenetre.getModele().getJoueurCourant();
-			Tir temp = null;
+			Tir temp = joueur_courant.tirAleatoire();
 
-			for(int i=0; i<3; i++)
+			boolean afficher_infos = (fenetre.getModele().getTypePartie() == TypePartie.RADAR) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
+			boolean faire_animation = (fenetre.getModele().getTypePartie() == TypePartie.ARTILLERIE) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
+			
+			if(faire_animation)
 			{
-				temp = joueur_courant.tirAleatoire();
-				grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).afficherCible();
-				debut = System.currentTimeMillis();
-				fin = debut + 500;
-				while (System.currentTimeMillis() < fin){}
-				grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
+				lancerAnimation(temp.getPosition().getCoord_Y());
+				while(posX!=temp.getPosition().getCoord_X()){}
+				animation.stop();
+			}
+			else
+			{
+				for(int i=0; i<3; i++)
+				{
+					temp = joueur_courant.tirAleatoire();
+					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).afficherCible();
+					debut = System.currentTimeMillis();
+					fin = debut + 500;
+					while (System.currentTimeMillis() < fin){}
+					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
+				}
 			}
 
-			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), false);
+			System.out.println(temp.getPosition());
+			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), afficher_infos);
 		}
 	}
 

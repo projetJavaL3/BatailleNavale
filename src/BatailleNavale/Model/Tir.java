@@ -1,6 +1,7 @@
 package BatailleNavale.Model;
 
 import BatailleNavale.Model.Joueur.*;
+import BatailleNavale.Model.Flotte.*;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -80,6 +81,11 @@ public class Tir implements Serializable
 	public String toString()
 	{
 		return "Tir sur " + joueur.toString() + " à la position " + position.toString();
+	}
+
+	public Bateau getBateau()
+	{
+		return this.joueur.getChampDeBataille().getBloc(position).getBateau();
 	}
 
 	public boolean equals(Object o)
