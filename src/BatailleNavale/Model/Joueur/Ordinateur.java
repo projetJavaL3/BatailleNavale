@@ -66,7 +66,7 @@ public class Ordinateur extends Joueur
     /**
      * Tir choisi de façon totalement aléatoire.
      */
-    private Tir tirFacile()
+    public Tir tirFacile()
     {
         Tir[] tir_non_joues = getTirsNonJoues();
         Random r = new Random();
@@ -78,7 +78,7 @@ public class Ordinateur extends Joueur
     /**
      * Tir aux alentours du dernier tir réussi  
      */
-    private Tir tirMoyen()
+    public Tir tirMoyen()
     {
         Tir t = tirFacile();
         
@@ -116,7 +116,7 @@ public class Ordinateur extends Joueur
     /**
      * Tir qui a une chance sur deux de tirer sur un bateau de l'adversaire
      */
-    private Tir tirDifficile()
+    public Tir tirDifficile()
     {
         Random r = new Random();
         Tir[] tirs_sur_bateaux_adversaires = getTirsBateauxAdversaires();

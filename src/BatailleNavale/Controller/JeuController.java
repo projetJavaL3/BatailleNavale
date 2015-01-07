@@ -202,7 +202,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 
 			Grille grille = view.getGrilleEnnemi();
 			Ordinateur joueur_courant = (Ordinateur) fenetre.getModele().getJoueurCourant();
-			Tir temp = joueur_courant.tirAleatoire();
+			Tir temp = joueur_courant.tirFacile();
 
 			boolean afficher_infos = (fenetre.getModele().getTypePartie() == TypePartie.RADAR) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
 			boolean faire_animation = (fenetre.getModele().getTypePartie() == TypePartie.ARTILLERIE) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
@@ -212,6 +212,22 @@ public abstract class JeuController extends AbstractController implements MouseL
 				lancerAnimation(temp.getPosition().getCoord_Y());
 				while(posX!=temp.getPosition().getCoord_X()){}
 				animation.stop();
+			}
+			else
+			{
+				for(int i=0; i<3; i++)
+				{
+					if(i==2)
+						temp = joueur_courant.tirAleatoire();
+					else
+						temp = joueur_courant.tirFacile();
+
+					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).afficherCible();
+					debut = System.currentTimeMillis();
+					fin = debut + 500;
+					while (System.currentTimeMillis() < fin){}
+					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
+				}
 			}
 
 			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), afficher_infos);
