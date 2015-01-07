@@ -126,6 +126,8 @@ public class ModeReseauController extends AbstractController implements ActionLi
 
         } catch(Exception e){}
 
-        return ia.toString();
+        String ip = (ia==null)?"127.0.0.1":ia.toString();
+        
+        return ip;
     }
 }
