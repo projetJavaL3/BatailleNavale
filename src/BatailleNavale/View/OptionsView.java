@@ -99,14 +99,14 @@ public class OptionsView extends AbstractView
 		
 		switch(fenetre.getModele().getOptions().getNiveauIA())
 		{
-			case 1:
-				rb_difficile.setSelected(true);
+			case FACILE:
+				rb_facile.setSelected(true);
 				break;
-			case 2:
+			case MOYEN:
 				rb_moyen.setSelected(true);
 				break;
-			default:
-				rb_facile.setSelected(true);
+			case DIFFICILE:
+				rb_difficile.setSelected(true);
 				break;
 		}
 		

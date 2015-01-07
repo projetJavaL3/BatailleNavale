@@ -2,6 +2,7 @@
 package BatailleNavale.Controller;
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Joueur.*;
 import BatailleNavale.Model.Flotte.*;
 import BatailleNavale.View.*;
 
@@ -65,7 +66,7 @@ public class OptionsController extends AbstractController implements ActionListe
      */
 	public boolean modifierOptions()
 	{
-        int check = 1;
+        Difficulte check = Difficulte.FACILE;
         ArrayList<Bateau> flotte = new ArrayList<Bateau>();
         if(view.getBoutonCuirasse().getState())
             flotte.add(new Cuirasse());
@@ -79,11 +80,11 @@ public class OptionsController extends AbstractController implements ActionListe
             flotte.add(new PorteAvion());
 
         if(view.getBoutonFacile().isSelected())
-            check = 1;
+            check = Difficulte.FACILE;
         else if(view.getBoutonMoyen().isSelected())
-            check = 2;
+            check = Difficulte.MOYEN;
         else if(view.getBoutonDifficile().isSelected())
-            check = 3;
+            check = Difficulte.DIFFICILE;
 
         if(flotte.size()>1)
         {

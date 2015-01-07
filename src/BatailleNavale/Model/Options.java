@@ -9,17 +9,19 @@ import java.io.Serializable;
 public class Options implements Serializable
 {
 	/**
-	 * 
+	 *	Taille de la grille
 	 */
 	private int taille_grille;
+
 	/**
-	 * 
+	 *	Flotte de base des joueurs
 	 */
 	private ArrayList<Bateau> flotte;
+
 	/**
-	 * 
+	 *	Niveau de l'IA
 	 */
-	private int niveau_IA;
+	private Difficulte niveau_IA;
 	
 	/**
 	 * 
@@ -33,7 +35,7 @@ public class Options implements Serializable
 		this.flotte.add(new Cuirasse());
 		this.flotte.add(new SousMarin());
 		this.flotte.add(new PorteAvion());
-		this.niveau_IA = 0 ;
+		this.niveau_IA = Difficulte.MOYEN;
 	}
 	
 	public int getTailleGrille()
@@ -59,12 +61,12 @@ public class Options implements Serializable
 		this.flotte = new ArrayList<Bateau>(copie);
 	}
 	
-	public int getNiveauIA()
+	public Difficulte getNiveauIA()
 	{
 		return this.niveau_IA;
 	}
 	
-	public void setNiveauIA(int niveau)
+	public void setNiveauIA(Difficulte niveau)
 	{
 		this.niveau_IA = niveau;
 	}

@@ -197,7 +197,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 		public void run() 
 		{
 			long debut = System.currentTimeMillis();
-			long fin = debut + 1500;
+			long fin = debut + 2000;
 			while (System.currentTimeMillis() < fin){}
 
 			Grille grille = view.getGrilleEnnemi();
@@ -212,18 +212,6 @@ public abstract class JeuController extends AbstractController implements MouseL
 				lancerAnimation(temp.getPosition().getCoord_Y());
 				while(posX!=temp.getPosition().getCoord_X()){}
 				animation.stop();
-			}
-			else
-			{
-				for(int i=0; i<3; i++)
-				{
-					temp = joueur_courant.tirAleatoire();
-					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).afficherCible();
-					debut = System.currentTimeMillis();
-					fin = debut + 500;
-					while (System.currentTimeMillis() < fin){}
-					grille.getCase(temp.getPosition().getCoord_X()-1, temp.getPosition().getCoord_Y()-1).clean();
-				}
 			}
 
 			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), afficher_infos);

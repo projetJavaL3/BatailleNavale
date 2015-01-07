@@ -2,6 +2,7 @@ package BatailleNavale.Model.Joueur;
 
 
 import BatailleNavale.Model.*;
+import BatailleNavale.Model.Flotte.*;
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -17,31 +18,25 @@ public class Ordinateur extends Joueur
      */
     private Difficulte niveau;
     
+    private boolean bateauTrouve = false;
+    private boolean cherche_direction = true;
+    private boolean changement_sens = false;
+    private boolean sens = true;
+    private boolean avant = true;
+    private Tir dernierBonTir;
+
     /**
      *  Constructeur par defaut de l'ordinateur
      */
-    public Ordinateur(String nom, int niveau)
+    public Ordinateur(String nom, Difficulte niveau)
 	{
-            super(nom);
-            if (niveau <= 1) {
-                this.niveau = Difficulte.FACILE;
-            } else if (niveau == 2) {
-                this.niveau = Difficulte.MOYEN;
-            } else {
-                this.niveau = Difficulte.DIFFICILE;
-            }
+        this(nom, 10, niveau);
 	}
         
-    public Ordinateur(String nom, int taille_grille, int niveau)
+    public Ordinateur(String nom, int taille_grille, Difficulte niveau)
     {
         super(nom, taille_grille);
-        if (niveau <= 1) {
-            this.niveau = Difficulte.FACILE;
-        } else if (niveau == 2) {
-            this.niveau = Difficulte.MOYEN;
-        } else {
-            this.niveau = Difficulte.DIFFICILE;
-        }
+        this.niveau = niveau;
     } 
 
     /**
@@ -49,22 +44,30 @@ public class Ordinateur extends Joueur
      */
     public Tir tirAleatoire()
     {
+        Tir t = null;
+
         switch(niveau)
         {
-            case FACILE : return tirFacile();
+            case FACILE: 
+                t = tirFacile();
+                break;
                 
-            case MOYEN : return tirMoyen();
-                
-            case DIFFICILE : return tirDifficile();
-                
-            default : return tirFacile();
+            case MOYEN: 
+                t = tirMoyen();
+                break;
+
+            case DIFFICILE: 
+                t = tirDifficile();
         }
+
+        return t;
     }
     
     /**
      * Tir choisi de façon totalement aléatoire.
      */
-    private Tir tirFacile(){
+    private Tir tirFacile()
+    {
         Tir[] tir_non_joues = getTirsNonJoues();
         Random r = new Random();
         if(tir_non_joues.length==0)
@@ -75,26 +78,52 @@ public class Ordinateur extends Joueur
     /**
      * Tir aux alentours du dernier tir réussi  
      */
-    private Tir tirMoyen(){
-        ArrayList<Tir> tirs_potentiels = getTirsPotentiels();
-        if(!tirs_potentiels.isEmpty())
-            return tirs_potentiels.get(0);
-        return tirFacile();
+    private Tir tirMoyen()
+    {
+        Tir t = tirFacile();
+        
+        if(bateauTrouve)
+            t = getTirPotentiel();
+        
+        if(t.tirReussi())
+        {
+            if(t.getBateau().getPointDeVie()>1)
+            {
+                if(bateauTrouve)
+                    cherche_direction = false;
+                bateauTrouve = true;
+                dernierBonTir = t;
+            }
+            else
+            {
+                bateauTrouve = false;
+                cherche_direction = true;
+                changement_sens = false;
+            }
+        }
+        else
+        {
+            if(!changement_sens && (bateauTrouve && !cherche_direction))
+            {
+                avant = !avant;
+                changement_sens = true;
+            }
+        }
+        
+        return t;
     }
     
     /**
      * Tir qui a une chance sur deux de tirer sur un bateau de l'adversaire
      */
-    private Tir tirDifficile(){
-        Tir[] tir_non_joues = getTirsNonJoues();
-        Tir[] tirs_sur_bateaux_adversaires = getTirsBateauxAdversaires();
+    private Tir tirDifficile()
+    {
         Random r = new Random();
-        if((r.nextInt(3))!=2){
+        Tir[] tirs_sur_bateaux_adversaires = getTirsBateauxAdversaires();
+        if(r.nextInt(2)==0)
             return tirs_sur_bateaux_adversaires[0];
-        }
-        else{
-            return tir_non_joues[r.nextInt(tir_non_joues.length)];
-        }
+        else
+            return tirFacile();
     }
 
     /**
@@ -132,11 +161,11 @@ public class Ordinateur extends Joueur
         for(int i=0; i<adversaires.size(); i++)
         {
             Bloc[] blocs_bateaux_adversaire_courant = adversaires.get(i).getChampDeBataille().getEmplacements();
-            for(int j=0; j<blocs_bateaux_adversaire_courant.length;j++){
+            for(int j=0; j<blocs_bateaux_adversaire_courant.length;j++)
+            {
                 Tir tir_a_ajouter = new Tir(blocs_bateaux_adversaire_courant[j].getPosition(), adversaires.get(i));
-                if ( !tirs_joues.contains(tir_a_ajouter) ) {
+                if (!tirs_joues.contains(tir_a_ajouter))
                     tirs_sur_bateaux_adversaires.add(tir_a_ajouter);
-                }   
             }
         }
         
@@ -147,44 +176,69 @@ public class Ordinateur extends Joueur
      * 
      * @return les tirs aux alentours du dernier tir qui a reussi
      */
-    private ArrayList<Tir> getTirsPotentiels() {
-        ArrayList<Tir> tirs_potentiels = new ArrayList<>();
+    private Tir getTirPotentiel() 
+    {
+        Tir tir_ajout = null;
+        ArrayList<Tir> tirs_potentiels = new ArrayList<Tir>();
         Position position_probable;
-        Tir dernier_tir = tirs_joues.get(tirs_joues.size() - 1);
-        ChampDeBataille champ_dernier_tir = dernier_tir.getJoueur().getChampDeBataille();
-        for (int i = 0; i < 4; i++) {
-            switch (i) {
-                case 0:
-                    position_probable = new Position(dernier_tir.getPosition().getCoord_X() + 1, dernier_tir.getPosition().getCoord_Y());
-                    break;
-                case 1:
-                    position_probable = new Position(dernier_tir.getPosition().getCoord_X() - 1, dernier_tir.getPosition().getCoord_Y());
-                    break;
-                case 2:
-                    position_probable = new Position(dernier_tir.getPosition().getCoord_X(), dernier_tir.getPosition().getCoord_Y() + 1);
-                    break;
-                default:
-                    position_probable = new Position(dernier_tir.getPosition().getCoord_X(), dernier_tir.getPosition().getCoord_Y() - 1);
-                    break;
-            }
+        ChampDeBataille champ_dernierBonTir = dernierBonTir.getJoueur().getChampDeBataille();   
 
-            if (champ_dernier_tir.positionValide(position_probable)) {
-                Tir tir_ajout = new Tir(position_probable, dernier_tir.getJoueur());
-                if (!tirs_joues.contains(tir_ajout)) {
-                    tirs_potentiels.add(tir_ajout);
+        if(cherche_direction)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                switch (i) 
+                {
+                    case 0:
+                        position_probable = new Position(dernierBonTir.getPosition().getCoord_X() + 1, dernierBonTir.getPosition().getCoord_Y());
+                        break;
+                    case 1:
+                        position_probable = new Position(dernierBonTir.getPosition().getCoord_X() - 1, dernierBonTir.getPosition().getCoord_Y());
+                        break;
+                    case 2:
+                        position_probable = new Position(dernierBonTir.getPosition().getCoord_X(), dernierBonTir.getPosition().getCoord_Y() + 1);
+                        break;
+                    default:
+                        position_probable = new Position(dernierBonTir.getPosition().getCoord_X(), dernierBonTir.getPosition().getCoord_Y() - 1);
+                        break;
+                }
+
+                if(champ_dernierBonTir.positionValide(position_probable))
+                {
+                    tir_ajout = new Tir(position_probable, dernierBonTir.getJoueur());
+                    if (!tirs_joues.contains(tir_ajout))
+                        tirs_potentiels.add(tir_ajout);
                 }
             }
+            if(!tirs_potentiels.isEmpty())
+                sens = (tirs_potentiels.get(0).getPosition().getCoord_X()!=dernierBonTir.getPosition().getCoord_X());
+            avant = true;
         }
-        return tirs_potentiels;
-    }
-    
-    private boolean reussiteDernierTir(){
-        if(tirs_joues.isEmpty()){
-            return false;
-        }
-        return tirs_joues.get( (tirs_joues.size()-1) ).tirReussi();
-    }
-    
+        else
+        {
+            position_probable = dernierBonTir.getPosition();
+            boolean chercher = true;
+            
+            do
+            {
+                position_probable = new Position(position_probable.getCoord_X() + ((sens?1:0) * (avant?1:-1)), position_probable.getCoord_Y() + ((sens?0:1) * (avant?1:-1)));
+                if(champ_dernierBonTir.positionValide(position_probable))
+                {
+                    tir_ajout = new Tir(position_probable, dernierBonTir.getJoueur());
+                    if (!tirs_joues.contains(tir_ajout))
+                        chercher = false;        
+                }
+                else
+                {
+                    avant = !avant;
+                    changement_sens = true;
+                }
+            
+            }while(chercher);
 
+            tirs_potentiels.add(tir_ajout);
+        }
     
+        return tirs_potentiels.isEmpty()?null:tirs_potentiels.get(0);
+    }
 }
