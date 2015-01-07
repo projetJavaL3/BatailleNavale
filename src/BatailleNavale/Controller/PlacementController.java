@@ -46,6 +46,14 @@ public class PlacementController extends AbstractController implements ActionLis
      */
     public void control()
     {
+        boolean ok = true;
+        for(int i=0; i<fenetre.getModele().getJoueurs().length; i++)
+            if(!fenetre.getModele().getJoueurs()[i].bateauxPlaces())
+                ok = false;
+
+        if(ok)
+            fenetre.changerVue(new JeuView());
+        
         if(!fenetre.getModele().getJoueurCourant().bateauxPlaces())
         {
             view.afficherNomBateau("<html><br/>Placement du <br/>" + fenetre.getModele().getJoueurCourant().getBateauxNonPlaces()[0].getNom()+"</html>");

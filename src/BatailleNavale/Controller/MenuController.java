@@ -22,9 +22,15 @@ public class MenuController extends AbstractController implements ActionListener
      */
     public void actionPerformed(ActionEvent arg0) 
     {
+        socket = null;
+
     	if(arg0.getSource() == fenetre.getItemMenuPrincipal())
         {
-            socket = null;
+            if(fenetre.getContainer() instanceof MessageView)
+                ((MessageView) fenetre.getContainer()).fermer();
+
+            JeuController.stopOrdi();
+            fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
             fenetre.changerVue(new AccueilView());
         }
         else if(arg0.getSource() == fenetre.getItemQuitter())
@@ -41,25 +47,21 @@ public class MenuController extends AbstractController implements ActionListener
         }
         else if (arg0.getSource() == fenetre.getItemClassique())
         {
-            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.CLASSIQUE);
             fenetre.changerVue(new JoueurView());
         }
         else if (arg0.getSource() == fenetre.getItemRadar())
         {
-            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.RADAR);
             fenetre.changerVue(new JoueurView()); 
         }
         else if (arg0.getSource() == fenetre.getItemArtillerie())
         {
-            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.ARTILLERIE);
             fenetre.changerVue(new JoueurView());
         }
         else if (arg0.getSource() == fenetre.getItemAlerte())
         {
-            socket = null;
             fenetre.getModele().setTypePartie(TypePartie.ALERTE);
             fenetre.changerVue(new JoueurView());
         }

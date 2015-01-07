@@ -36,12 +36,12 @@ public abstract class JeuController extends AbstractController implements MouseL
 	/**
 	 * Animation en boucle sur la grille
 	 */
-	protected Animation animation;
+	protected static Animation animation;
 
 	/**
 	 *	Animation pour l'action de l'ordi
 	 */
-	protected ActionOrdi ao;
+	protected static ActionOrdi ao;
 	
 	/**
      * Construit un <code>JeuController</code> a partir d'une JeuView
@@ -147,6 +147,12 @@ public abstract class JeuController extends AbstractController implements MouseL
 		animation.start();
 	}
 
+	public static void stopOrdi()
+	{
+		if(ao!=null)
+			ao.stop();
+	}
+
 	/**
 	 *	Action a executer lors du survol d'une case
 	 */
@@ -220,7 +226,6 @@ public abstract class JeuController extends AbstractController implements MouseL
 				}
 			}
 
-			System.out.println(temp.getPosition());
 			tirerSurEnnemi(temp.getPosition().getCoord_X(), temp.getPosition().getCoord_Y(), temp.getJoueur(), afficher_infos);
 		}
 	}
