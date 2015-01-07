@@ -58,10 +58,20 @@ public class CreditsView extends AbstractView
 		titre.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 40));
 			
 		description.setBounds(100, 80, 700, 150);
-		description.add(new JLabel("Projet de Bataille Navale réalisé par 4 élèves de L3 à l'Université d'Evry."));
+		description.add(new JLabel("<html>Projet de Bataille Navale réalisé par 4 élèves de L3 à l'Université d'Evry Val 						D'Essonne.<br/>"+
+					"Ce projet a était réalisé en Java dans le cadre d'un cours de Programmations orienté objet<br/>"+
+					"Il a de plus était conçu selon le Modèle MVC : Modèle Vue Controleur.<html> "));
 		
 		panneauBrady.setBounds(25, 350, 200, 200);
-		panneauBrady.add(new JLabel("Après un IUT\n d'Informatique\n et une\n année de Web Machin\n Brady décide de\n reprendre ses études.\nActuellement en L3\n Informatique à\n l'Université\nd'Evry Val D'essonne\n il est l'un des\n Cerveau de ce Projet"));
+		panneauBrady.add(new JLabel("<html>Après un IUT d'Informatique<br/>" + 
+						"et une année de Web Machin<br/>" +
+						 "Brady décide de<br/>"+ 
+						"reprendre ses études.<br/>" +
+						 "Actuellement en L3 Informatique<br/>" +
+						" à l'Université <br/>"+
+						"d'Evry Val D'essonne<br/>"+
+						"il est l'un des<br/>"+
+						"Cerveau de ce Projet </html>"));
 		panneauBrady.setVisible(false);
 		
 		panneauTheo.setBounds(240, 350, 200, 200);
@@ -74,18 +84,26 @@ public class CreditsView extends AbstractView
 		
 		
 		panneauMaxime.setBounds(455, 350, 200, 200);
-		panneauMaxime.add(new JLabel("blablablablabalblabla blablablabablabla bblablablablabalblabla blablablabablabla blablablablabalblabla blablablabablabla"));
+		panneauMaxime.add(new JLabel("<html> Friand de nouvelles technologies,<br/>" +
+					"Maxime apprécie tout particulièrement le langage Java.<br/>" +
+					"D'un naturelle curieux et <br/>" +
+					"Excellent <br/>" +
+					"il fut l'un des acteurs majeurs de ce projet </html>"));
 		panneauMaxime.setVisible(false);
 		
 		panneauYanis.setBounds(675, 350, 200, 200);
-		panneauYanis.add(new JLabel("blablablablabalblabla blablablabablabla bblablablablabalblabla blablablabablabla blablablablabalblabla blablablabablabla"));
+		panneauYanis.add(new JLabel("<html> Après un Bac Scientifique <br/>" +
+			"c'est par hasard que Yanis se <br/>" +
+			"dirige vers l'Informatique<br/>" +
+			" Excellent dans la majorité de ses domaines, <br/>" +
+			" il fut l'un des acteurs majeurs de ce projet </html>"));
 		panneauYanis.setVisible(false);
 		
 		b_Brady.setBounds(75, 255, 100, 90);
 		b_Theo.setBounds(290, 255, 100, 90);
 		b_Maxime.setBounds(505, 255, 100, 90);
 		b_Yanis.setBounds(725, 255, 100, 90);
-		b_retour.setBounds(10, 520, 100, 50);
+		b_retour.setBounds(10, 550, 100, 50);
 		
 		this.add(b_retour);
 		this.add(titre);

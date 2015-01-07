@@ -88,8 +88,9 @@ public class OptionsView extends AbstractView
 	{		
 		this.removeAll();
 
-		texte_options.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 30));
-		texte_options.setBounds(340, 20, 500, 50);
+		texte_options.setForeground(Color.BLACK);
+		texte_options.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 40));
+		texte_options.setBounds(360, 20, 500, 50);
 
 		texte.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
 		texte2.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 15));
@@ -130,7 +131,7 @@ public class OptionsView extends AbstractView
 		rb_difficile.setBounds(20,150,100,20);
 		rb_difficile.setBackground(null);
 		
-		b_retour.setBounds(10,520,100,50);
+		b_retour.setBounds(10, 550, 100, 50);
 		b_jouer.setBounds(790,560,100,50);
 		
 		bg.add(rb_facile);
