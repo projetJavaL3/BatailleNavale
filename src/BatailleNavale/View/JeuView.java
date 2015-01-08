@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+import java.awt.Font;
+import java.awt.Color;
 
 import java.awt.event.*;
 
@@ -100,7 +102,27 @@ public class JeuView extends AbstractView implements Observer
 		lblFlotteEnnemi  = new JLabel(ennemi.getNom() + " " + ((ennemi instanceof Ordinateur)?"[Ordinateur]":""));
 		lblFlotteEnnemi.setBounds(504, 160, 200, 15);
 		
-		lblAction = new JLabel("Selectionner un adversaire et une position sur son champs de bataille: ");
+		String type_partie = "";
+		switch(fenetre.getModele().getTypePartie())
+		{
+			case CLASSIQUE:
+				type_partie = "Classique";
+				break;
+			case RADAR:
+				type_partie = "Radar";
+				break;
+
+			case ARTILLERIE:
+				type_partie = "Artillerie";
+				break;
+
+			case ALERTE:
+				type_partie = "Alerte";
+				break;
+		}	
+
+		lblAction = new JLabel("Partie : " + type_partie);
+		lblAction.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 32));
 		lblAction.setBounds(67, 87, 614, 24);
 
 		this.add(lblAction);

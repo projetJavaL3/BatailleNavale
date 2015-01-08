@@ -212,7 +212,7 @@ public abstract class JeuController extends AbstractController implements MouseL
 			boolean afficher_infos = (fenetre.getModele().getTypePartie() == TypePartie.RADAR) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
 			boolean faire_animation = (fenetre.getModele().getTypePartie() == TypePartie.ARTILLERIE) || (fenetre.getModele().getTypePartie() == TypePartie.ALERTE);
 			
-			if(faire_animation)
+			if(false)
 			{
 				lancerAnimation(temp.getPosition().getCoord_Y());
 				while(posX!=temp.getPosition().getCoord_X()){}
