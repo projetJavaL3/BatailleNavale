@@ -38,6 +38,7 @@ public class JeuView extends AbstractView implements Observer
 	private Tir[] tirs;
 	
 	private int indice = 0;
+	private String type_partie = "";
 
 	private JComboBox<Joueur> selection_adversaire = new JComboBox<Joueur>();
 	private Grille grille_joueur;
@@ -54,18 +55,22 @@ public class JeuView extends AbstractView implements Observer
 		switch(fenetre.getModele().getTypePartie())
 		{
 			case CLASSIQUE:
+				type_partie = "Classique";
 				controleur = new ClassiqueController(this);
 				break;
 
 			case RADAR:
+				type_partie = "Radar";
 				controleur = new RadarController(this);
 				break;
 
 			case ARTILLERIE:
+				type_partie = "Artillerie";
 				controleur = new ArtillerieController(this);
 				break;
 
 			case ALERTE:
+				type_partie = "Alerte";
 				controleur = new AlerteController(this);
 				break;
 		}
@@ -102,25 +107,6 @@ public class JeuView extends AbstractView implements Observer
 		lblFlotteEnnemi  = new JLabel(ennemi.getNom() + " " + ((ennemi instanceof Ordinateur)?"[Ordinateur]":""));
 		lblFlotteEnnemi.setBounds(504, 160, 200, 15);
 		
-		String type_partie = "";
-		switch(fenetre.getModele().getTypePartie())
-		{
-			case CLASSIQUE:
-				type_partie = "Classique";
-				break;
-			case RADAR:
-				type_partie = "Radar";
-				break;
-
-			case ARTILLERIE:
-				type_partie = "Artillerie";
-				break;
-
-			case ALERTE:
-				type_partie = "Alerte";
-				break;
-		}	
-
 		lblAction = new JLabel("Partie : " + type_partie);
 		lblAction.setFont(new Font("Droid Serif", Font.ITALIC | Font.BOLD , 32));
 		lblAction.setBounds(67, 87, 614, 24);
